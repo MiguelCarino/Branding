@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carino Branding — Design System Reference</title>
+  <link rel="icon" type="image/webp" href="logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Red+Hat+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="carino-branding.css">
+</head>
+<body>
+
+  <div class="guide-hero">
+    <div class="kicker">Carino Systems · Brand Reference</div>
+    <h1>Carino Branding</h1>
+    <p>The living reference for the Carino visual language — the shared navbar, the gold-on-black palette, and every component pattern used across the workshop. Every section has a <b>Copy</b> button that lifts its markup together with a link to the hosted stylesheet (<code>branding.carino.systems/carino-branding.css</code>), so the component renders correctly the moment you paste it into another project. This page is the source of truth.</p>
+  </div>
+
+  <nav class="toc">
+    <a href="#tokens">Color</a>
+    <a href="#type">Type</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#tabs">Tabs</a>
+    <a href="#forms">Forms</a>
+    <a href="#alerts">Alerts</a>
+    <a href="#badges">Badges</a>
+    <a href="#cards">Cards</a>
+    <a href="#dropdown">Dropdown</a>
+    <a href="#table">Table</a>
+    <a href="#code">Code</a>
+    <a href="#loading">Loading</a>
+    <a href="#slice">Slice Menu</a>
+  </nav>
+
+  <main>
+
+    <!-- 1. COLOR -->
+    <section class="spec" id="tokens">
+      <div class="spec-head">
+        <div class="spec-num">01</div>
+        <h2>Color Tokens</h2>
+        <p>One accent — Sharp Gold <code>#eab308</code> — on a near-black stack. Everything else is a neutral or a translucent tint of the accent. Click a swatch to copy its value.</p>
+      </div>
+      <div class="demo">
+        <div class="swatches" id="swatches"></div>
+      </div>
+    </section>
+
+    <!-- 2. TYPE -->
+    <section class="spec" id="type">
+      <div class="spec-head">
+        <div class="spec-num">02</div>
+        <h2>Typography</h2>
+        <p>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display.</p>
+      </div>
+      <div class="demo">
+        <div class="type-sample"><span class="tag">Wordmark</span><span class="wordmark">Carino</span></div>
+        <div class="type-sample"><span class="tag">Display / H1</span><span class="t-display">Heading</span></div>
+        <div class="type-sample"><span class="tag">Display / H2</span><span class="t-h2">Subheading</span></div>
+        <div class="type-sample"><span class="tag">Body</span><span class="t-body">The quick brown fox jumps over the lazy dog.</span></div>
+        <div class="type-sample"><span class="tag">Secondary</span><span class="t-sec">The quick brown fox jumps over the lazy dog.</span></div>
+        <div class="type-sample"><span class="tag">Mono</span><span class="t-mono">const accent = "#eab308";</span></div>
+        <div class="type-sample"><span class="tag">Label</span><span class="t-label">Section Label</span></div>
+      </div>
+    </section>
+
+    <!-- 3. BUTTONS -->
+    <section class="spec" id="buttons">
+      <div class="spec-head">
+        <div class="spec-num">03</div>
+        <h2>Buttons</h2>
+        <p>Outline by default; hover reveals the accent. Primary is a solid gold fill. Toggle buttons fill gold when active (module / template pattern). Icon buttons invert on hover.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-label">Actions</div>
+        <div class="demo-row">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn disabled">Disabled</button>
+          <span class="icon-btn-demo" title="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </div>
+        <div class="demo-label">Toggle group (single-select / multi-toggle)</div>
+        <div class="demo-row" id="toggleRow">
+          <button class="toggle-btn active">Full</button>
+          <button class="toggle-btn">Simple</button>
+          <button class="toggle-btn">Reference</button>
+          <button class="toggle-btn">IPv6</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TABS -->
+    <section class="spec" id="tabs">
+      <div class="spec-head">
+        <div class="spec-num">04</div>
+        <h2>Tabs</h2>
+        <p>Underline tabs for switching panels within a view. The active tab carries the accent underline.</p>
+      </div>
+      <div class="demo">
+        <div class="tabbar" id="tabbar">
+          <button class="tabbtn active" data-tab="0">Overview</button>
+          <button class="tabbtn" data-tab="1">History</button>
+          <button class="tabbtn" data-tab="2">Settings</button>
+        </div>
+        <div class="tabpane" id="tabpane">The Overview panel is active. Tabs share a hairline baseline and shift the accent underline to the selected item.</div>
+      </div>
+    </section>
+
+    <!-- 5. FORMS -->
+    <section class="spec" id="forms">
+      <div class="spec-head">
+        <div class="spec-num">05</div>
+        <h2>Form Controls</h2>
+        <p>Dark elevated fields with a gold focus ring. Checkboxes and switches use the accent. All inputs are mono for alignment with the data they hold.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-row" style="align-items: flex-start;">
+          <div class="field"><label>Text input</label><input class="input" value="enp1s0" /></div>
+          <div class="field"><label>Select</label>
+            <select class="select"><option>networkd</option><option>NetworkManager</option></select>
+          </div>
+          <div class="field" style="flex:1;"><label>Textarea</label><textarea class="textarea">network:
+  version: 2</textarea></div>
+        </div>
+        <div class="demo-row" style="margin-top:18px;">
+          <label class="check"><input type="checkbox" checked> IPv4</label>
+          <label class="check"><input type="checkbox"> IPv6</label>
+          <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+          <label class="switch"><input type="checkbox"><span class="track"></span></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ALERTS -->
+    <section class="spec" id="alerts">
+      <div class="spec-head">
+        <div class="spec-num">06</div>
+        <h2>Alerts &amp; Status Messages</h2>
+        <p>Translucent tinted boxes in the three semantic colors. Inline <code>code</code> and <b>bold</b> use a warm highlight.</p>
+      </div>
+      <div class="demo">
+        <div class="alert ok">✔ No problems found. Configuration is valid.</div>
+        <div class="alert warn">&#9888; <b>DHCP and a static address</b> on the same interface — <code>networkd</code> applies both.</div>
+        <div class="alert err">YAML Error: mapping values are not allowed here (line 8).</div>
+      </div>
+    </section>
+
+    <!-- 7. BADGES -->
+    <section class="spec" id="badges">
+      <div class="spec-head">
+        <div class="spec-num">07</div>
+        <h2>Badges, Chips &amp; Status</h2>
+        <p>The app-tag chip (navbar), the clock timezone chip, semantic pills, and the live status dot with its pulse.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-row">
+          <span class="chip-tag">BRANDING</span>
+          <span class="chip-tz">LOCAL</span>
+          <span class="pill ok">Connected</span>
+          <span class="pill warn">Pending</span>
+          <span class="pill err">Refused</span>
+          <span class="dot live">Live</span>
+          <span class="dot">Idle</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CARDS -->
+    <section class="spec" id="cards">
+      <div class="spec-head">
+        <div class="spec-num">08</div>
+        <h2>Cards &amp; Panels</h2>
+        <p>Cards lift and glow gold on hover. Panels use a large Red Hat Display title with a ghosted numeral.</p>
+      </div>
+      <div class="demo">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Destinations</div>
+            <div class="panel-desc">Store-and-forward targets</div>
+          </div>
+          <div class="panel-num">02</div>
+        </div>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="c-title">StreamMultiviewer</div>
+          <div class="c-desc">Reference navbar implementation with live diagnostics and multi-stream grid.</div>
+          <div class="c-link">Open →</div>
+        </div>
+        <div class="card">
+          <div class="c-title">Carino PACS</div>
+          <div class="c-desc">Store-only DICOM PACS with folder auto-forward and a bundled editor.</div>
+          <div class="c-link">Open →</div>
+        </div>
+        <div class="card">
+          <div class="c-title">Netplan Config</div>
+          <div class="c-desc">Family-aware netplan generator with live validation and reference templates.</div>
+          <div class="c-link">Open →</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. DROPDOWN -->
+    <section class="spec" id="dropdown">
+      <div class="spec-head">
+        <div class="spec-num">09</div>
+        <h2>Dropdown / Diagnostics</h2>
+        <p>The status toggle opens a diagnostics panel — label/value rows grouped under muted section headers. Used for the navbar status menu and app info panels.</p>
+      </div>
+      <div class="demo">
+        <div class="diag-wrap">
+          <button class="diag-toggle" id="diagToggle"><span class="dot live"></span> Status</button>
+          <div class="diag-dropdown" id="diagDropdown">
+            <div class="diag-section">Session</div>
+            <div class="diag-row"><span class="diag-lbl">Uptime</span><span class="diag-val" id="diagUptime">0s</span></div>
+            <div class="diag-row"><span class="diag-lbl">Viewport</span><span class="diag-val" id="diagVp">—</span></div>
+            <div class="diag-section">Client</div>
+            <div class="diag-row"><span class="diag-lbl">Renderer</span><span class="diag-val">networkd</span></div>
+            <div class="diag-row"><span class="diag-lbl">Theme</span><span class="diag-val">Carino Dark</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. TABLE -->
+    <section class="spec" id="table">
+      <div class="spec-head">
+        <div class="spec-num">10</div>
+        <h2>Tables</h2>
+        <p>Mono, hairline-separated rows with an uppercase muted header. Rows tint gold on hover.</p>
+      </div>
+      <div class="demo" style="padding:0; overflow:hidden;">
+        <table class="data">
+          <thead><tr><th>Interface</th><th>Type</th><th>Addressing</th><th>Metric</th></tr></thead>
+          <tbody>
+            <tr><td>enp1s0</td><td>ethernet</td><td>dhcp4</td><td>100</td></tr>
+            <tr><td>wlp2s0</td><td>wifi</td><td>dhcp4</td><td>600</td></tr>
+            <tr><td>br0</td><td>bridge</td><td>static</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 11. CODE -->
+    <section class="spec" id="code">
+      <div class="spec-head">
+        <div class="spec-num">11</div>
+        <h2>Code</h2>
+        <p>Dark elevated block, mono, with a subtle accent for keys and muted comments.</p>
+      </div>
+      <div class="demo">
+<pre class="code"><span class="c"># netplan — dual-stack ethernet</span>
+<span class="k">network:</span>
+  <span class="k">version:</span> 2
+  <span class="k">ethernets:</span>
+    <span class="k">eth0:</span>
+      <span class="k">dhcp4:</span> true
+      <span class="k">dhcp4-overrides:</span>
+        <span class="k">route-metric:</span> 100</pre>
+      </div>
+    </section>
+
+    <!-- 12. LOADING -->
+    <section class="spec" id="loading">
+      <div class="spec-head">
+        <div class="spec-num">12</div>
+        <h2>Loading &amp; Progress</h2>
+        <p>A gold ring spinner, a determinate progress bar, and the EKG heartbeat used for long copy/transfer operations.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-row" style="gap:32px;">
+          <div class="spinner"></div>
+          <div class="progress"><span></span></div>
+          <svg class="ekg" viewBox="0 0 180 44" preserveAspectRatio="none">
+            <polyline class="trace" points="0,22 40,22 52,22 60,6 70,38 80,22 120,22 132,22 140,14 150,30 160,22 180,22"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. SLICE MENU -->
+    <section class="spec" id="slice">
+      <div class="spec-head">
+        <div class="spec-num">13</div>
+        <h2>Slice Menu</h2>
+        <p>The full-screen section chooser (Carino-Systems hub, CarinoLearn). Columns fill the viewport and expand with a radial gold glow on hover; selecting one collapses the rest to a thin bar. Shown here scaled down.</p>
+      </div>
+      <div class="demo">
+        <div class="slice-demo">
+          <div class="slice"><div class="s-num">01</div><div class="s-text">Projects</div></div>
+          <div class="slice"><div class="s-num">02</div><div class="s-text">Systems</div></div>
+          <div class="slice"><div class="s-num">03</div><div class="s-text">About</div></div>
+          <div class="slice"><div class="s-num">04</div><div class="s-text">Contact</div></div>
+        </div>
+        <div class="note">Reference: Carino-Systems/index.html (the hub) and AssemblyRoadmap (per-course routing).</div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="footer">CARINO BRANDING · branding.carino.systems · gold #eab308 on black #050505 · IBM Plex + Red Hat Display</div>
+
+  <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
+  <script src="carino-navbar.js" data-app="Branding" defer></script>
+
+  <script>
+    // ---- color swatches (also the token list) ----
+    const TOKENS = [
+      ["--accent", "#eab308"], ["--bg", "#050505"], ["--bg-elev", "#0d0d0d"],
+      ["--bg-card", "#0b0b0b"], ["--border", "#262626"], ["--text", "#ffffff"],
+      ["--text-sec", "#a3a3a3"], ["--text-muted", "#666666"],
+      ["--accent-faint", "rgba(234,179,8,0.05)"], ["--accent-glow", "rgba(234,179,8,0.15)"],
+      ["--accent-dim", "rgba(234,179,8,0.30)"], ["--ok", "#22c55e"], ["--warn", "#eab308"], ["--err", "#ef4444"],
+    ];
+    const grid = document.getElementById("swatches");
+    TOKENS.forEach(([name, val]) => {
+      const el = document.createElement("div");
+      el.className = "swatch";
+      el.title = "Click to copy " + val;
+      el.innerHTML = '<div class="chip" style="background:' + val + '"></div>' +
+        '<div class="meta"><div class="name">' + name + '</div><div class="val">' + val + '</div></div>';
+      el.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(val); el.querySelector(".val").textContent = "copied!"; setTimeout(() => el.querySelector(".val").textContent = val, 900); };
+      grid.appendChild(el);
+    });
+
+    // ---- toggle group (single-select demo) ----
+    document.getElementById("toggleRow").addEventListener("click", (e) => {
+      if (!e.target.classList.contains("toggle-btn")) return;
+      [...e.currentTarget.children].forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+    });
+
+    // ---- tabs ----
+    const PANES = [
+      "The Overview panel is active. Tabs share a hairline baseline and shift the accent underline to the selected item.",
+      "History would list past events here — one mono row per entry.",
+      "Settings groups form controls under section labels.",
+    ];
+    document.getElementById("tabbar").addEventListener("click", (e) => {
+      if (!e.target.classList.contains("tabbtn")) return;
+      [...e.currentTarget.children].forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      document.getElementById("tabpane").textContent = PANES[+e.target.dataset.tab];
+    });
+
+    // ---- diagnostics dropdown ----
+    const dt = document.getElementById("diagToggle"), dd = document.getElementById("diagDropdown");
+    dt.addEventListener("click", (e) => { e.stopPropagation(); dt.classList.toggle("open"); dd.classList.toggle("open"); });
+    document.addEventListener("click", () => { dt.classList.remove("open"); dd.classList.remove("open"); });
+    dd.addEventListener("click", (e) => e.stopPropagation());
+    const started = Date.now();
+    setInterval(() => {
+      document.getElementById("diagUptime").textContent = Math.floor((Date.now() - started) / 1000) + "s";
+      document.getElementById("diagVp").textContent = window.innerWidth + "×" + window.innerHeight;
+    }, 1000);
+
+    // ---- per-section copy buttons ----------------------------------------
+    // Each section's markup is copied with a comment referencing this page as
+    // the source; the Colors section copies the design-token CSS instead.
+    const SITE = "https://branding.carino.systems";
+    const CSS_HREF = SITE + "/carino-branding.css";
+    const TOKENS_CSS =
+`/* Carino Branding — design tokens · ${SITE} */
+:root {
+  --accent: #eab308;            /* Sharp Gold — the one accent */
+  --bg: #050505;                /* near-black page background   */
+  --bg-elev: #0d0d0d;           /* inputs / code surface        */
+  --bg-card: #0b0b0b;           /* cards / panels               */
+  --accent-faint: rgba(234,179,8,0.05);
+  --accent-glow:  rgba(234,179,8,0.15);
+  --accent-dim:   rgba(234,179,8,0.30);
+  --border: #262626;
+  --text: #ffffff; --text-sec: #a3a3a3; --text-muted: #666666;
+  --ok: #22c55e; --warn: #eab308; --err: #ef4444;
+  --gold-text: linear-gradient(130deg,#fef08a 0%,#eab308 50%,#b45309 100%);
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display: 'Red Hat Display', var(--sans);
+}`;
+    const COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+
+    function fallbackCopy(text, cb) {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      ta.remove(); cb && cb();
+    }
+    function copyText(text, btn) {
+      const label = btn.querySelector("span"), original = label.textContent;
+      const done = () => { btn.classList.add("done"); label.textContent = "Copied"; setTimeout(() => { btn.classList.remove("done"); label.textContent = original; }, 1200); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+      else fallbackCopy(text, done);
+    }
+
+    document.querySelectorAll(".spec").forEach(sec => {
+      const head = sec.querySelector(".spec-head");
+      const title = head.querySelector("h2").textContent.replace(/\s+/g, " ").trim();
+      const wrap = document.createElement("div");
+      wrap.className = "spec-head-text";
+      while (head.firstChild) wrap.appendChild(head.firstChild);
+      head.appendChild(wrap);
+
+      const btn = document.createElement("button");
+      btn.type = "button"; btn.className = "copy-btn";
+      btn.setAttribute("aria-label", "Copy the " + title + " snippet");
+      btn.innerHTML = COPY_ICON + "<span>Copy</span>";
+      btn.addEventListener("click", () => {
+        let snippet;
+        if (sec.id === "tokens") {
+          snippet = TOKENS_CSS;
+        } else {
+          const els = [...sec.querySelectorAll(".demo, .card-grid")];
+          snippet = "<!-- Carino Branding · " + title + " · " + SITE + " -->\n" +
+            '<link rel="stylesheet" href="' + CSS_HREF + '">\n' +
+            els.map(el => el.outerHTML).join("\n");
+        }
+        copyText(snippet, btn);
+      });
+      head.appendChild(btn);
+      head.classList.add("has-copy");
+    });
+  </script>
+</body>
+</html>
