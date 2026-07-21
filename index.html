@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carino Branding — Design System Reference</title>
   <link rel="icon" type="image/webp" href="logo.webp">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Red+Hat+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/carino-fonts.css">
   <link rel="stylesheet" href="carino-branding.css">
 </head>
 <body>
@@ -31,6 +30,7 @@
     <a href="#code">Code</a>
     <a href="#loading">Loading</a>
     <a href="#slice">Slice Menu</a>
+    <a href="#toast">Toast</a>
   </nav>
 
   <main>
@@ -294,7 +294,25 @@
           <div class="slice"><div class="s-num">03</div><div class="s-text">About</div></div>
           <div class="slice"><div class="s-num">04</div><div class="s-text">Contact</div></div>
         </div>
-        <div class="note">Reference: Carino-Systems/index.html (the hub) and AssemblyRoadmap (per-course routing).</div>
+        <div class="note">Reference: Carino-Systems/index.html (the hub) and LearningTopics (per-course routing).</div>
+      </div>
+    </section>
+
+    <!-- 14. TOAST -->
+    <section class="spec" id="toast">
+      <div class="spec-head">
+        <div class="spec-num">14</div>
+        <h2>Toast Notifications</h2>
+        <p>Transient, top-right status messages in the four semantic tints. Fixed and hidden by default; add <code>.show</code> to reveal, then remove it after a timeout.</p>
+      </div>
+      <div class="demo">
+        <div class="toast-rack">
+          <div class="toast ok">&#10004; Snippet copied to clipboard</div>
+          <div class="toast info">&#8505; Rates refreshed from server</div>
+          <div class="toast warn">&#9888; You have unsaved changes</div>
+          <div class="toast err">&#10006; Could not reach the server</div>
+        </div>
+        <div class="note">Shown static here via the <code>.toast-rack</code> preview wrapper; in use, a single <code>.toast</code> is fixed to the top-right and toggled with <code>.show</code>. Reference: SimpleDeskSupport, Metadata-editor.</div>
       </div>
     </section>
 
@@ -321,7 +339,13 @@
       el.title = "Click to copy " + val;
       el.innerHTML = '<div class="chip" style="background:' + val + '"></div>' +
         '<div class="meta"><div class="name">' + name + '</div><div class="val">' + val + '</div></div>';
-      el.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(val); el.querySelector(".val").textContent = "copied!"; setTimeout(() => el.querySelector(".val").textContent = val, 900); };
+      el.onclick = () => {
+        const flash = () => { el.querySelector(".val").textContent = "copied!"; setTimeout(() => el.querySelector(".val").textContent = val, 900); };
+        // Same clipboard-with-fallback path as copyText — navigator.clipboard is
+        // absent outside secure contexts, so flash only after a copy really lands.
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(val).then(flash, () => fallbackCopy(val, flash));
+        else fallbackCopy(val, flash);
+      };
       grid.appendChild(el);
     });
 

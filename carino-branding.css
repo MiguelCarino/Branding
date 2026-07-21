@@ -37,6 +37,16 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    /* Slim scrollbars in every engine — the cross-browser recipe projects copy.
+       ::-webkit-scrollbar covers Chromium + WebKit; Firefox has no pseudo-element,
+       only these two inherited properties, so setting them on :root cascades to
+       every scroll container. Keep both — neither engine reads the other's. */
+    :root { scrollbar-width: thin; scrollbar-color: #3a3a3a transparent; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
     body {
       margin: 0; background: var(--bg); color: var(--text);
       font-family: var(--sans); font-size: 15px; line-height: 1.6;
@@ -73,7 +83,9 @@
       position: sticky; top: 0; z-index: 50;
       display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
       padding: 14px 12px; margin: 0 -24px 48px;
-      background: rgba(5,5,5,0.86); backdrop-filter: blur(10px);
+      /* -webkit- first: Safari (all versions to date) only honours the prefixed
+         property, so without this the sticky ToC has no blur on WebKit. */
+      background: rgba(5,5,5,0.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
     .toc a {
@@ -290,6 +302,24 @@
     .slice:hover::before { opacity: 1; }
     .slice .s-num { font-family: var(--display); font-weight: 900; font-size: 1.8rem; color: rgba(234,179,8,0.2); }
     .slice .s-text { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.5px; }
+
+    /* ============ 14. toast ============ */
+    .toast {
+      position: fixed; top: 76px; right: 20px; z-index: 9999;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 0.76rem; font-weight: 700;
+      padding: 11px 16px; border-radius: 8px; border: 1px solid;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+      opacity: 0; transform: translateY(-10px); pointer-events: none; transition: 0.2s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .toast.ok   { color: #86efac; background: rgba(34,197,94,0.10); border-color: rgba(34,197,94,0.5); }
+    .toast.info { color: #bae6fd; background: rgba(56,189,248,0.10); border-color: rgba(56,189,248,0.5); }
+    .toast.warn { color: #fde68a; background: rgba(234,179,8,0.10); border-color: rgba(234,179,8,0.45); }
+    .toast.err  { color: #fca5a5; background: rgba(239,68,68,0.10); border-color: rgba(239,68,68,0.5); }
+    /* preview-only wrapper for the reference page (renders toasts inline) */
+    .toast-rack { display: flex; flex-wrap: wrap; gap: 12px; }
+    .toast-rack .toast { position: static; opacity: 1; transform: none; pointer-events: auto; box-shadow: none; }
 
     .note { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
     .footer { text-align: center; padding: 48px 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-family: var(--mono); font-size: 0.7rem; }
