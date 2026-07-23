@@ -37,6 +37,7 @@
     <a href="#terminal">Command</a>
     <a href="#workspace">Workspace</a>
     <a href="#kbd">Keys</a>
+    <a href="#map">Map</a>
   </nav>
 
   <main>
@@ -465,6 +466,42 @@
       </div>
     </section>
 
+    <!-- 21. DAY/NIGHT WORLD MAP -->
+    <section class="spec" id="map">
+      <div class="spec-head">
+        <div class="spec-num">21</div>
+        <h2>Day/Night World Map</h2>
+        <p>The fleet's world-map canvas: slate ocean, olive land, and a translucent night veil whose edge is the real solar terminator. Gold is reserved for interactive geography — a glowing dot with an outlined mono label for a pinned city, small pale dots for everything else — and a floating mono legend sits bottom-right. The base palette is deliberately muted so the gold reads on both the day and night halves.</p>
+      </div>
+      <div class="demo">
+        <div class="tzmap-wrap">
+          <svg class="tzmap" viewBox="0 0 1000 500" role="img" aria-label="Stylised day/night world map">
+            <rect class="tz-ocean" width="1000" height="500"/>
+            <path class="tz-land" d="M150 90 Q95 120 115 175 Q100 215 160 245 L225 262 Q280 250 300 210 Q340 170 318 130 Q260 92 205 86 Z"/>
+            <path class="tz-land" d="M345 55 Q325 72 340 95 Q368 104 388 88 Q392 64 372 54 Q356 48 345 55 Z"/>
+            <path class="tz-land" d="M290 300 Q262 335 280 380 Q292 430 322 452 Q348 425 352 380 Q365 335 340 305 Q312 288 290 300 Z"/>
+            <path class="tz-land" d="M505 225 Q482 260 495 305 Q508 355 542 382 Q578 358 588 312 Q604 265 580 230 Q540 208 505 225 Z"/>
+            <path class="tz-land" d="M455 80 Q420 108 450 135 Q505 158 560 150 Q650 168 745 155 Q835 165 900 130 Q935 100 910 78 Q810 55 700 62 Q560 50 455 80 Z"/>
+            <path class="tz-land" d="M810 360 Q788 388 805 415 Q840 432 875 415 Q898 388 880 365 Q845 348 810 360 Z"/>
+            <path class="tz-night" id="bmapNight" d=""/>
+            <g id="bmapSun"></g>
+            <circle class="tz-city" cx="200" cy="170" r="2.8"/>
+            <circle class="tz-city" cx="310" cy="380" r="2.8"/>
+            <circle class="tz-city" cx="760" cy="120" r="2.8"/>
+            <circle class="tz-city" cx="540" cy="300" r="2.8"/>
+            <circle class="tz-city" cx="845" cy="395" r="2.8"/>
+            <g class="tz-mk">
+              <circle class="tz-glow" cx="489.7" cy="137.8" r="7"/>
+              <circle class="tz-dot" cx="489.7" cy="137.8" r="3.4"/>
+              <text class="tz-lbl" x="499" y="142">Madrid</text>
+            </g>
+          </svg>
+          <div class="tzmap-legend">☀ day · 🌙 night · • city · ★ pinned</div>
+        </div>
+        <div class="note">The landmasses here are stylised, but the night veil and sun position are computed live with the same NOAA-style solar math (declination + equation of time) as the production map. Reference: Time (time.carino.systems), which adds click-to-pin cities, de-overlapped labels with leader lines, and an optional dashed-gold hour-zone layer.</div>
+      </div>
+    </section>
+
   </main>
 
   <!-- live modal demo (opened from section 17) -->
@@ -611,6 +648,42 @@
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
       else fallbackCopy(text, done);
     }
+
+    // ---- day/night map (section 21): real solar terminator over stylised land ----
+    (function () {
+      const proj = (lat, lon) => [(lon + 180) / 360 * 1000, (90 - lat) / 180 * 500];
+      function subsolar(d) {
+        const rad = Math.PI / 180;
+        const n = d.getTime() / 86400000 - 10957.5;               // days since J2000.0
+        let L = (280.460 + 0.9856474 * n) % 360; if (L < 0) L += 360;
+        const g = ((357.528 + 0.9856003 * n) % 360) * rad;
+        const lambda = (L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * rad;
+        const eps = (23.439 - 0.0000004 * n) * rad;
+        const declDeg = Math.asin(Math.sin(eps) * Math.sin(lambda)) / rad;
+        const alpha = Math.atan2(Math.cos(eps) * Math.sin(lambda), Math.cos(lambda)) / rad;
+        let eot = L - alpha; while (eot > 180) eot -= 360; while (eot < -180) eot += 360;
+        const utcH = d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
+        let sunlon = -15 * (utcH - 12) - eot; while (sunlon > 180) sunlon -= 360; while (sunlon < -180) sunlon += 360;
+        let decl = declDeg * rad; if (Math.abs(decl) < 0.002) decl = (decl < 0 ? -1 : 1) * 0.002;
+        return { decl, declDeg, sunlon };
+      }
+      function drawBrandMap() {
+        const s = subsolar(new Date()); let pts = "";
+        for (let lon = -180; lon <= 180; lon += 2) {
+          const H = (lon - s.sunlon) * Math.PI / 180;
+          const lat = Math.atan(-Math.cos(H) / Math.tan(s.decl)) * 180 / Math.PI;
+          const q = proj(lat, lon);
+          pts += (lon === -180 ? "M" : "L") + q[0].toFixed(1) + " " + q[1].toFixed(1);
+        }
+        const poleY = s.decl > 0 ? 500 : 0;
+        document.getElementById("bmapNight").setAttribute("d", pts + "L1000 " + poleY + "L0 " + poleY + "Z");
+        const sx = proj(s.declDeg, s.sunlon);
+        document.getElementById("bmapSun").innerHTML =
+          '<circle class="tz-sun" cx="' + sx[0].toFixed(1) + '" cy="' + sx[1].toFixed(1) + '" r="6"/>';
+      }
+      drawBrandMap();
+      setInterval(drawBrandMap, 60000);
+    })();
 
     document.querySelectorAll(".spec").forEach(sec => {
       const head = sec.querySelector(".spec-head");

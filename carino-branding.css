@@ -414,5 +414,26 @@
     .kbd-legend { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); }
     .kbd-legend .lbl { text-transform: uppercase; letter-spacing: 0.06em; }
 
+    /* ============ 21. day/night world map ============ */
+    /* Muted geography so the gold accent reads on both hemispheres; the night
+       veil is a single translucent path whose edge is the solar terminator.
+       Reference implementation: Time (time.carino.systems). */
+    .tzmap-wrap { position: relative; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #0b1017; }
+    .tzmap { display: block; width: 100%; height: auto; }
+    .tz-ocean { fill: #2b3a4e; }
+    .tz-land { fill: #57604a; stroke: #6b7355; stroke-width: 0.4; stroke-linejoin: round; }
+    .tz-night { fill: rgba(4,8,20,0.78); pointer-events: none; }
+    .tz-sun { fill: #fde68a; stroke: #a16207; stroke-width: 1.2; }
+    .tz-city { fill: #dce6f2; stroke: #101826; stroke-width: 0.7; opacity: 0.6; }
+    .tz-glow { fill: var(--accent); opacity: 0.22; }
+    .tz-dot { fill: var(--accent); stroke: #050505; stroke-width: 1.2; }
+    .tz-lbl { font-family: var(--mono); font-size: 12px; font-weight: 600; fill: #fff; paint-order: stroke; stroke: #050505; stroke-width: 3.5px; pointer-events: none; }
+    .tz-lead { stroke: var(--accent-dim); stroke-width: 0.6; opacity: 0.6; }
+    /* optional hour-zone layer: dashed gold meridians every 15°, UTC±0 emphasised */
+    .tz-hours .hl { stroke: var(--accent); stroke-width: 0.5; opacity: 0.32; stroke-dasharray: 3 4; }
+    .tz-hours .hl0 { stroke-width: 0.9; opacity: 0.6; stroke-dasharray: none; }
+    .tz-hours .hll { font-family: var(--mono); font-size: 9px; fill: var(--accent); opacity: 0.72; paint-order: stroke; stroke: #050505; stroke-width: 2.5px; }
+    .tzmap-legend { position: absolute; bottom: 7px; right: 10px; font-family: var(--mono); font-size: 0.56rem; color: var(--text-sec); background: rgba(5,5,5,0.55); padding: 2px 8px; border-radius: 10px; pointer-events: none; }
+
     .note { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
     .footer { text-align: center; padding: 48px 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-family: var(--mono); font-size: 0.7rem; }
