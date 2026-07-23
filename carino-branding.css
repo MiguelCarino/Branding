@@ -303,6 +303,17 @@
     .slice .s-num { font-family: var(--display); font-weight: 900; font-size: 1.8rem; color: rgba(234,179,8,0.2); }
     .slice .s-text { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.5px; }
 
+    /* Collapsed tab-bar state: once a slice is chosen the chooser shrinks to a
+       thin bar (in apps: body.state-playing, sticky under the navbar — Asobi,
+       LearningTopics). The demo reproduces it with a .collapsed modifier. */
+    .slice-demo.collapsed { height: 50px; border-radius: 8px; }
+    .slice-demo.collapsed .slice { flex-direction: row; align-items: center; justify-content: center; gap: 10px; padding: 0 12px; }
+    .slice-demo.collapsed .slice:hover { flex: 1; }
+    .slice-demo.collapsed .slice .s-num { font-size: 1rem; color: rgba(234,179,8,0.35); }
+    .slice-demo.collapsed .slice .s-text { font-size: 0.7rem; }
+    .slice-demo.collapsed .slice.active { background: #0a0a0a; box-shadow: inset 0 2px 0 var(--accent); }
+    .slice-demo.collapsed .slice.active .s-text { color: var(--accent); }
+
     /* ============ 14. toast ============ */
     .toast {
       position: fixed; top: 76px; right: 20px; z-index: 9999;
@@ -320,6 +331,88 @@
     /* preview-only wrapper for the reference page (renders toasts inline) */
     .toast-rack { display: flex; flex-wrap: wrap; gap: 12px; }
     .toast-rack .toast { position: static; opacity: 1; transform: none; pointer-events: auto; box-shadow: none; }
+
+    /* ============ 15. navbar action portal ============ */
+    /* carino-navbar.js relocates the real DOM node marked [data-carino-actions]
+       into the navbar's .cn-right (handlers and ids survive) and removes the
+       [data-carino-strip] wrapper. Controls riding in the bar follow this 32px
+       recipe — the compact sibling of .btn. */
+    .cs-btn {
+      display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;
+      border: 1px solid var(--border); border-radius: 6px; background: transparent;
+      color: var(--text-sec); cursor: pointer; transition: 0.18s; text-decoration: none;
+    }
+    .cs-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-faint); }
+    .cs-btn:disabled, .cs-btn.disabled { opacity: 0.35; pointer-events: none; }
+    /* preview-only strip for the reference page (the real thing lives in .cn-right) */
+    .portal-demo { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; }
+
+    /* ============ 16. dropzone ============ */
+    .dropzone {
+      border: 2px dashed var(--border); border-radius: 10px; padding: 30px 18px;
+      text-align: center; cursor: pointer; background: var(--bg-elev);
+      color: var(--text-sec); font-size: 0.9rem; transition: 0.18s;
+    }
+    .dropzone strong { font-family: var(--mono); color: var(--accent); font-weight: 700; }
+    .dropzone:hover, .dropzone.dragover { border-color: var(--accent); background: var(--accent-faint); box-shadow: 0 0 24px var(--accent-glow); }
+    .dropzone.success { border-color: var(--ok); border-style: solid; }
+    .dz-icon { font-size: 1.6rem; margin-bottom: 8px; opacity: 0.8; }
+    .dz-hint { font-family: var(--mono); font-size: 0.66rem; color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ============ 17. modal & scrim ============ */
+    .modal-scrim {
+      position: fixed; inset: 0; z-index: 1000; padding: 24px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.65); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    .modal-scrim[hidden] { display: none; }
+    .modal {
+      display: flex; flex-direction: column; width: 100%; max-width: 520px;
+      max-height: min(90vh, 640px); overflow: hidden;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.75);
+    }
+    .modal-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--border); }
+    .modal-title { font-family: var(--display); font-weight: 900; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.5px; flex: 1; }
+    .modal-sub { font-family: var(--mono); font-size: 0.64rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .modal-x { border: none; background: transparent; color: var(--text-muted); font-size: 1.1rem; line-height: 1; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: 0.15s; }
+    .modal-x:hover { color: var(--accent); background: var(--accent-faint); }
+    .modal-body { padding: 18px; color: var(--text-sec); font-size: 0.9rem; overflow-y: auto; }
+    .modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 18px; border-top: 1px solid var(--border); }
+    /* preview-only wrapper for the reference page (renders the modal inline) */
+    .modal-rack { display: flex; justify-content: center; }
+    .modal-rack .modal { position: static; }
+
+    /* ============ 18. command block ============ */
+    .terminal-wrapper { position: relative; }
+    .terminal { background: #000; border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.6rem; overflow-x: auto; }
+    .terminal code { display: block; font-family: var(--mono); font-size: 0.8rem; line-height: 1.7; color: var(--ok); white-space: pre; }
+    .terminal .prompt { color: var(--accent); user-select: none; }
+    .term-copy { position: absolute; top: 10px; right: 10px; background: rgba(5,5,5,0.85); }
+
+    /* ============ 19. workspace shell ============ */
+    /* Two-pane tool chrome: fixed sidebar rail + independently scrolling content.
+       In apps the rail is ~340px (Metadata-editor, GeneralQuotation, SimpleOCR);
+       the demo is scaled down. */
+    .ws-demo { display: flex; height: 240px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
+    .ws-side { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; padding: 14px; background: var(--bg-card); border-right: 1px solid var(--border); overflow-y: auto; }
+    .ws-main { flex: 1; min-width: 0; overflow-y: auto; padding: 16px 18px; color: var(--text-sec); font-size: 0.85rem; }
+    @media (max-width: 700px) {
+      .ws-demo { flex-direction: column; height: auto; }
+      .ws-side { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* ============ 20. key caps ============ */
+    .kbd {
+      display: inline-block; font-family: var(--mono); font-size: 0.66rem; font-weight: 700;
+      color: var(--text-sec); background: var(--bg-elev);
+      border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 2px 7px;
+    }
+    .kbd.accent { color: var(--accent); border-color: var(--accent-dim); }
+    .kbd-legend { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); }
+    .kbd-legend .lbl { text-transform: uppercase; letter-spacing: 0.06em; }
 
     .note { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
     .footer { text-align: center; padding: 48px 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-family: var(--mono); font-size: 0.7rem; }
