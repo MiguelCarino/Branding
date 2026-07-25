@@ -45,6 +45,11 @@ and its companion `carino-clock.js`. Both are byte-identical copies of the share
 originals (edit `Carino-Systems/carino-clock.js` + `CVE/carino-navbar.js`, then
 run `Carino-Systems/propagate.sh`). Favicon/brand glyph is `logo.webp`.
 
+The brand is **two separate links**: the gradient **Carino** wordmark →
+`https://carino.systems/` (the hub), and the app-tag chip → `./` (a fresh
+reload of the current app). Both anchors carry `text-decoration: none`; the
+chip gets a subtle gold hover (accent border + faint gold background).
+
 ## Cross-browser conventions
 The sites target Chromium, Gecko (Firefox) and WebKit (Safari) equally. The
 recurring gaps and the house rules for them:

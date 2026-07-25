@@ -227,7 +227,11 @@
     .alert b { color: #fde68a; }
 
     /* ============ 7. badges & chips ============ */
-    .chip-tag { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--border); border-radius: 4px; padding: 3px 6px; }
+    .chip-tag { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--border); border-radius: 4px; padding: 3px 6px; text-decoration: none; }
+    /* split-brand: in the navbar the chip is an <a href="./"> (app reload) next
+       to the wordmark's <a href="https://carino.systems/"> (hub) */
+    a.chip-tag { transition: 0.2s; }
+    a.chip-tag:hover { border-color: var(--accent); background: var(--accent-glow); }
     .chip-tz { font-family: var(--mono); font-size: 0.58rem; font-weight: 700; color: #050505; background: var(--accent); padding: 2px 5px; border-radius: 3px; }
     .pill { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 999px; padding: 3px 10px; border: 1px solid; }
     .pill.ok  { color: var(--ok);  border-color: rgba(34,197,94,0.4);  background: rgba(34,197,94,0.08); }
