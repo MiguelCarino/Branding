@@ -305,7 +305,7 @@
 
     /* Collapsed tab-bar state: once a slice is chosen the chooser shrinks to a
        thin bar (in apps: body.state-playing, sticky under the navbar — Asobi,
-       LearningTopics). The demo reproduces it with a .collapsed modifier. */
+       Learn). The demo reproduces it with a .collapsed modifier. */
     .slice-demo.collapsed { height: 50px; border-radius: 8px; }
     .slice-demo.collapsed .slice { flex-direction: row; align-items: center; justify-content: center; gap: 10px; padding: 0 12px; }
     .slice-demo.collapsed .slice:hover { flex: 1; }
@@ -394,7 +394,7 @@
 
     /* ============ 19. workspace shell ============ */
     /* Two-pane tool chrome: fixed sidebar rail + independently scrolling content.
-       In apps the rail is ~340px (Metadata-editor, GeneralQuotation, SimpleOCR);
+       In apps the rail is ~340px (Metadata, Quote, SimpleOCR);
        the demo is scaled down. */
     .ws-demo { display: flex; height: 240px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
     .ws-side { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; padding: 14px; background: var(--bg-card); border-right: 1px solid var(--border); overflow-y: auto; }
