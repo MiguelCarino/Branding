@@ -439,5 +439,53 @@
     .tz-hours .hll { font-family: var(--mono); font-size: 9px; fill: var(--accent); opacity: 0.72; paint-order: stroke; stroke: #050505; stroke-width: 2.5px; }
     .tzmap-legend { position: absolute; bottom: 7px; right: 10px; font-family: var(--mono); font-size: 0.56rem; color: var(--text-sec); background: rgba(5,5,5,0.55); padding: 2px 8px; border-radius: 10px; pointer-events: none; }
 
+    /* ── Data Viz ──────────────────────────────────────────────────────────
+       Dashboard/monitoring primitives. Gains --ok, losses --err, gold stays the
+       brand/interactive accent. All figures use tabular-nums via .num.
+       Reference: Stocks (stocks.carino.systems). */
+    .num { font-variant-numeric: tabular-nums; }
+
+    .stat-tile { border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); padding: 8px 12px; min-width: 132px; }
+    .stat-tile .st-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .stat-tile .st-value { font-family: var(--mono); font-size: 1.05rem; font-weight: 700; margin: 2px 0; }
+
+    /* signed change chip */
+    .delta { display: inline-flex; align-items: center; gap: 3px; font-family: var(--mono); font-size: 0.72rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .delta.up { color: var(--ok); background: rgba(34,197,94,0.1); }
+    .delta.down { color: var(--err); background: rgba(239,68,68,0.1); }
+    .delta.flat { color: var(--text-muted); background: var(--border); }
+
+    /* dependency-free SVG sparkline; direction class tints line/area/dot */
+    .spark { width: 100%; height: 40px; display: block; }
+    .spark-line { stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+    .spark-area { fill: currentColor; opacity: 0.08; }
+    .spark.up   .spark-line, .spark.up   .spark-dot { stroke: var(--ok);     fill: var(--ok); }
+    .spark.down .spark-line, .spark.down .spark-dot { stroke: var(--err);    fill: var(--err); }
+    .spark.flat .spark-line, .spark.flat .spark-dot { stroke: var(--accent); fill: var(--accent); }
+    .spark.up .spark-area { color: var(--ok); } .spark.down .spark-area { color: var(--err); } .spark.flat .spark-area { color: var(--accent); }
+    .spark-dot { stroke: none; }
+
+    /* low→high range bar with a current-value marker */
+    .rangebar { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .rangebar .rb-track { flex: 1; position: relative; height: 4px; background: var(--border); border-radius: 2px; }
+    .rangebar .rb-mark { position: absolute; top: -2px; width: 2px; height: 8px; background: var(--accent); border-radius: 1px; box-shadow: 0 0 6px var(--accent-glow); }
+
+    /* threshold rule row: switch + condition + remove */
+    .rule-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 5px; }
+    .rule-row .rule-cond { font-family: var(--mono); font-size: 0.72rem; color: var(--text-sec); flex: 1; }
+    .switch { width: 34px; height: 18px; border-radius: 9px; background: var(--border); border: none; position: relative; cursor: pointer; flex-shrink: 0; transition: 0.15s; }
+    .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--text-muted); transition: 0.15s; }
+    .switch.on { background: var(--accent); } .switch.on::after { left: 18px; background: #050505; }
+    .icon-mini { width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 5px; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.15s; }
+    .icon-mini:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* data-freshness chip (extends .dot.live semantics into a labelled pill) */
+    .live-chip { font-family: var(--mono); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); border-radius: 4px; padding: 3px 6px; white-space: nowrap; }
+    .live-chip.live { color: var(--ok); border-color: rgba(34,197,94,0.4); }
+
+    /* screenshot-safe privacy blur: toggle body.privacy-on to hide sensitive figures */
+    body.privacy-on .amount { filter: blur(6px); }
+    body.privacy-on .amount:hover { filter: none; }
+
     .note { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
     .footer { text-align: center; padding: 48px 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-family: var(--mono); font-size: 0.7rem; }

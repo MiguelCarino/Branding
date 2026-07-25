@@ -38,6 +38,7 @@
     <a href="#workspace">Workspace</a>
     <a href="#kbd">Keys</a>
     <a href="#map">Map</a>
+    <a href="#dataviz">Data Viz</a>
   </nav>
 
   <main>
@@ -499,6 +500,55 @@
           <div class="tzmap-legend">☀ day · 🌙 night · • city · ★ pinned</div>
         </div>
         <div class="note">The landmasses here are stylised, but the night veil and sun position are computed live with the same NOAA-style solar math (declination + equation of time) as the production map. Reference: Time (time.carino.systems), which adds click-to-pin cities, de-overlapped labels with leader lines, and an optional dashed-gold hour-zone layer.</div>
+      </div>
+    </section>
+
+    <!-- 22. DATA VIZ -->
+    <section class="spec" id="dataviz">
+      <div class="spec-head">
+        <div class="spec-num">22</div>
+        <h2>Data Viz</h2>
+        <p>Primitives for dashboards and monitoring apps: gains use <code>--ok</code> green, losses <code>--err</code> red, and gold stays the interactive/brand accent. All numerics use <code>tabular-nums</code> via <code>.num</code>. First adopted by Stocks (stocks.carino.systems). Sparkline and detail charts are drawn dependency-free (inline SVG / <code>&lt;canvas&gt;</code> reading tokens via <code>getComputedStyle</code>) — no chart library.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-row" style="flex-wrap:wrap;gap:14px;align-items:flex-start;">
+          <div class="stat-tile">
+            <div class="st-label">Total value</div>
+            <div class="st-value num">$48,215.60</div>
+            <span class="delta up">▲ 312.40 (0.65%)</span>
+          </div>
+          <div class="stat-tile">
+            <div class="st-label">Day P/L</div>
+            <div class="st-value num">−$95.10</div>
+            <span class="delta down">▼ 0.42%</span>
+          </div>
+          <div class="stat-tile" style="min-width:180px;">
+            <div class="st-label">NVDA</div>
+            <svg class="spark up" viewBox="0 0 220 40" preserveAspectRatio="none" aria-hidden="true">
+              <path class="spark-area" d="M2 30 L57 22 L112 26 L167 12 L218 8 L218 38 L2 38 Z"/>
+              <path class="spark-line" fill="none" d="M2 30 L57 22 L112 26 L167 12 L218 8"/>
+              <circle class="spark-dot" cx="218" cy="8" r="2.2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="demo-row" style="gap:10px;flex-wrap:wrap;">
+          <span class="delta up">▲ 1.24 (0.94%)</span>
+          <span class="delta down">▼ 2.10 (1.31%)</span>
+          <span class="delta flat">—</span>
+          <span class="live-chip live">LIVE · Finnhub</span>
+          <span class="live-chip">DEMO</span>
+        </div>
+        <div class="rangebar" style="max-width:280px;margin-top:6px;">
+          <span class="rb-lo">124.10</span>
+          <div class="rb-track"><div class="rb-mark" style="left:68%;"></div></div>
+          <span class="rb-hi">131.90</span>
+        </div>
+        <div class="rule-row" style="max-width:340px;margin-top:12px;">
+          <button class="switch on" type="button" aria-label="Armed"></button>
+          <span class="rule-cond">AAPL price ≥ 230</span>
+          <button class="icon-mini" type="button">✕</button>
+        </div>
+        <div class="note">Components: <code>.stat-tile</code> (KPI), <code>.delta.up/.down/.flat</code> (signed change chip), <code>.spark</code> (SVG micro-chart, direction classes tint it), <code>.rangebar</code> (low→high with marker), <code>.rule-row</code> (<code>.switch</code> + condition + remove), <code>.live-chip</code> (data-freshness), plus the <code>.num</code> tabular-nums utility and the <code>body.privacy-on .amount { filter: blur() }</code> screenshot-safe utility.</div>
       </div>
     </section>
 
