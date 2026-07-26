@@ -39,6 +39,7 @@
     <a href="#kbd">Keys</a>
     <a href="#map">Map</a>
     <a href="#dataviz">Data Viz</a>
+    <a href="#currency">Currency</a>
   </nav>
 
   <main>
@@ -544,6 +545,82 @@
           <button class="icon-mini" type="button">✕</button>
         </div>
         <div class="note">Components: <code>.stat-tile</code> (KPI), <code>.delta.up/.down/.flat</code> (signed change chip), <code>.spark</code> (SVG micro-chart, direction classes tint it), <code>.rangebar</code> (low→high with marker), <code>.rule-row</code> (<code>.switch</code> + condition + remove), <code>.live-chip</code> (data-freshness), plus the <code>.num</code> tabular-nums utility and the <code>body.privacy-on .amount { filter: blur() }</code> screenshot-safe utility.</div>
+      </div>
+    </section>
+
+    <!-- 23. FINANCE / CURRENCY -->
+    <section class="spec" id="currency">
+      <div class="spec-head">
+        <div class="spec-num">23</div>
+        <h2>Finance / Currency</h2>
+        <p>Composite finance components introduced by Currency (currency.carino.systems). Each composes the Data-Viz primitives above — the <code>.spark</code> micro-chart and <code>.delta</code> chip — into two higher-level cards: the <strong>FX trend card</strong> (flag · pair · human rate · strength sparkline · window delta, where the series is the target's strength vs base so line colour and delta agree) and the <strong>news item</strong> (a headline link whose left border is tinted by article tone). A <strong>mover tile</strong> summarises the biggest gainer/loser over the window.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-row" style="flex-wrap:wrap;gap:14px;align-items:flex-start;">
+          <div class="fx-card">
+            <div class="fx-top">
+              <span class="fx-flag">🇧🇷</span>
+              <span class="fx-pair">USD/BRL</span>
+              <span class="fx-name">Brazilian Real</span>
+            </div>
+            <div class="fx-rate">1 USD = 5.4500 BRL</div>
+            <div class="fx-spark">
+              <svg class="spark down" viewBox="0 0 220 40" preserveAspectRatio="none" aria-hidden="true">
+                <path class="spark-area" d="M2 12 L57 18 L112 22 L167 30 L218 34 L218 38 L2 38 Z"/>
+                <path class="spark-line" fill="none" d="M2 12 L57 18 L112 22 L167 30 L218 34"/>
+                <circle class="spark-dot" cx="218" cy="34" r="2.2"/>
+              </svg>
+            </div>
+            <div class="fx-foot">
+              <span class="delta down">−7.52%</span>
+              <span class="fx-name">90D vs USD</span>
+            </div>
+          </div>
+          <div class="fx-card">
+            <div class="fx-top">
+              <span class="fx-flag">🇪🇺</span>
+              <span class="fx-pair">USD/EUR</span>
+              <span class="fx-name">Euro</span>
+            </div>
+            <div class="fx-rate">1 USD = 0.9330 EUR</div>
+            <div class="fx-spark">
+              <svg class="spark up" viewBox="0 0 220 40" preserveAspectRatio="none" aria-hidden="true">
+                <path class="spark-area" d="M2 30 L57 26 L112 22 L167 16 L218 10 L218 38 L2 38 Z"/>
+                <path class="spark-line" fill="none" d="M2 30 L57 26 L112 22 L167 16 L218 10"/>
+                <circle class="spark-dot" cx="218" cy="10" r="2.2"/>
+              </svg>
+            </div>
+            <div class="fx-foot">
+              <span class="delta up">+1.41%</span>
+              <span class="fx-name">90D vs USD</span>
+            </div>
+          </div>
+          <div class="movers" style="flex-direction:column;min-width:150px;">
+            <div class="mover">
+              <div class="mv-l">Top gainer 90D</div>
+              <div class="mv-v"><span class="mv-code">🇪🇺 EUR</span><span class="mv-pct up">+1.41%</span></div>
+            </div>
+            <div class="mover">
+              <div class="mv-l">Top loser 90D</div>
+              <div class="mv-v"><span class="mv-code">🇧🇷 BRL</span><span class="mv-pct down">−7.52%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="news-feed" style="margin-top:14px;">
+          <a class="news-item pos" href="#" onclick="return false;">
+            <div class="news-title">ECB holds rates steady as euro-area inflation cools toward target</div>
+            <div class="news-src"><span>reuters.com</span><span class="news-tone">+2.4</span></div>
+          </a>
+          <a class="news-item neg" href="#" onclick="return false;">
+            <div class="news-title">Brazilian real slides to multi-month low on fiscal worries</div>
+            <div class="news-src"><span>ft.com</span><span class="news-tone">−3.1</span></div>
+          </a>
+          <a class="news-item" href="#" onclick="return false;">
+            <div class="news-title">Copper exports climb as demand outlook steadies</div>
+            <div class="news-src"><span>bloomberg.com</span><span>28 Jun</span></div>
+          </a>
+        </div>
+        <div class="note">Components: <code>.fx-card</code> (<code>.fx-top</code> → <code>.fx-flag</code>/<code>.fx-pair</code>/<code>.fx-name</code>, <code>.fx-rate</code>, <code>.fx-spark</code> wrapping a <code>.spark</code>, <code>.fx-foot</code> with a <code>.delta</code>), <code>.mover</code> tile (<code>.mv-l</code>/<code>.mv-v</code>/<code>.mv-code</code>/<code>.mv-pct</code>), and <code>.news-item</code> (<code>.news-title</code> + <code>.news-src</code>; <code>.pos</code>/<code>.neg</code> tint the left border by tone, with an optional <code>.news-tone</code> chip). Trade values use <code>.stat-tile</code> + the two-line <code>&lt;canvas&gt;</code> chart. All keyless: ECB/Frankfurter, GDELT, World Bank.</div>
       </div>
     </section>
 

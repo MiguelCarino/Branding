@@ -490,3 +490,32 @@
 
     .note { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
     .footer { text-align: center; padding: 48px 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-family: var(--mono); font-size: 0.7rem; }
+
+    /* ============ 23. finance / currency ============ */
+    /* Composite cards from Currency (currency.carino.systems); they reuse the
+       Data-Viz .spark micro-chart and .delta chip. Gold/green = the target
+       currency strengthening vs base, red = weakening. */
+    .fx-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 7px; padding: 11px 12px; min-width: 200px; }
+    .fx-card .fx-top { display: flex; align-items: center; gap: 7px; }
+    .fx-card .fx-flag { font-size: 1.05rem; }
+    .fx-card .fx-pair { font-family: var(--mono); font-size: 0.72rem; color: var(--text); font-weight: 600; }
+    .fx-card .fx-name { font-family: var(--mono); font-size: 0.58rem; color: var(--text-muted); margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fx-card .fx-rate { font-family: var(--display); font-weight: 700; font-size: 1.25rem; margin: 6px 0 2px; }
+    .fx-card .fx-spark { height: 40px; margin: 4px 0 2px; }
+    .fx-card .fx-foot { display: flex; align-items: center; justify-content: space-between; }
+
+    .movers { display: flex; flex-wrap: wrap; gap: 8px; }
+    .mover { flex: 1 1 auto; min-width: 130px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 8px 11px; }
+    .mover .mv-l { font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .mover .mv-v { font-family: var(--display); font-weight: 700; font-size: 0.95rem; margin-top: 2px; display: flex; align-items: baseline; gap: 6px; }
+    .mover .mv-code { color: var(--text); }
+    .mover .mv-pct { font-family: var(--mono); font-size: 0.8rem; }
+    .mv-pct.up { color: var(--ok); } .mv-pct.down { color: var(--err); } .mv-pct.flat { color: var(--text-muted); }
+
+    .news-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .news-item { display: block; background: var(--bg-elev); border: 1px solid var(--border); border-left: 2px solid var(--border); border-radius: 6px; padding: 10px 12px; text-decoration: none; color: var(--text); transition: 0.15s; }
+    .news-item:hover { border-color: var(--accent-dim); border-left-color: var(--accent); }
+    .news-item.pos { border-left-color: var(--ok); } .news-item.neg { border-left-color: var(--err); }
+    .news-item .news-title { font-size: 0.82rem; line-height: 1.35; margin: 0 0 6px; }
+    .news-item .news-src { font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); display: flex; gap: 8px; justify-content: space-between; }
+    .news-item .news-tone { font-weight: 600; }
