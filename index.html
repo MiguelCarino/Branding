@@ -13,7 +13,10 @@
   <div class="guide-hero">
     <div class="kicker">Carino Systems · Brand Reference</div>
     <h1>Carino Branding</h1>
-    <p>The living reference for the Carino visual language — the shared navbar, the gold-on-black palette, and every component pattern used across the workshop. Every section has a <b>Copy</b> button that lifts its markup together with a link to the hosted stylesheet (<code>branding.carino.systems/carino-branding.css</code>), so the component renders correctly the moment you paste it into another project. This page is the source of truth.</p>
+    <p>The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.</p>
+    <div class="hero-actions">
+      <button type="button" class="btn" id="pdfBtn" title="Download the full reference as a PDF">⤓ Export PDF</button>
+    </div>
   </div>
 
   <nav class="toc">
@@ -61,16 +64,24 @@
       <div class="spec-head">
         <div class="spec-num">02</div>
         <h2>Typography</h2>
-        <p>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display.</p>
+        <p>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display. Sizes come from the <b>type scale</b> — thirteen <code>--fs-*</code> tokens, nothing in between. Three rules: <code>--fs-micro</code> is the floor (no UI text below 0.6rem, ever); the body base is 15&ndash;16px; heroes are always fluid (<code>clamp()</code>). Decorative glyphs — watermark numerals, emoji, SVG-canvas labels — may size freely.</p>
       </div>
       <div class="demo">
-        <div class="type-sample"><span class="tag">Wordmark</span><span class="wordmark">Carino</span></div>
-        <div class="type-sample"><span class="tag">Display / H1</span><span class="t-display">Heading</span></div>
-        <div class="type-sample"><span class="tag">Display / H2</span><span class="t-h2">Subheading</span></div>
-        <div class="type-sample"><span class="tag">Body</span><span class="t-body">The quick brown fox jumps over the lazy dog.</span></div>
-        <div class="type-sample"><span class="tag">Secondary</span><span class="t-sec">The quick brown fox jumps over the lazy dog.</span></div>
-        <div class="type-sample"><span class="tag">Mono</span><span class="t-mono">const accent = "#eab308";</span></div>
-        <div class="type-sample"><span class="tag">Label</span><span class="t-label">Section Label</span></div>
+        <div class="demo-label">The scale, largest to smallest</div>
+        <div class="type-sample"><span class="tag">Hero</span><span class="t-hero">Hero</span><span class="tok">--fs-hero · clamp(2.6rem, 7vw, 4.6rem)</span></div>
+        <div class="type-sample"><span class="tag">Wordmark</span><span class="wordmark">Carino</span><span class="tok">--fs-display · 2.4rem</span></div>
+        <div class="type-sample"><span class="tag">Display</span><span class="t-display">Heading</span><span class="tok">--fs-display · 2.4rem</span></div>
+        <div class="type-sample"><span class="tag">H1 / Page</span><span class="t-h1">Page Heading</span><span class="tok">--fs-h1 · 1.9rem</span></div>
+        <div class="type-sample"><span class="tag">H2 / Section</span><span class="t-h2">Subheading</span><span class="tok">--fs-h2 · 1.5rem</span></div>
+        <div class="type-sample"><span class="tag">H3 / Card</span><span class="t-h3">Card Heading</span><span class="tok">--fs-h3 · 1.2rem</span></div>
+        <div class="type-sample"><span class="tag">Large / Title</span><span class="t-lg">Card title or emphasised line.</span><span class="tok">--fs-lg · 1.05rem</span></div>
+        <div class="type-sample"><span class="tag">Body</span><span class="t-body">The quick brown fox jumps over the lazy dog.</span><span class="tok">--fs-body · 1rem</span></div>
+        <div class="type-sample"><span class="tag">Secondary</span><span class="t-sec">The quick brown fox jumps over the lazy dog.</span><span class="tok">--fs-sec · 0.9rem</span></div>
+        <div class="type-sample"><span class="tag">Mono</span><span class="t-mono">const accent = "#eab308";</span><span class="tok">--fs-mono · 0.85rem</span></div>
+        <div class="type-sample"><span class="tag">Small</span><span class="t-sm">Dense UI text, tables, alerts and code blocks.</span><span class="tok">--fs-sm · 0.8rem</span></div>
+        <div class="type-sample"><span class="tag">Button</span><span class="t-btn-sample">Buttons · Tabs · Kickers</span><span class="tok">--fs-btn · 0.7rem</span></div>
+        <div class="type-sample"><span class="tag">Label</span><span class="t-label">Section Label</span><span class="tok">--fs-label · 0.65rem</span></div>
+        <div class="type-sample"><span class="tag">Micro · floor</span><span class="t-micro">Tiny tags &amp; fine print — nothing smaller</span><span class="tok">--fs-micro · 0.6rem</span></div>
       </div>
     </section>
 
@@ -638,10 +649,13 @@
     </div>
   </div>
 
-  <div class="footer">CARINO BRANDING · branding.carino.systems · gold #eab308 on black #050505 · IBM Plex + Red Hat Display</div>
 
   <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
   <script src="carino-navbar.js" data-app="Branding" defer></script>
+
+  <!-- Vendored (no CDN): render the page into a downloadable PDF. -->
+  <script src="vendor/html2canvas.min.js" defer></script>
+  <script src="vendor/jspdf.umd.min.js" defer></script>
 
   <script>
     // ---- color swatches (also the token list) ----
@@ -755,6 +769,28 @@
   --display: 'Red Hat Display', var(--sans);
   --radius: 10px;
 }`;
+    const TYPE_CSS =
+`/* Carino Branding — type scale · ${SITE}
+   Thirteen steps, nothing in between: size text with a token, never a
+   raw value. Rules: --fs-micro is the floor (no UI text smaller, ever);
+   body base is 15-16px; heroes are always fluid (clamp). Decorative
+   glyphs (watermark numerals, emoji, SVG-canvas labels) may size freely. */
+:root {
+  --fs-micro:   0.6rem;    /*  9.6px  tiny tags, fine print, table meta   */
+  --fs-label:   0.65rem;   /* 10.4px  mono uppercase labels, chips        */
+  --fs-btn:     0.7rem;    /* 11.2px  buttons, tabs, kickers, nav         */
+  --fs-sm:      0.8rem;    /* 12.8px  dense UI text, tables, alerts, code */
+  --fs-mono:    0.85rem;   /* 13.6px  mono data, ledes in mono            */
+  --fs-sec:     0.9rem;    /* 14.4px  secondary prose                     */
+  --fs-body:    1rem;      /* 16px    primary reading text                */
+  --fs-lg:      1.05rem;   /* 16.8px  emphasised body, card titles        */
+  --fs-h3:      1.2rem;    /* 19.2px  card / panel headings               */
+  --fs-h2:      1.5rem;    /* 24px    section headings                    */
+  --fs-h1:      1.9rem;    /* 30.4px  page headings                       */
+  --fs-display: 2.4rem;    /* 38.4px  display text, the wordmark          */
+  --fs-hero:    clamp(2.6rem, 7vw, 4.6rem);  /* landing hero — always fluid */
+}
+body { font-size: 15px; }  /* body base: 15-16px */`;
     const COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 
     function fallbackCopy(text, cb) {
@@ -823,6 +859,8 @@
         let snippet;
         if (sec.id === "tokens") {
           snippet = TOKENS_CSS;
+        } else if (sec.id === "type") {
+          snippet = TYPE_CSS;
         } else {
           const els = [...sec.querySelectorAll(".demo, .card-grid")];
           snippet = "<!-- Carino Branding · " + title + " · " + SITE + " -->\n" +
@@ -834,6 +872,121 @@
       head.appendChild(btn);
       head.classList.add("has-copy");
     });
+
+    /* ---- ToC as sliding tabs: one section at a time. Scrolling past a
+       section's end slides to the next tab; past its top, to the previous. ---- */
+    (() => {
+      const tabs  = [...document.querySelectorAll(".toc a")];
+      const specs = [...document.querySelectorAll("main .spec")];
+      let cur = -1;
+      function show(id, edge) {
+        let idx = specs.findIndex(s => s.id === id);
+        if (idx < 0) idx = 0;
+        if (idx === cur) return;
+        const dir = idx > cur ? "from-right" : "from-left";
+        specs.forEach(s => s.classList.remove("active", "from-left", "from-right"));
+        specs[idx].classList.add("active", cur < 0 ? "active" : dir);
+        tabs.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + specs[idx].id));
+        cur = idx;
+        if (location.hash !== "#" + specs[idx].id) history.replaceState(null, "", "#" + specs[idx].id);
+        // "bottom" lands at the end of the section (arriving from below feels continuous)
+        window.scrollTo({ top: edge === "bottom" ? document.documentElement.scrollHeight : 0 });
+      }
+      tabs.forEach(a => a.addEventListener("click", (e) => { e.preventDefault(); show(a.getAttribute("href").slice(1)); }));
+      window.addEventListener("hashchange", () => show(location.hash.slice(1)));
+      show(location.hash.slice(1) || specs[0].id);
+
+      // Overscroll navigation: accumulate wheel delta at a section's edge;
+      // past the threshold, slide. Cooldown stops momentum from double-jumping.
+      let acc = 0, accTimer = null, coolUntil = 0;
+      const THRESH = 260;
+      window.addEventListener("wheel", (e) => {
+        if (document.body.classList.contains("pdf-mode")) return;
+        const now = performance.now();
+        if (now < coolUntil) return;
+        const doc = document.documentElement;
+        const atBottom = window.innerHeight + window.scrollY >= doc.scrollHeight - 2;
+        const atTop = window.scrollY <= 2;
+        const down = e.deltaY > 0;
+        if (!((down && atBottom && cur < specs.length - 1) || (!down && atTop && cur > 0))) { acc = 0; return; }
+        acc += e.deltaY;
+        clearTimeout(accTimer);
+        accTimer = setTimeout(() => (acc = 0), 400);
+        if (Math.abs(acc) >= THRESH) {
+          acc = 0;
+          coolUntil = now + 700;
+          show(specs[cur + (down ? 1 : -1)].id, down ? "top" : "bottom");
+        }
+      }, { passive: true });
+    })();
+
+    /* ---- Export PDF: render the hero + every section into a downloaded file
+       (vendored html2canvas + jsPDF; sections are captured off-screen at the
+       reference content width, tall ones sliced across as many pages as needed) ---- */
+    (() => {
+      const btn = document.getElementById("pdfBtn");
+      const label = btn.innerHTML;
+      let busy = false;
+      btn.addEventListener("click", async () => {
+        if (busy) return;
+        if (!window.html2canvas || !window.jspdf) {
+          btn.textContent = "PDF engine still loading…";
+          setTimeout(() => (btn.innerHTML = label), 1500);
+          return;
+        }
+        busy = true;
+        const { jsPDF } = window.jspdf;
+        const parts = [document.querySelector(".guide-hero"), ...document.querySelectorAll("main .spec")];
+        const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4", hotfixes: ["px_scaling"] });
+        const pw = pdf.internal.pageSize.getWidth();
+        const ph = pdf.internal.pageSize.getHeight();
+        const M = 36;                       // page margin
+        const imgW = pw - 2 * M;            // content width on the page
+        const contentH = ph - 2 * M - 14;   // leave room for the footer line
+        let pageNo = 0;
+        const newPage = () => {
+          if (pageNo > 0) pdf.addPage();
+          pageNo++;
+          pdf.setFillColor(255, 255, 255); pdf.rect(0, 0, pw, ph, "F");
+          pdf.setFontSize(8); pdf.setTextColor(150);
+          pdf.text("Carino Branding · branding.carino.systems", M, ph - 16);
+          pdf.text(String(pageNo), pw - M, ph - 16, { align: "right" });
+          pdf.setDrawColor(234, 179, 8); pdf.setLineWidth(0.75);
+          pdf.line(M, ph - 24, pw - M, ph - 24);
+        };
+        try {
+          await document.fonts.ready;
+          document.body.classList.add("pdf-mode");
+          for (let i = 0; i < parts.length; i++) {
+            btn.textContent = "Rendering " + (i + 1) + " / " + parts.length + "…";
+            const el = parts[i];
+            const isSpec = el.classList.contains("spec");
+            // capture every section off-screen at the 1032px content width
+            // (main is 1080px max minus 24px side padding) for uniform pages
+            if (isSpec) el.style.cssText = "display:block;position:absolute;left:-12000px;top:0;width:1032px;";
+            const canvas = await html2canvas(el, { backgroundColor: "#ffffff", scale: 2, logging: false });
+            if (isSpec) el.style.cssText = "";
+            // each part starts a fresh page; tall captures flow onto more pages
+            const sliceH = Math.floor(canvas.width * (contentH / imgW));
+            for (let y = 0; y < canvas.height; y += sliceH) {
+              const h = Math.min(sliceH, canvas.height - y);
+              const c = document.createElement("canvas");
+              c.width = canvas.width; c.height = h;
+              const ctx = c.getContext("2d");
+              ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, c.width, c.height);
+              ctx.drawImage(canvas, 0, y, canvas.width, h, 0, 0, canvas.width, h);
+              newPage();
+              pdf.addImage(c.toDataURL("image/jpeg", 0.92), "JPEG", M, M, imgW, h * (imgW / canvas.width));
+            }
+          }
+          pdf.save("carino-branding.pdf");
+        } finally {
+          document.body.classList.remove("pdf-mode");
+          btn.innerHTML = label;
+          busy = false;
+        }
+      });
+    })();
   </script>
 </body>
 </html>
