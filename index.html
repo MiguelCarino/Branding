@@ -11,38 +11,38 @@
 <body>
 
   <div class="guide-hero">
-    <div class="kicker">Carino Systems · Brand Reference</div>
+    <div class="kicker" data-i18n>Carino Systems · Brand Reference</div>
     <h1>Carino Branding</h1>
-    <p>The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.</p>
+    <p data-i18n-html>The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.</p>
     <div class="hero-actions">
-      <button type="button" class="btn" id="pdfBtn" title="Download the full reference as a PDF">⤓ Export PDF</button>
+      <button type="button" class="btn" id="pdfBtn" data-i18n data-i18n-title title="Download the full reference as a PDF">⤓ Export PDF</button>
     </div>
   </div>
 
   <nav class="toc">
-    <a href="#tokens">Color</a>
-    <a href="#type">Type</a>
-    <a href="#buttons">Buttons</a>
-    <a href="#tabs">Tabs</a>
-    <a href="#forms">Forms</a>
-    <a href="#alerts">Alerts</a>
-    <a href="#badges">Badges</a>
-    <a href="#cards">Cards</a>
-    <a href="#dropdown">Dropdown</a>
-    <a href="#table">Table</a>
-    <a href="#code">Code</a>
-    <a href="#loading">Loading</a>
-    <a href="#slice">Slice Menu</a>
-    <a href="#toast">Toast</a>
-    <a href="#portal">Action Portal</a>
-    <a href="#dropzone">Dropzone</a>
-    <a href="#modal">Modal</a>
-    <a href="#terminal">Command</a>
-    <a href="#workspace">Workspace</a>
-    <a href="#kbd">Keys</a>
-    <a href="#map">Map</a>
-    <a href="#dataviz">Data Viz</a>
-    <a href="#currency">Currency</a>
+    <a href="#tokens" data-i18n>Color</a>
+    <a href="#type" data-i18n>Type</a>
+    <a href="#buttons" data-i18n>Buttons</a>
+    <a href="#tabs" data-i18n>Tabs</a>
+    <a href="#forms" data-i18n>Forms</a>
+    <a href="#alerts" data-i18n>Alerts</a>
+    <a href="#badges" data-i18n>Badges</a>
+    <a href="#cards" data-i18n>Cards</a>
+    <a href="#dropdown" data-i18n>Dropdown</a>
+    <a href="#table" data-i18n>Table</a>
+    <a href="#code" data-i18n>Code</a>
+    <a href="#loading" data-i18n>Loading</a>
+    <a href="#slice" data-i18n>Slice Menu</a>
+    <a href="#toast" data-i18n>Toast</a>
+    <a href="#portal" data-i18n>Action Portal</a>
+    <a href="#dropzone" data-i18n>Dropzone</a>
+    <a href="#modal" data-i18n>Modal</a>
+    <a href="#terminal" data-i18n>Command</a>
+    <a href="#workspace" data-i18n>Workspace</a>
+    <a href="#kbd" data-i18n>Keys</a>
+    <a href="#map" data-i18n>Map</a>
+    <a href="#dataviz" data-i18n>Data Viz</a>
+    <a href="#currency" data-i18n>Currency</a>
   </nav>
 
   <main>
@@ -51,8 +51,8 @@
     <section class="spec" id="tokens">
       <div class="spec-head">
         <div class="spec-num">01</div>
-        <h2>Color Tokens</h2>
-        <p>One accent — Sharp Gold <code>#eab308</code> — on a near-black stack. Everything else is a neutral or a translucent tint of the accent. Click a swatch to copy its value.</p>
+        <h2 data-i18n>Color Tokens</h2>
+        <p data-i18n-html>One accent — Sharp Gold <code>#eab308</code> — on a near-black stack. Everything else is a neutral or a translucent tint of the accent. Click a swatch to copy its value.</p>
       </div>
       <div class="demo">
         <div class="swatches" id="swatches"></div>
@@ -63,25 +63,25 @@
     <section class="spec" id="type">
       <div class="spec-head">
         <div class="spec-num">02</div>
-        <h2>Typography</h2>
-        <p>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display. Sizes come from the <b>type scale</b> — thirteen <code>--fs-*</code> tokens, nothing in between. Three rules: <code>--fs-micro</code> is the floor (no UI text below 0.6rem, ever); the body base is 15&ndash;16px; heroes are always fluid (<code>clamp()</code>). Decorative glyphs — watermark numerals, emoji, SVG-canvas labels — may size freely.</p>
+        <h2 data-i18n>Typography</h2>
+        <p data-i18n-html>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display. Sizes come from the <b>type scale</b> — thirteen <code>--fs-*</code> tokens, nothing in between. Three rules: <code>--fs-micro</code> is the floor (no UI text below 0.6rem, ever); the body base is 15–16px; heroes are always fluid (<code>clamp()</code>). Decorative glyphs — watermark numerals, emoji, SVG-canvas labels — may size freely.</p>
       </div>
       <div class="demo">
-        <div class="demo-label">The scale, largest to smallest</div>
+        <div class="demo-label" data-i18n>The scale, largest to smallest</div>
         <div class="type-sample"><span class="tag">Hero</span><span class="t-hero">Hero</span><span class="tok">--fs-hero · clamp(2.6rem, 7vw, 4.6rem)</span></div>
         <div class="type-sample"><span class="tag">Wordmark</span><span class="wordmark">Carino</span><span class="tok">--fs-display · 2.4rem</span></div>
-        <div class="type-sample"><span class="tag">Display</span><span class="t-display">Heading</span><span class="tok">--fs-display · 2.4rem</span></div>
-        <div class="type-sample"><span class="tag">H1 / Page</span><span class="t-h1">Page Heading</span><span class="tok">--fs-h1 · 1.9rem</span></div>
-        <div class="type-sample"><span class="tag">H2 / Section</span><span class="t-h2">Subheading</span><span class="tok">--fs-h2 · 1.5rem</span></div>
-        <div class="type-sample"><span class="tag">H3 / Card</span><span class="t-h3">Card Heading</span><span class="tok">--fs-h3 · 1.2rem</span></div>
-        <div class="type-sample"><span class="tag">Large / Title</span><span class="t-lg">Card title or emphasised line.</span><span class="tok">--fs-lg · 1.05rem</span></div>
-        <div class="type-sample"><span class="tag">Body</span><span class="t-body">The quick brown fox jumps over the lazy dog.</span><span class="tok">--fs-body · 1rem</span></div>
-        <div class="type-sample"><span class="tag">Secondary</span><span class="t-sec">The quick brown fox jumps over the lazy dog.</span><span class="tok">--fs-sec · 0.9rem</span></div>
+        <div class="type-sample"><span class="tag">Display</span><span class="t-display" data-i18n>Heading</span><span class="tok">--fs-display · 2.4rem</span></div>
+        <div class="type-sample"><span class="tag">H1 / Page</span><span class="t-h1" data-i18n>Page Heading</span><span class="tok">--fs-h1 · 1.9rem</span></div>
+        <div class="type-sample"><span class="tag">H2 / Section</span><span class="t-h2" data-i18n>Subheading</span><span class="tok">--fs-h2 · 1.5rem</span></div>
+        <div class="type-sample"><span class="tag">H3 / Card</span><span class="t-h3" data-i18n>Card Heading</span><span class="tok">--fs-h3 · 1.2rem</span></div>
+        <div class="type-sample"><span class="tag">Large / Title</span><span class="t-lg" data-i18n>Card title or emphasised line.</span><span class="tok">--fs-lg · 1.05rem</span></div>
+        <div class="type-sample"><span class="tag">Body</span><span class="t-body" data-i18n>The quick brown fox jumps over the lazy dog.</span><span class="tok">--fs-body · 1rem</span></div>
+        <div class="type-sample"><span class="tag">Secondary</span><span class="t-sec" data-i18n>The quick brown fox jumps over the lazy dog.</span><span class="tok">--fs-sec · 0.9rem</span></div>
         <div class="type-sample"><span class="tag">Mono</span><span class="t-mono">const accent = "#eab308";</span><span class="tok">--fs-mono · 0.85rem</span></div>
-        <div class="type-sample"><span class="tag">Small</span><span class="t-sm">Dense UI text, tables, alerts and code blocks.</span><span class="tok">--fs-sm · 0.8rem</span></div>
-        <div class="type-sample"><span class="tag">Button</span><span class="t-btn-sample">Buttons · Tabs · Kickers</span><span class="tok">--fs-btn · 0.7rem</span></div>
-        <div class="type-sample"><span class="tag">Label</span><span class="t-label">Section Label</span><span class="tok">--fs-label · 0.65rem</span></div>
-        <div class="type-sample"><span class="tag">Micro · floor</span><span class="t-micro">Tiny tags &amp; fine print — nothing smaller</span><span class="tok">--fs-micro · 0.6rem</span></div>
+        <div class="type-sample"><span class="tag">Small</span><span class="t-sm" data-i18n>Dense UI text, tables, alerts and code blocks.</span><span class="tok">--fs-sm · 0.8rem</span></div>
+        <div class="type-sample"><span class="tag">Button</span><span class="t-btn-sample" data-i18n>Buttons · Tabs · Kickers</span><span class="tok">--fs-btn · 0.7rem</span></div>
+        <div class="type-sample"><span class="tag">Label</span><span class="t-label" data-i18n>Section Label</span><span class="tok">--fs-label · 0.65rem</span></div>
+        <div class="type-sample"><span class="tag">Micro · floor</span><span class="t-micro" data-i18n>Tiny tags &amp; fine print — nothing smaller</span><span class="tok">--fs-micro · 0.6rem</span></div>
       </div>
     </section>
 
@@ -89,11 +89,11 @@
     <section class="spec" id="buttons">
       <div class="spec-head">
         <div class="spec-num">03</div>
-        <h2>Buttons</h2>
-        <p>Outline by default; hover reveals the accent. Primary is a solid gold fill. Toggle buttons fill gold when active (module / template pattern). Icon buttons invert on hover.</p>
+        <h2 data-i18n>Buttons</h2>
+        <p data-i18n>Outline by default; hover reveals the accent. Primary is a solid gold fill. Toggle buttons fill gold when active (module / template pattern). Icon buttons invert on hover.</p>
       </div>
       <div class="demo">
-        <div class="demo-label">Actions</div>
+        <div class="demo-label" data-i18n>Actions</div>
         <div class="demo-row">
           <button class="btn btn-primary">Primary</button>
           <button class="btn">Outline</button>
@@ -101,7 +101,7 @@
           <button class="btn disabled">Disabled</button>
           <span class="icon-btn-demo" title="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
         </div>
-        <div class="demo-label">Toggle group (single-select / multi-toggle)</div>
+        <div class="demo-label" data-i18n>Toggle group (single-select / multi-toggle)</div>
         <div class="demo-row" id="toggleRow">
           <button class="toggle-btn active">Full</button>
           <button class="toggle-btn">Simple</button>
@@ -115,16 +115,16 @@
     <section class="spec" id="tabs">
       <div class="spec-head">
         <div class="spec-num">04</div>
-        <h2>Tabs</h2>
-        <p>Underline tabs for switching panels within a view. The active tab carries the accent underline.</p>
+        <h2 data-i18n>Tabs</h2>
+        <p data-i18n>Underline tabs for switching panels within a view. The active tab carries the accent underline.</p>
       </div>
       <div class="demo">
         <div class="tabbar" id="tabbar">
-          <button class="tabbtn active" data-tab="0">Overview</button>
-          <button class="tabbtn" data-tab="1">History</button>
-          <button class="tabbtn" data-tab="2">Settings</button>
+          <button class="tabbtn active" data-tab="0" data-i18n>Overview</button>
+          <button class="tabbtn" data-tab="1" data-i18n>History</button>
+          <button class="tabbtn" data-tab="2" data-i18n>Settings</button>
         </div>
-        <div class="tabpane" id="tabpane">The Overview panel is active. Tabs share a hairline baseline and shift the accent underline to the selected item.</div>
+        <div class="tabpane" id="tabpane" data-i18n>The Overview panel is active. Tabs share a hairline baseline and shift the accent underline to the selected item.</div>
       </div>
     </section>
 
@@ -132,16 +132,16 @@
     <section class="spec" id="forms">
       <div class="spec-head">
         <div class="spec-num">05</div>
-        <h2>Form Controls</h2>
-        <p>Dark elevated fields with a gold focus ring. Checkboxes and switches use the accent. All inputs are mono for alignment with the data they hold.</p>
+        <h2 data-i18n>Form Controls</h2>
+        <p data-i18n>Dark elevated fields with a gold focus ring. Checkboxes and switches use the accent. All inputs are mono for alignment with the data they hold.</p>
       </div>
       <div class="demo">
         <div class="demo-row" style="align-items: flex-start;">
-          <div class="field"><label>Text input</label><input class="input" value="enp1s0" /></div>
-          <div class="field"><label>Select</label>
+          <div class="field"><label data-i18n>Text input</label><input class="input" value="enp1s0" /></div>
+          <div class="field"><label data-i18n>Select</label>
             <select class="select"><option>networkd</option><option>NetworkManager</option></select>
           </div>
-          <div class="field" style="flex:1;"><label>Textarea</label><textarea class="textarea">network:
+          <div class="field" style="flex:1;"><label data-i18n>Textarea</label><textarea class="textarea">network:
   version: 2</textarea></div>
         </div>
         <div class="demo-row" style="margin-top:18px;">
@@ -157,13 +157,13 @@
     <section class="spec" id="alerts">
       <div class="spec-head">
         <div class="spec-num">06</div>
-        <h2>Alerts &amp; Status Messages</h2>
-        <p>Translucent tinted boxes in the three semantic colors. Inline <code>code</code> and <b>bold</b> use a warm highlight.</p>
+        <h2 data-i18n>Alerts &amp; Status Messages</h2>
+        <p data-i18n-html>Translucent tinted boxes in the three semantic colors. Inline <code>code</code> and <b>bold</b> use a warm highlight.</p>
       </div>
       <div class="demo">
-        <div class="alert ok">✔ No problems found. Configuration is valid.</div>
-        <div class="alert warn">&#9888; <b>DHCP and a static address</b> on the same interface — <code>networkd</code> applies both.</div>
-        <div class="alert err">YAML Error: mapping values are not allowed here (line 8).</div>
+        <div class="alert ok" data-i18n>✔ No problems found. Configuration is valid.</div>
+        <div class="alert warn" data-i18n-html>⚠ <b>DHCP and a static address</b> on the same interface — <code>networkd</code> applies both.</div>
+        <div class="alert err" data-i18n>YAML Error: mapping values are not allowed here (line 8).</div>
       </div>
     </section>
 
@@ -171,18 +171,18 @@
     <section class="spec" id="badges">
       <div class="spec-head">
         <div class="spec-num">07</div>
-        <h2>Badges, Chips &amp; Status</h2>
-        <p>The app-tag chip (navbar — an <code>&lt;a href="./"&gt;</code> that reloads the app, while the gradient Carino wordmark beside it links to the hub at <code>carino.systems</code>), the clock timezone chip, semantic pills, and the live status dot with its pulse.</p>
+        <h2 data-i18n>Badges, Chips &amp; Status</h2>
+        <p data-i18n-html>The app-tag chip (navbar — an <code>&lt;a href="./"&gt;</code> that reloads the app, while the gradient Carino wordmark beside it links to the hub at <code>carino.systems</code>), the clock timezone chip, semantic pills, and the live status dot with its pulse.</p>
       </div>
       <div class="demo">
         <div class="demo-row">
           <a class="chip-tag" href="./">BRANDING</a>
           <span class="chip-tz">LOCAL</span>
-          <span class="pill ok">Connected</span>
-          <span class="pill warn">Pending</span>
-          <span class="pill err">Refused</span>
-          <span class="dot live">Live</span>
-          <span class="dot">Idle</span>
+          <span class="pill ok" data-i18n>Connected</span>
+          <span class="pill warn" data-i18n>Pending</span>
+          <span class="pill err" data-i18n>Refused</span>
+          <span class="dot live" data-i18n>Live</span>
+          <span class="dot" data-i18n>Idle</span>
         </div>
       </div>
     </section>
@@ -191,14 +191,14 @@
     <section class="spec" id="cards">
       <div class="spec-head">
         <div class="spec-num">08</div>
-        <h2>Cards &amp; Panels</h2>
-        <p>Cards lift and glow gold on hover. Panels use a large Red Hat Display title with a ghosted numeral.</p>
+        <h2 data-i18n>Cards &amp; Panels</h2>
+        <p data-i18n>Cards lift and glow gold on hover. Panels use a large Red Hat Display title with a ghosted numeral.</p>
       </div>
       <div class="demo">
         <div class="panel-header">
           <div>
-            <div class="panel-title">Destinations</div>
-            <div class="panel-desc">Store-and-forward targets</div>
+            <div class="panel-title" data-i18n>Destinations</div>
+            <div class="panel-desc" data-i18n>Store-and-forward targets</div>
           </div>
           <div class="panel-num">02</div>
         </div>
@@ -206,18 +206,18 @@
       <div class="card-grid">
         <div class="card">
           <div class="c-title">TV</div>
-          <div class="c-desc">Reference navbar implementation with live diagnostics and multi-stream grid.</div>
-          <div class="c-link">Open →</div>
+          <div class="c-desc" data-i18n>Reference navbar implementation with live diagnostics and multi-stream grid.</div>
+          <div class="c-link" data-i18n>Open →</div>
         </div>
         <div class="card">
           <div class="c-title">Carino PACS</div>
-          <div class="c-desc">Store-only DICOM PACS with folder auto-forward and a bundled editor.</div>
-          <div class="c-link">Open →</div>
+          <div class="c-desc" data-i18n>Store-only DICOM PACS with folder auto-forward and a bundled editor.</div>
+          <div class="c-link" data-i18n>Open →</div>
         </div>
         <div class="card">
           <div class="c-title">Netplan Config</div>
-          <div class="c-desc">Family-aware netplan generator with live validation and reference templates.</div>
-          <div class="c-link">Open →</div>
+          <div class="c-desc" data-i18n>Family-aware netplan generator with live validation and reference templates.</div>
+          <div class="c-link" data-i18n>Open →</div>
         </div>
       </div>
     </section>
@@ -226,19 +226,19 @@
     <section class="spec" id="dropdown">
       <div class="spec-head">
         <div class="spec-num">09</div>
-        <h2>Dropdown / Diagnostics</h2>
-        <p>The status toggle opens a diagnostics panel — label/value rows grouped under muted section headers. Used for the navbar status menu and app info panels.</p>
+        <h2 data-i18n>Dropdown / Diagnostics</h2>
+        <p data-i18n>The status toggle opens a diagnostics panel — label/value rows grouped under muted section headers. Used for the navbar status menu and app info panels.</p>
       </div>
       <div class="demo">
         <div class="diag-wrap">
-          <button class="diag-toggle" id="diagToggle"><span class="dot live"></span> Status</button>
+          <button class="diag-toggle" id="diagToggle"><span class="dot live"></span> <span data-i18n data-i18n-wrap>Status</span></button>
           <div class="diag-dropdown" id="diagDropdown">
-            <div class="diag-section">Session</div>
-            <div class="diag-row"><span class="diag-lbl">Uptime</span><span class="diag-val" id="diagUptime">0s</span></div>
-            <div class="diag-row"><span class="diag-lbl">Viewport</span><span class="diag-val" id="diagVp">—</span></div>
-            <div class="diag-section">Client</div>
-            <div class="diag-row"><span class="diag-lbl">Renderer</span><span class="diag-val">networkd</span></div>
-            <div class="diag-row"><span class="diag-lbl">Theme</span><span class="diag-val">Carino Dark</span></div>
+            <div class="diag-section" data-i18n>Session</div>
+            <div class="diag-row"><span class="diag-lbl" data-i18n>Uptime</span><span class="diag-val" id="diagUptime">0s</span></div>
+            <div class="diag-row"><span class="diag-lbl" data-i18n>Viewport</span><span class="diag-val" id="diagVp">—</span></div>
+            <div class="diag-section" data-i18n>Client</div>
+            <div class="diag-row"><span class="diag-lbl" data-i18n>Renderer</span><span class="diag-val">networkd</span></div>
+            <div class="diag-row"><span class="diag-lbl" data-i18n>Theme</span><span class="diag-val">Carino Dark</span></div>
           </div>
         </div>
       </div>
@@ -248,8 +248,8 @@
     <section class="spec" id="table">
       <div class="spec-head">
         <div class="spec-num">10</div>
-        <h2>Tables</h2>
-        <p>Mono, hairline-separated rows with an uppercase muted header. Rows tint gold on hover.</p>
+        <h2 data-i18n>Tables</h2>
+        <p data-i18n>Mono, hairline-separated rows with an uppercase muted header. Rows tint gold on hover.</p>
       </div>
       <div class="demo" style="padding:0; overflow:hidden;">
         <table class="data">
@@ -267,8 +267,8 @@
     <section class="spec" id="code">
       <div class="spec-head">
         <div class="spec-num">11</div>
-        <h2>Code</h2>
-        <p>Dark elevated block, mono, with a subtle accent for keys and muted comments.</p>
+        <h2 data-i18n>Code</h2>
+        <p data-i18n>Dark elevated block, mono, with a subtle accent for keys and muted comments.</p>
       </div>
       <div class="demo">
 <pre class="code"><span class="c"># netplan — dual-stack ethernet</span>
@@ -286,8 +286,8 @@
     <section class="spec" id="loading">
       <div class="spec-head">
         <div class="spec-num">12</div>
-        <h2>Loading &amp; Progress</h2>
-        <p>A gold ring spinner, a determinate progress bar, and the EKG heartbeat used for long copy/transfer operations.</p>
+        <h2 data-i18n>Loading &amp; Progress</h2>
+        <p data-i18n>A gold ring spinner, a determinate progress bar, and the EKG heartbeat used for long copy/transfer operations.</p>
       </div>
       <div class="demo">
         <div class="demo-row" style="gap:32px;">
@@ -304,24 +304,24 @@
     <section class="spec" id="slice">
       <div class="spec-head">
         <div class="spec-num">13</div>
-        <h2>Slice Menu</h2>
-        <p>The full-screen section chooser (Carino-Systems hub, CarinoLearn). Columns fill the viewport and expand with a radial gold glow on hover; selecting one collapses the rest to a thin bar. Shown here scaled down.</p>
+        <h2 data-i18n>Slice Menu</h2>
+        <p data-i18n>The full-screen section chooser (Carino-Systems hub, CarinoLearn). Columns fill the viewport and expand with a radial gold glow on hover; selecting one collapses the rest to a thin bar. Shown here scaled down.</p>
       </div>
       <div class="demo">
         <div class="slice-demo">
-          <div class="slice"><div class="s-num">01</div><div class="s-text">Projects</div></div>
-          <div class="slice"><div class="s-num">02</div><div class="s-text">Systems</div></div>
-          <div class="slice"><div class="s-num">03</div><div class="s-text">About</div></div>
-          <div class="slice"><div class="s-num">04</div><div class="s-text">Contact</div></div>
+          <div class="slice"><div class="s-num">01</div><div class="s-text" data-i18n>Projects</div></div>
+          <div class="slice"><div class="s-num">02</div><div class="s-text" data-i18n>Systems</div></div>
+          <div class="slice"><div class="s-num">03</div><div class="s-text" data-i18n>About</div></div>
+          <div class="slice"><div class="s-num">04</div><div class="s-text" data-i18n>Contact</div></div>
         </div>
-        <div class="demo-label" style="margin-top:18px;">Collapsed tab-bar state (after a slice is chosen)</div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Collapsed tab-bar state (after a slice is chosen)</div>
         <div class="slice-demo collapsed" id="sliceCollapsed">
-          <div class="slice active"><div class="s-num">01</div><div class="s-text">Projects</div></div>
-          <div class="slice"><div class="s-num">02</div><div class="s-text">Systems</div></div>
-          <div class="slice"><div class="s-num">03</div><div class="s-text">About</div></div>
-          <div class="slice"><div class="s-num">04</div><div class="s-text">Contact</div></div>
+          <div class="slice active"><div class="s-num">01</div><div class="s-text" data-i18n>Projects</div></div>
+          <div class="slice"><div class="s-num">02</div><div class="s-text" data-i18n>Systems</div></div>
+          <div class="slice"><div class="s-num">03</div><div class="s-text" data-i18n>About</div></div>
+          <div class="slice"><div class="s-num">04</div><div class="s-text" data-i18n>Contact</div></div>
         </div>
-        <div class="note">Reference: Carino-Systems/index.html (the hub), Asobi and Learn (in-app the collapsed bar is <code>body.state-playing .slice-menu</code>, sticky under the navbar; here it is the <code>.collapsed</code> modifier). Click a tab above to move the active accent.</div>
+        <div class="note" data-i18n-html>Reference: Carino-Systems/index.html (the hub), Asobi and Learn (in-app the collapsed bar is <code>body.state-playing .slice-menu</code>, sticky under the navbar; here it is the <code>.collapsed</code> modifier). Click a tab above to move the active accent.</div>
       </div>
     </section>
 
@@ -329,17 +329,17 @@
     <section class="spec" id="toast">
       <div class="spec-head">
         <div class="spec-num">14</div>
-        <h2>Toast Notifications</h2>
-        <p>Transient, top-right status messages in the four semantic tints. Fixed and hidden by default; add <code>.show</code> to reveal, then remove it after a timeout.</p>
+        <h2 data-i18n>Toast Notifications</h2>
+        <p data-i18n-html>Transient, top-right status messages in the four semantic tints. Fixed and hidden by default; add <code>.show</code> to reveal, then remove it after a timeout.</p>
       </div>
       <div class="demo">
         <div class="toast-rack">
-          <div class="toast ok">&#10004; Snippet copied to clipboard</div>
-          <div class="toast info">&#8505; Rates refreshed from server</div>
-          <div class="toast warn">&#9888; You have unsaved changes</div>
-          <div class="toast err">&#10006; Could not reach the server</div>
+          <div class="toast ok" data-i18n>✔ Snippet copied to clipboard</div>
+          <div class="toast info" data-i18n>ℹ Rates refreshed from server</div>
+          <div class="toast warn" data-i18n>⚠ You have unsaved changes</div>
+          <div class="toast err" data-i18n>✖ Could not reach the server</div>
         </div>
-        <div class="note">Shown static here via the <code>.toast-rack</code> preview wrapper; in use, a single <code>.toast</code> is fixed to the top-right and toggled with <code>.show</code>. Reference: Desk, Metadata.</div>
+        <div class="note" data-i18n-html>Shown static here via the <code>.toast-rack</code> preview wrapper; in use, a single <code>.toast</code> is fixed to the top-right and toggled with <code>.show</code>. Reference: Desk, Metadata.</div>
       </div>
     </section>
 
@@ -347,18 +347,18 @@
     <section class="spec" id="portal">
       <div class="spec-head">
         <div class="spec-num">15</div>
-        <h2>Navbar Action Portal</h2>
-        <p>Apps don't build their own top bar — they mark their controls with <code>data-carino-actions</code> and <code>carino-navbar.js</code> relocates the <b>real DOM node</b> into the navbar's right cluster. Ids and handlers survive the move; the emptied <code>data-carino-strip</code> wrapper is removed. Relocated controls use the compact 32px <code>.cs-btn</code> recipe.</p>
+        <h2 data-i18n>Navbar Action Portal</h2>
+        <p data-i18n-html>Apps don't build their own top bar — they mark their controls with <code>data-carino-actions</code> and <code>carino-navbar.js</code> relocates the <b>real DOM node</b> into the navbar's right cluster. Ids and handlers survive the move; the emptied <code>data-carino-strip</code> wrapper is removed. Relocated controls use the compact 32px <code>.cs-btn</code> recipe.</p>
       </div>
       <div class="demo">
-        <div class="demo-label">Control recipe (.cs-btn — shown in a preview strip)</div>
+        <div class="demo-label" data-i18n>Control recipe (.cs-btn — shown in a preview strip)</div>
         <div class="portal-demo">
-          <button class="cs-btn">Undo</button>
-          <button class="cs-btn">Redo</button>
-          <button class="cs-btn disabled">Export</button>
-          <a class="cs-btn" href="#portal">Help</a>
+          <button class="cs-btn" data-i18n>Undo</button>
+          <button class="cs-btn" data-i18n>Redo</button>
+          <button class="cs-btn disabled" data-i18n>Export</button>
+          <a class="cs-btn" href="#portal" data-i18n>Help</a>
         </div>
-        <div class="demo-label" style="margin-top:18px;">Contract markup (in the app's own HTML)</div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Contract markup (in the app's own HTML)</div>
 <pre class="code"><span class="c">&lt;!-- the navbar script moves the inner div into .cn-right at mount --&gt;</span>
 &lt;header <span class="k">data-carino-strip</span>&gt;
   &lt;div <span class="k">data-carino-actions</span>&gt;
@@ -367,7 +367,7 @@
   &lt;/div&gt;
 &lt;/header&gt;
 &lt;script src="carino-navbar.js" <span class="k">data-app</span>="MyApp" defer&gt;&lt;/script&gt;</pre>
-        <div class="note">Fallback: with no <code>data-carino-actions</code> marker the script auto-absorbs a leftover <code>body &gt; header.cs-header</code>. Reference: carino-navbar.js (relocateActions), consumer markup in Time/index.html and Hardware/index.html; SoftwareCatalog shows the explicit-marker pattern.</div>
+        <div class="note" data-i18n-html>Fallback: with no <code>data-carino-actions</code> marker the script auto-absorbs a leftover <code>body &gt; header.cs-header</code>. Reference: carino-navbar.js (relocateActions), consumer markup in Time/index.html and Hardware/index.html; SoftwareCatalog shows the explicit-marker pattern.</div>
       </div>
     </section>
 
@@ -375,21 +375,21 @@
     <section class="spec" id="dropzone">
       <div class="spec-head">
         <div class="spec-num">16</div>
-        <h2>Dropzone</h2>
-        <p>The drag-and-drop file input: dashed hairline at rest, gold glow while a file hovers, solid green once one lands. Drag anything over the first zone to see the live state.</p>
+        <h2 data-i18n>Dropzone</h2>
+        <p data-i18n>The drag-and-drop file input: dashed hairline at rest, gold glow while a file hovers, solid green once one lands. Drag anything over the first zone to see the live state.</p>
       </div>
       <div class="demo">
         <div class="dropzone" id="dzLive">
           <div class="dz-icon">📄</div>
-          Drop a file here or <strong>browse</strong>
-          <div class="dz-hint">Any type · processed locally</div>
+          <span data-i18n-html data-i18n-wrap>Drop a file here or <strong>browse</strong></span>
+          <div class="dz-hint" data-i18n>Any type · processed locally</div>
         </div>
-        <div class="demo-label" style="margin-top:18px;">States</div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>States</div>
         <div class="demo-row" style="align-items:stretch;">
           <div class="dropzone dragover" style="flex:1; min-width:180px;">.dragover</div>
           <div class="dropzone success" style="flex:1; min-width:180px;">.success</div>
         </div>
-        <div class="note">Reference: Metadata, Quote, Media, DICOM-editor.</div>
+        <div class="note" data-i18n>Reference: Metadata, Quote, Media, DICOM-editor.</div>
       </div>
     </section>
 
@@ -397,25 +397,25 @@
     <section class="spec" id="modal">
       <div class="spec-head">
         <div class="spec-num">17</div>
-        <h2>Modal &amp; Scrim</h2>
-        <p>A centered card over a blurred dark scrim. The scrim closes on click, the card doesn't; toggle the whole thing with the <code>hidden</code> attribute on <code>.modal-scrim</code>.</p>
+        <h2 data-i18n>Modal &amp; Scrim</h2>
+        <p data-i18n-html>A centered card over a blurred dark scrim. The scrim closes on click, the card doesn't; toggle the whole thing with the <code>hidden</code> attribute on <code>.modal-scrim</code>.</p>
       </div>
       <div class="demo">
         <div class="demo-row">
-          <button class="btn btn-primary" id="modalOpenBtn">Open live modal</button>
+          <button class="btn btn-primary" id="modalOpenBtn" data-i18n>Open live modal</button>
         </div>
-        <div class="demo-label" style="margin-top:18px;">Anatomy (inline preview via .modal-rack)</div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Anatomy (inline preview via .modal-rack)</div>
         <div class="modal-rack">
           <div class="modal">
             <div class="modal-head">
-              <div><div class="modal-title">Confirm export</div><div class="modal-sub">3 files · 1.2 MB</div></div>
+              <div><div class="modal-title" data-i18n>Confirm export</div><div class="modal-sub">3 files · 1.2 MB</div></div>
               <button class="modal-x" aria-label="Close">✕</button>
             </div>
-            <div class="modal-body">The archive bundles every generated file plus a README with the source URL. Nothing leaves the browser.</div>
-            <div class="modal-foot"><button class="btn btn-ghost">Cancel</button><button class="btn btn-primary">Export</button></div>
+            <div class="modal-body" data-i18n>The archive bundles every generated file plus a README with the source URL. Nothing leaves the browser.</div>
+            <div class="modal-foot"><button class="btn btn-ghost" data-i18n>Cancel</button><button class="btn btn-primary" data-i18n>Export</button></div>
           </div>
         </div>
-        <div class="note">Reference: MultiWeb (folder picker), Hash (algorithm info), Learn, Compass, Carino Retina (chart picker).</div>
+        <div class="note" data-i18n>Reference: MultiWeb (folder picker), Hash (algorithm info), Learn, Compass, Carino Retina (chart picker).</div>
       </div>
     </section>
 
@@ -423,16 +423,16 @@
     <section class="spec" id="terminal">
       <div class="spec-head">
         <div class="spec-num">18</div>
-        <h2>Command Block</h2>
-        <p>A pitch-black terminal card for copyable shell commands — green output, gold prompt, and a floating copy button that reuses the page-wide copy mechanics.</p>
+        <h2 data-i18n>Command Block</h2>
+        <p data-i18n>A pitch-black terminal card for copyable shell commands — green output, gold prompt, and a floating copy button that reuses the page-wide copy mechanics.</p>
       </div>
       <div class="demo">
         <div class="terminal-wrapper">
           <div class="terminal"><code><span class="prompt">$</span> curl -fsSL https://setup.carino.systems/run.sh | bash
 <span class="prompt">$</span> netplan try --timeout 30</code></div>
-          <button type="button" class="copy-btn term-copy" id="termCopyBtn" aria-label="Copy commands"><span>Copy</span></button>
+          <button type="button" class="copy-btn term-copy" id="termCopyBtn" aria-label="Copy commands"><span data-i18n>Copy</span></button>
         </div>
-        <div class="note">Reference: SimpleSetup (installer one-liner), Desk (snippet cards), Password. Distinct from <a href="#code">Code</a>: this is for commands the visitor runs, not source being read.</div>
+        <div class="note" data-i18n-html>Reference: SimpleSetup (installer one-liner), Desk (snippet cards), Password. Distinct from <a href="#code">Code</a>: this is for commands the visitor runs, not source being read.</div>
       </div>
     </section>
 
@@ -440,23 +440,23 @@
     <section class="spec" id="workspace">
       <div class="spec-head">
         <div class="spec-num">19</div>
-        <h2>Workspace Shell</h2>
-        <p>The standard chrome for every "tool with a settings rail" app: a fixed sidebar that scrolls on its own beside a fluid content pane (<code>min-width: 0</code> so it never forces overflow). Below 700px the rail stacks on top.</p>
+        <h2 data-i18n>Workspace Shell</h2>
+        <p data-i18n-html>The standard chrome for every "tool with a settings rail" app: a fixed sidebar that scrolls on its own beside a fluid content pane (<code>min-width: 0</code> so it never forces overflow). Below 700px the rail stacks on top.</p>
       </div>
       <div class="demo">
         <div class="ws-demo">
           <div class="ws-side">
-            <div class="t-label">Settings</div>
-            <div class="field"><label>Format</label><select class="select"><option>PNG</option><option>WEBP</option></select></div>
-            <div class="field"><label>Quality</label><input class="input" value="92" /></div>
-            <label class="check"><input type="checkbox" checked> Keep metadata</label>
+            <div class="t-label" data-i18n>Settings</div>
+            <div class="field"><label data-i18n>Format</label><select class="select"><option>PNG</option><option>WEBP</option></select></div>
+            <div class="field"><label data-i18n>Quality</label><input class="input" value="92" /></div>
+            <label class="check"><input type="checkbox" checked> <span data-i18n data-i18n-wrap>Keep metadata</span></label>
           </div>
           <div class="ws-main">
-            <div class="t-label" style="margin-bottom:8px;">Output</div>
-            The content pane owns its own scroll and takes every remaining pixel. Results, previews, and tables render here while the rail keeps the controls in reach.
+            <div class="t-label" style="margin-bottom:8px;" data-i18n>Output</div>
+            <span data-i18n data-i18n-wrap>The content pane owns its own scroll and takes every remaining pixel. Results, previews, and tables render here while the rail keeps the controls in reach.</span>
           </div>
         </div>
-        <div class="note">In apps the rail is ~340px wide. Reference: Metadata, Quote, Media, Vitae.</div>
+        <div class="note" data-i18n>In apps the rail is ~340px wide. Reference: Metadata, Quote, Media, Vitae.</div>
       </div>
     </section>
 
@@ -464,18 +464,18 @@
     <section class="spec" id="kbd">
       <div class="spec-head">
         <div class="spec-num">20</div>
-        <h2>Key Caps &amp; Shortcut Legend</h2>
-        <p>Small mono key caps for keyboard hints, with an accent variant for the active or featured binding. Compose them into a legend strip near the canvas they act on.</p>
+        <h2 data-i18n>Key Caps &amp; Shortcut Legend</h2>
+        <p data-i18n>Small mono key caps for keyboard hints, with an accent variant for the active or featured binding. Compose them into a legend strip near the canvas they act on.</p>
       </div>
       <div class="demo">
         <div class="kbd-legend">
-          <span><span class="kbd accent">Space</span> <span class="lbl">Play</span></span>
-          <span><span class="kbd">Z</span> <span class="lbl">Undo</span></span>
-          <span><span class="kbd">⇧</span><span class="kbd">Z</span> <span class="lbl">Redo</span></span>
-          <span><span class="kbd">Del</span> <span class="lbl">Remove node</span></span>
-          <span><span class="kbd">Esc</span> <span class="lbl">Deselect</span></span>
+          <span><span class="kbd accent">Space</span> <span class="lbl" data-i18n>Play</span></span>
+          <span><span class="kbd">Z</span> <span class="lbl" data-i18n>Undo</span></span>
+          <span><span class="kbd">⇧</span><span class="kbd">Z</span> <span class="lbl" data-i18n>Redo</span></span>
+          <span><span class="kbd">Del</span> <span class="lbl" data-i18n>Remove node</span></span>
+          <span><span class="kbd">Esc</span> <span class="lbl" data-i18n>Deselect</span></span>
         </div>
-        <div class="note">Reference: Topo (shortcut help), SyncSubsStudio (timing keys), Hash (stepper hints).</div>
+        <div class="note" data-i18n>Reference: Topo (shortcut help), SyncSubsStudio (timing keys), Hash (stepper hints).</div>
       </div>
     </section>
 
@@ -483,8 +483,8 @@
     <section class="spec" id="map">
       <div class="spec-head">
         <div class="spec-num">21</div>
-        <h2>Day/Night World Map</h2>
-        <p>The fleet's world-map canvas: slate ocean, olive land, and a translucent night veil whose edge is the real solar terminator. Gold is reserved for interactive geography — a glowing dot with an outlined mono label for a pinned city, small pale dots for everything else — and a floating mono legend sits bottom-right. The base palette is deliberately muted so the gold reads on both the day and night halves.</p>
+        <h2 data-i18n>Day/Night World Map</h2>
+        <p data-i18n>The fleet's world-map canvas: slate ocean, olive land, and a translucent night veil whose edge is the real solar terminator. Gold is reserved for interactive geography — a glowing dot with an outlined mono label for a pinned city, small pale dots for everything else — and a floating mono legend sits bottom-right. The base palette is deliberately muted so the gold reads on both the day and night halves.</p>
       </div>
       <div class="demo">
         <div class="tzmap-wrap">
@@ -504,9 +504,9 @@
               <text class="tz-lbl" x="499" y="142">Madrid</text>
             </g>
           </svg>
-          <div class="tzmap-legend">☀ day · 🌙 night · • city · ★ pinned</div>
+          <div class="tzmap-legend" data-i18n>☀ day · 🌙 night · • city · ★ pinned</div>
         </div>
-        <div class="note">The coastline here is the fleet’s real 1:110m world outline, and the night veil and sun position are computed live with the same NOAA-style solar math (declination + equation of time) as the production map. Reference: Time (time.carino.systems), which adds click-to-pin cities, de-overlapped labels with leader lines, and an optional dashed-gold hour-zone layer.</div>
+        <div class="note" data-i18n>The coastline here is the fleet’s real 1:110m world outline, and the night veil and sun position are computed live with the same NOAA-style solar math (declination + equation of time) as the production map. Reference: Time (time.carino.systems), which adds click-to-pin cities, de-overlapped labels with leader lines, and an optional dashed-gold hour-zone layer.</div>
       </div>
     </section>
 
@@ -514,18 +514,18 @@
     <section class="spec" id="dataviz">
       <div class="spec-head">
         <div class="spec-num">22</div>
-        <h2>Data Viz</h2>
-        <p>Primitives for dashboards and monitoring apps: gains use <code>--ok</code> green, losses <code>--err</code> red, and gold stays the interactive/brand accent. All numerics use <code>tabular-nums</code> via <code>.num</code>. First adopted by Stocks (stocks.carino.systems). Sparkline and detail charts are drawn dependency-free (inline SVG / <code>&lt;canvas&gt;</code> reading tokens via <code>getComputedStyle</code>) — no chart library.</p>
+        <h2 data-i18n>Data Viz</h2>
+        <p data-i18n-html>Primitives for dashboards and monitoring apps: gains use <code>--ok</code> green, losses <code>--err</code> red, and gold stays the interactive/brand accent. All numerics use <code>tabular-nums</code> via <code>.num</code>. First adopted by Stocks (stocks.carino.systems). Sparkline and detail charts are drawn dependency-free (inline SVG / <code>&lt;canvas&gt;</code> reading tokens via <code>getComputedStyle</code>) — no chart library.</p>
       </div>
       <div class="demo">
         <div class="demo-row" style="flex-wrap:wrap;gap:14px;align-items:flex-start;">
           <div class="stat-tile">
-            <div class="st-label">Total value</div>
+            <div class="st-label" data-i18n>Total value</div>
             <div class="st-value num">$48,215.60</div>
             <span class="delta up">▲ 312.40 (0.65%)</span>
           </div>
           <div class="stat-tile">
-            <div class="st-label">Day P/L</div>
+            <div class="st-label" data-i18n>Day P/L</div>
             <div class="st-value num">−$95.10</div>
             <span class="delta down">▼ 0.42%</span>
           </div>
@@ -552,10 +552,10 @@
         </div>
         <div class="rule-row" style="max-width:340px;margin-top:12px;">
           <button class="switch on" type="button" aria-label="Armed"></button>
-          <span class="rule-cond">AAPL price ≥ 230</span>
+          <span class="rule-cond" data-i18n>AAPL price ≥ 230</span>
           <button class="icon-mini" type="button">✕</button>
         </div>
-        <div class="note">Components: <code>.stat-tile</code> (KPI), <code>.delta.up/.down/.flat</code> (signed change chip), <code>.spark</code> (SVG micro-chart, direction classes tint it), <code>.rangebar</code> (low→high with marker), <code>.rule-row</code> (<code>.switch</code> + condition + remove), <code>.live-chip</code> (data-freshness), plus the <code>.num</code> tabular-nums utility and the <code>body.privacy-on .amount { filter: blur() }</code> screenshot-safe utility.</div>
+        <div class="note" data-i18n-html>Components: <code>.stat-tile</code> (KPI), <code>.delta.up/.down/.flat</code> (signed change chip), <code>.spark</code> (SVG micro-chart, direction classes tint it), <code>.rangebar</code> (low→high with marker), <code>.rule-row</code> (<code>.switch</code> + condition + remove), <code>.live-chip</code> (data-freshness), plus the <code>.num</code> tabular-nums utility and the <code>body.privacy-on .amount { filter: blur() }</code> screenshot-safe utility.</div>
       </div>
     </section>
 
@@ -563,8 +563,8 @@
     <section class="spec" id="currency">
       <div class="spec-head">
         <div class="spec-num">23</div>
-        <h2>Finance / Currency</h2>
-        <p>Composite finance components introduced by Currency (currency.carino.systems). Each composes the Data-Viz primitives above — the <code>.spark</code> micro-chart and <code>.delta</code> chip — into two higher-level cards: the <strong>FX trend card</strong> (flag · pair · human rate · strength sparkline · window delta, where the series is the target's strength vs base so line colour and delta agree) and the <strong>news item</strong> (a headline link whose left border is tinted by article tone). A <strong>mover tile</strong> summarises the biggest gainer/loser over the window.</p>
+        <h2 data-i18n>Finance / Currency</h2>
+        <p data-i18n-html>Composite finance components introduced by Currency (currency.carino.systems). Each composes the Data-Viz primitives above — the <code>.spark</code> micro-chart and <code>.delta</code> chip — into two higher-level cards: the <strong>FX trend card</strong> (flag · pair · human rate · strength sparkline · window delta, where the series is the target's strength vs base so line colour and delta agree) and the <strong>news item</strong> (a headline link whose left border is tinted by article tone). A <strong>mover tile</strong> summarises the biggest gainer/loser over the window.</p>
       </div>
       <div class="demo">
         <div class="demo-row" style="flex-wrap:wrap;gap:14px;align-items:flex-start;">
@@ -572,7 +572,7 @@
             <div class="fx-top">
               <span class="fx-flag">🇧🇷</span>
               <span class="fx-pair">USD/BRL</span>
-              <span class="fx-name">Brazilian Real</span>
+              <span class="fx-name" data-i18n>Brazilian Real</span>
             </div>
             <div class="fx-rate">1 USD = 5.4500 BRL</div>
             <div class="fx-spark">
@@ -591,7 +591,7 @@
             <div class="fx-top">
               <span class="fx-flag">🇪🇺</span>
               <span class="fx-pair">USD/EUR</span>
-              <span class="fx-name">Euro</span>
+              <span class="fx-name" data-i18n>Euro</span>
             </div>
             <div class="fx-rate">1 USD = 0.9330 EUR</div>
             <div class="fx-spark">
@@ -608,30 +608,30 @@
           </div>
           <div class="movers" style="flex-direction:column;min-width:150px;">
             <div class="mover">
-              <div class="mv-l">Top gainer 90D</div>
+              <div class="mv-l" data-i18n>Top gainer 90D</div>
               <div class="mv-v"><span class="mv-code">🇪🇺 EUR</span><span class="mv-pct up">+1.41%</span></div>
             </div>
             <div class="mover">
-              <div class="mv-l">Top loser 90D</div>
+              <div class="mv-l" data-i18n>Top loser 90D</div>
               <div class="mv-v"><span class="mv-code">🇧🇷 BRL</span><span class="mv-pct down">−7.52%</span></div>
             </div>
           </div>
         </div>
         <div class="news-feed" style="margin-top:14px;">
           <a class="news-item pos" href="#" onclick="return false;">
-            <div class="news-title">ECB holds rates steady as euro-area inflation cools toward target</div>
+            <div class="news-title" data-i18n>ECB holds rates steady as euro-area inflation cools toward target</div>
             <div class="news-src"><span>reuters.com</span><span class="news-tone">+2.4</span></div>
           </a>
           <a class="news-item neg" href="#" onclick="return false;">
-            <div class="news-title">Brazilian real slides to multi-month low on fiscal worries</div>
+            <div class="news-title" data-i18n>Brazilian real slides to multi-month low on fiscal worries</div>
             <div class="news-src"><span>ft.com</span><span class="news-tone">−3.1</span></div>
           </a>
           <a class="news-item" href="#" onclick="return false;">
-            <div class="news-title">Copper exports climb as demand outlook steadies</div>
+            <div class="news-title" data-i18n>Copper exports climb as demand outlook steadies</div>
             <div class="news-src"><span>bloomberg.com</span><span>28 Jun</span></div>
           </a>
         </div>
-        <div class="note">Components: <code>.fx-card</code> (<code>.fx-top</code> → <code>.fx-flag</code>/<code>.fx-pair</code>/<code>.fx-name</code>, <code>.fx-rate</code>, <code>.fx-spark</code> wrapping a <code>.spark</code>, <code>.fx-foot</code> with a <code>.delta</code>), <code>.mover</code> tile (<code>.mv-l</code>/<code>.mv-v</code>/<code>.mv-code</code>/<code>.mv-pct</code>), and <code>.news-item</code> (<code>.news-title</code> + <code>.news-src</code>; <code>.pos</code>/<code>.neg</code> tint the left border by tone, with an optional <code>.news-tone</code> chip). Trade values use <code>.stat-tile</code> + the two-line <code>&lt;canvas&gt;</code> chart. All keyless: ECB/Frankfurter, GDELT, World Bank.</div>
+        <div class="note" data-i18n-html>Components: <code>.fx-card</code> (<code>.fx-top</code> → <code>.fx-flag</code>/<code>.fx-pair</code>/<code>.fx-name</code>, <code>.fx-rate</code>, <code>.fx-spark</code> wrapping a <code>.spark</code>, <code>.fx-foot</code> with a <code>.delta</code>), <code>.mover</code> tile (<code>.mv-l</code>/<code>.mv-v</code>/<code>.mv-code</code>/<code>.mv-pct</code>), and <code>.news-item</code> (<code>.news-title</code> + <code>.news-src</code>; <code>.pos</code>/<code>.neg</code> tint the left border by tone, with an optional <code>.news-tone</code> chip). Trade values use <code>.stat-tile</code> + the two-line <code>&lt;canvas&gt;</code> chart. All keyless: ECB/Frankfurter, GDELT, World Bank.</div>
       </div>
     </section>
 
@@ -641,11 +641,11 @@
   <div class="modal-scrim" id="liveScrim" hidden>
     <div class="modal">
       <div class="modal-head">
-        <div><div class="modal-title">Live modal</div><div class="modal-sub">click the scrim or ✕ to close</div></div>
+        <div><div class="modal-title" data-i18n>Live modal</div><div class="modal-sub" data-i18n>click the scrim or ✕ to close</div></div>
         <button class="modal-x" id="liveModalX" aria-label="Close">✕</button>
       </div>
-      <div class="modal-body">This is the real fixed-position component over the blurred scrim — the same markup as the inline preview, minus the <code>.modal-rack</code> wrapper.</div>
-      <div class="modal-foot"><button class="btn btn-primary" id="liveModalOk">Done</button></div>
+      <div class="modal-body" data-i18n-html>This is the real fixed-position component over the blurred scrim — the same markup as the inline preview, minus the <code>.modal-rack</code> wrapper.</div>
+      <div class="modal-foot"><button class="btn btn-primary" id="liveModalOk" data-i18n>Done</button></div>
     </div>
   </div>
 
@@ -653,12 +653,17 @@
   <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
   <script src="carino-navbar.js" data-app="Branding" defer></script>
   <script src="carino-lang.js" defer></script>
+  <script src="i18n.js" defer></script>
 
   <!-- Vendored (no CDN): render the page into a downloadable PDF. -->
   <script src="vendor/html2canvas.min.js" defer></script>
   <script src="vendor/jspdf.umd.min.js" defer></script>
 
   <script>
+    // i18n bridge — i18n.js is deferred, so window.t only exists once this
+    // inline script has already run; resolve it lazily at call time.
+    const TT = (s) => (window.t ? window.t(s) : s);
+
     // ---- color swatches (also the token list) ----
     const TOKENS = [
       ["--accent", "#eab308"], ["--bg", "#050505"], ["--bg-elev", "#0d0d0d"],
@@ -671,11 +676,12 @@
     TOKENS.forEach(([name, val]) => {
       const el = document.createElement("div");
       el.className = "swatch";
-      el.title = "Click to copy " + val;
+      el.dataset.val = val;
+      el.title = TT("Click to copy") + " " + val;
       el.innerHTML = '<div class="chip" style="background:' + val + '"></div>' +
         '<div class="meta"><div class="name">' + name + '</div><div class="val">' + val + '</div></div>';
       el.onclick = () => {
-        const flash = () => { el.querySelector(".val").textContent = "copied!"; setTimeout(() => el.querySelector(".val").textContent = val, 900); };
+        const flash = () => { el.querySelector(".val").textContent = TT("copied!"); setTimeout(() => el.querySelector(".val").textContent = val, 900); };
         // Same clipboard-with-fallback path as copyText — navigator.clipboard is
         // absent outside secure contexts, so flash only after a copy really lands.
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(val).then(flash, () => fallbackCopy(val, flash));
@@ -701,7 +707,7 @@
       if (!e.target.classList.contains("tabbtn")) return;
       [...e.currentTarget.children].forEach(b => b.classList.remove("active"));
       e.target.classList.add("active");
-      document.getElementById("tabpane").textContent = PANES[+e.target.dataset.tab];
+      document.getElementById("tabpane").textContent = TT(PANES[+e.target.dataset.tab]);
     });
 
     // ---- diagnostics dropdown ----
@@ -801,9 +807,37 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       try { document.execCommand("copy"); } catch (e) {}
       ta.remove(); cb && cb();
     }
+    // A copied snippet must be the canonical English component markup, whatever
+    // language the page is currently showing. So, in order: put the English
+    // source back (applyStaticI18n parked it in data-i18n-key / data-i18n-title
+    // on the first pass), unwrap the holder elements that exist only to give a
+    // loose text node something to translate, and only then strip the
+    // plumbing attributes.
+    // data-i18n-wrap marks those holders explicitly — it cannot be inferred,
+    // because a <span data-i18n> may equally be part of the real component
+    // (e.g. the terminal Copy button's label span).
+    const I18N_ATTRS = ["data-i18n", "data-i18n-html", "data-i18n-title", "data-i18n-key", "data-i18n-wrap"];
+    function cleanMarkup(el) {
+      const c = el.cloneNode(true);
+      // Outermost first (querySelectorAll is document order), so a
+      // data-i18n-html parent that rewrites its whole subtree wins over
+      // anything nested inside it — those nodes are detached by the rewrite.
+      [c, ...c.querySelectorAll("*")].forEach(n => {
+        if (!c.contains(n)) return;
+        const src = n.dataset.i18nKey;
+        if (src != null) {
+          if (n.hasAttribute("data-i18n-html")) n.innerHTML = src;
+          else if (n.hasAttribute("data-i18n")) n.textContent = src;
+        }
+        if (n.dataset.i18nTitle != null) n.title = n.dataset.i18nTitle;
+      });
+      [...c.querySelectorAll("[data-i18n-wrap]")].forEach(n => n.replaceWith(...n.childNodes));
+      [c, ...c.querySelectorAll("*")].forEach(n => I18N_ATTRS.forEach(a => n.removeAttribute(a)));
+      return c.outerHTML;
+    }
     function copyText(text, btn) {
       const label = btn.querySelector("span"), original = label.textContent;
-      const done = () => { btn.classList.add("done"); label.textContent = "Copied"; setTimeout(() => { btn.classList.remove("done"); label.textContent = original; }, 1200); };
+      const done = () => { btn.classList.add("done"); label.textContent = TT("Copied"); setTimeout(() => { btn.classList.remove("done"); label.textContent = original; }, 1200); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
       else fallbackCopy(text, done);
     }
@@ -854,8 +888,8 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
 
       const btn = document.createElement("button");
       btn.type = "button"; btn.className = "copy-btn";
-      btn.setAttribute("aria-label", "Copy the " + title + " snippet");
-      btn.innerHTML = COPY_ICON + "<span>Copy</span>";
+      btn.setAttribute("aria-label", TT("Copy the {name} snippet").replace("{name}", title));
+      btn.innerHTML = COPY_ICON + '<span data-i18n>Copy</span>';
       btn.addEventListener("click", () => {
         let snippet;
         if (sec.id === "tokens") {
@@ -866,7 +900,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
           const els = [...sec.querySelectorAll(".demo, .card-grid")];
           snippet = "<!-- Carino Branding · " + title + " · " + SITE + " -->\n" +
             '<link rel="stylesheet" href="' + CSS_HREF + '">\n' +
-            els.map(el => el.outerHTML).join("\n");
+            els.map(cleanMarkup).join("\n");
         }
         copyText(snippet, btn);
       });
@@ -926,12 +960,12 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
        reference content width, tall ones sliced across as many pages as needed) ---- */
     (() => {
       const btn = document.getElementById("pdfBtn");
-      const label = btn.innerHTML;
       let busy = false;
       btn.addEventListener("click", async () => {
         if (busy) return;
+        const label = btn.innerHTML;   // read live: the label is localized
         if (!window.html2canvas || !window.jspdf) {
-          btn.textContent = "PDF engine still loading…";
+          btn.textContent = TT("PDF engine still loading…");
           setTimeout(() => (btn.innerHTML = label), 1500);
           return;
         }
@@ -959,7 +993,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
           await document.fonts.ready;
           document.body.classList.add("pdf-mode");
           for (let i = 0; i < parts.length; i++) {
-            btn.textContent = "Rendering " + (i + 1) + " / " + parts.length + "…";
+            btn.textContent = TT("Rendering {i} / {n}…").replace("{i}", i + 1).replace("{n}", parts.length);
             const el = parts[i];
             const isSpec = el.classList.contains("spec");
             // capture every section off-screen at the 1032px content width
@@ -988,6 +1022,24 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
         }
       });
     })();
+
+    /* ---- Called by i18n.js after each language switch: re-localize the
+       chrome this script generates (static markup is handled by data-i18n). ---- */
+    window.brandingRelocalize = function () {
+      document.querySelectorAll(".swatch").forEach(sw => {
+        const val = sw.dataset.val || "";
+        sw.title = TT("Click to copy") + " " + val;
+        const v = sw.querySelector(".val");
+        if (v && v.textContent !== val && v.textContent !== TT("copied!")) v.textContent = val;
+      });
+      document.querySelectorAll(".spec-head .copy-btn").forEach(btn => {
+        const h2 = btn.closest(".spec").querySelector("h2");
+        const name = h2 ? h2.textContent.replace(/\s+/g, " ").trim() : "";
+        btn.setAttribute("aria-label", TT("Copy the {name} snippet").replace("{name}", name));
+      });
+      const active = document.querySelector("#tabbar .tabbtn.active");
+      if (active) document.getElementById("tabpane").textContent = TT(PANES[+active.dataset.tab]);
+    };
   </script>
 </body>
 </html>
