@@ -16,6 +16,10 @@
 
 const I18N = {
     es: {
+        'Late shift.': 'Turno nocturno.',
+        'Good morning.': 'Buenos días.',
+        'Good afternoon.': 'Buenas tardes.',
+        'Good evening.': 'Buenas noches.',
         'Carino Systems · Brand Reference': 'Carino Systems · Referencia de marca',
         'The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.': 'La fuente de verdad del lenguaje visual de Carino: tokens, tipografía y todos los componentes, cada uno con un botón <b>Copiar</b> que los pega ya estilizados en cualquier proyecto.',
         'Download the full reference as a PDF': 'Descarga la referencia completa en PDF',
@@ -192,6 +196,10 @@ const I18N = {
         'Settings groups form controls under section labels.': 'Ajustes agrupa los controles de formulario bajo etiquetas de sección.',
     },
     'pt-BR': {
+        'Late shift.': 'Turno da noite.',
+        'Good morning.': 'Bom dia.',
+        'Good afternoon.': 'Boa tarde.',
+        'Good evening.': 'Boa noite.',
         'Carino Systems · Brand Reference': 'Carino Systems · Referência de marca',
         'The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.': 'A fonte da verdade da linguagem visual da Carino: tokens, tipografia e todos os componentes, cada um com um botão <b>Copiar</b> que os cola já estilizados em qualquer projeto.',
         'Download the full reference as a PDF': 'Baixe a referência completa em PDF',
@@ -368,6 +376,10 @@ const I18N = {
         'Settings groups form controls under section labels.': 'Configurações agrupa os controles de formulário sob rótulos de seção.',
     },
     ja: {
+        'Late shift.': '夜勤お疲れさま。',
+        'Good morning.': 'おはようございます。',
+        'Good afternoon.': 'こんにちは。',
+        'Good evening.': 'こんばんは。',
         'Carino Systems · Brand Reference': 'Carino Systems · ブランドリファレンス',
         'The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.': 'Carino のビジュアル言語の基準 — トークン、書体、そしてすべてのコンポーネント。各項目の<b>コピー</b>ボタンで、スタイル済みのまま任意のプロジェクトに貼り付けられます。',
         'Download the full reference as a PDF': 'リファレンス全体を PDF でダウンロード',
@@ -544,6 +556,10 @@ const I18N = {
         'Settings groups form controls under section labels.': '「設定」はフォームコントロールをセクションラベルごとにまとめます。',
     },
     ru: {
+        'Late shift.': 'Ночная смена.',
+        'Good morning.': 'Доброе утро.',
+        'Good afternoon.': 'Добрый день.',
+        'Good evening.': 'Добрый вечер.',
         'Carino Systems · Brand Reference': 'Carino Systems · Справочник по бренду',
         'The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.': 'Источник истины для визуального языка Carino — токены, типографика и все компоненты, каждый с кнопкой <b>Копировать</b>, вставляющей готовый стилизованный фрагмент в любой проект.',
         'Download the full reference as a PDF': 'Скачать полный справочник в PDF',
