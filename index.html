@@ -366,8 +366,9 @@
     &lt;button class="cs-btn" id="exportBtn"&gt;Export&lt;/button&gt;
   &lt;/div&gt;
 &lt;/header&gt;
-&lt;script src="carino-navbar.js" <span class="k">data-app</span>="MyApp" defer&gt;&lt;/script&gt;</pre>
+&lt;script src="carino-navbar.js" <span class="k">data-app</span>="MyApp" <span class="k">data-repo</span>="MyRepo" defer&gt;&lt;/script&gt;</pre>
         <div class="note" data-i18n-html>Fallback: with no <code>data-carino-actions</code> marker the script auto-absorbs a leftover <code>body &gt; header.cs-header</code>. Reference: carino-navbar.js (relocateActions), consumer markup in Time/index.html and Hardware/index.html; SoftwareCatalog shows the explicit-marker pattern.</div>
+        <div class="note" data-i18n-html><code>data-app</code> is the tag beside the brand; <code>data-repo</code> is the repository the GitHub button opens — set it whenever the repo name differs from the tag (it falls back to <code>data-app</code>). The right cluster is ordered by CSS, not by DOM position, because four scripts insert into it independently. Read it inwards from the right edge: <strong>4</strong> GitHub and LinkedIn, always last · <strong>3</strong> language, immediately beside them · <strong>2</strong> status · <strong>1</strong> the app's own controls, furthest from the edge.</div>
       </div>
     </section>
 
@@ -651,7 +652,7 @@
 
 
   <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
-  <script src="carino-navbar.js" data-app="Branding" defer></script>
+  <script src="carino-navbar.js" data-app="Branding" data-repo="Branding" defer></script>
   <script src="carino-lang.js" defer></script>
   <script src="i18n.js" defer></script>
 
