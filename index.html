@@ -7,6 +7,7 @@
   <link rel="icon" type="image/webp" href="logo.webp">
   <link rel="stylesheet" href="fonts/carino-fonts.css">
   <link rel="stylesheet" href="carino-branding.css">
+  <link rel="stylesheet" href="carino-anim.css">
 </head>
 <body>
 
@@ -43,6 +44,7 @@
     <a href="#map" data-i18n>Map</a>
     <a href="#dataviz" data-i18n>Data Viz</a>
     <a href="#currency" data-i18n>Currency</a>
+    <a href="#anim" data-i18n>Animations</a>
   </nav>
 
   <main>
@@ -636,6 +638,20 @@
       </div>
     </section>
 
+    <!-- 24. SECTION ANIMATIONS -->
+    <section class="spec" id="anim">
+      <div class="spec-head">
+        <div class="spec-num">24</div>
+        <h2 data-i18n>Section Animations</h2>
+        <p data-i18n-html>One ambient loop per category in the fleet registry, used as a band under a section&rsquo;s cards on the hub. They are a mark, not a control: nothing here responds to the pointer, and none of them ever finish. The <strong>Medical</strong> EKG is the original — it is the Carino PACS splash — and the other seven were drawn to sit beside it.</p>
+      </div>
+      <div class="demo">
+        <div class="anim-grid" id="animGrid"></div>
+        <div class="note" data-i18n-html>Two local files, no CDN: <code>carino-anim.css</code> (motion) and <code>carino-anim.js</code> (geometry). Drop both in, then <code>el.innerHTML = CarinoAnim.svg('medical')</code> — or copy a rendered <code>&lt;svg&gt;</code> straight out of this page and paste it, which needs the stylesheet alone. Ids match the tag ids in the hub&rsquo;s <code>assets/json/tools.json</code>, so a section finds its animation by name.</div>
+        <div class="note" data-i18n-html><strong>Adding one.</strong> Gold on near-black, one accent. Stroke, never fill. It must loop seamlessly between 1.5s and 4s with no start and no end, animate <code>stroke-dashoffset</code>, <code>transform</code> and <code>opacity</code> and nothing else — these sit under a grid that measures itself, so anything that triggers layout is out — and it must hold a legible still under <code>prefers-reduced-motion</code> rather than vanishing. Give every dashed shape a <code>pathLength</code> so the CSS can state a real length instead of guessing at the geometry.</div>
+      </div>
+    </section>
+
   </main>
 
   <!-- live modal demo (opened from section 17) -->
@@ -653,6 +669,8 @@
 
   <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
   <script src="carino-navbar.js" data-app="Branding" data-repo="Branding" defer></script>
+  <!-- Section-animation geometry; the motion lives in carino-anim.css. -->
+  <script src="carino-anim.js" defer></script>
   <script src="carino-lang.js" defer></script>
   <script src="i18n.js" defer></script>
 
@@ -750,6 +768,22 @@
     document.getElementById("termCopyBtn").addEventListener("click", function () {
       copyText(this.closest(".terminal-wrapper").querySelector("code").innerText, this);
     });
+
+    // ---- Animations: the drop-in, since this section's markup is generated ----
+    const animSnippet = () =>
+`<!-- Carino Branding \u00b7 Section Animations \u00b7 ${SITE}
+     Ship BOTH files locally (no CDN). Ids: ${(window.CarinoAnim ? CarinoAnim.ids : []).join(", ")} -->
+<link rel="stylesheet" href="${SITE}/carino-anim.css">
+<script src="${SITE}/carino-anim.js" defer><\/script>
+
+<div class="section-anim"></div>
+<script>
+  // after carino-anim.js has run
+  document.querySelector('.section-anim').innerHTML = CarinoAnim.svg('medical');
+<\/script>
+
+<!-- or with no JS at all, paste one rendered <svg class="canim canim-medical">
+     out of the Animations section; the stylesheet alone drives it. -->`;
 
     // ---- per-section copy buttons ----------------------------------------
     // Each section's markup is copied with a comment referencing this page as
@@ -897,6 +931,11 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
           snippet = TOKENS_CSS;
         } else if (sec.id === "type") {
           snippet = TYPE_CSS;
+        } else if (sec.id === "anim") {
+          // Two files rather than one, and the shapes come from the module —
+          // so copy the drop-in, not eight <svg>s someone would have to
+          // re-paste every time the geometry changes.
+          snippet = animSnippet();
         } else {
           const els = [...sec.querySelectorAll(".demo, .card-grid")];
           snippet = "<!-- Carino Branding · " + title + " · " + SITE + " -->\n" +
@@ -1024,6 +1063,30 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       });
     })();
 
+    /* ---- Animations (24): built from the module so this page can never
+       drift from what the module actually ships. ---- */
+    const ANIM_WHAT = {
+      medical:  "The Carino PACS heartbeat — a pulse travelling an EKG trace.",
+      files:    "Sheets lifting under a bar that sweeps across them.",
+      network:  "A payload running the links; nodes acknowledge as it passes.",
+      security: "A shield drawn closed, held, checked, released.",
+      systems:  "A die with four traces, each carrying a pulse on its own clock.",
+      business: "Bars settling to their value, then the trend drawn through them.",
+      media:    "A waveform playing — bars on staggered periods, never in step.",
+      learn:    "Four stops on a path, filling one after another."
+    };
+    function buildAnimGrid() {
+      const host = document.getElementById("animGrid");
+      if (!host || !window.CarinoAnim) return;
+      host.innerHTML = CarinoAnim.ids.map(id =>
+        '<div class="anim-cell"><div class="a-id">' + id + '</div>' +
+        CarinoAnim.svg(id, TT(ANIM_WHAT[id] || id)) +
+        '<div class="a-what">' + TT(ANIM_WHAT[id] || "") + '</div></div>').join("");
+    }
+    // carino-anim.js is deferred, so it has not run when this inline script does.
+    if (window.CarinoAnim) buildAnimGrid();
+    else document.addEventListener("DOMContentLoaded", buildAnimGrid);
+
     /* ---- Called by i18n.js after each language switch: re-localize the
        chrome this script generates (static markup is handled by data-i18n). ---- */
     window.brandingRelocalize = function () {
@@ -1040,6 +1103,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       });
       const active = document.querySelector("#tabbar .tabbtn.active");
       if (active) document.getElementById("tabpane").textContent = TT(PANES[+active.dataset.tab]);
+      buildAnimGrid();
     };
   </script>
 </body>
