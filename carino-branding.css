@@ -335,9 +335,14 @@
     }
     .diag-dropdown.open { display: block; }
     .diag-section { font-family: var(--mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); opacity: 0.6; border-bottom: 1px solid var(--border); padding-bottom: 3px; margin: 4px 0 8px; }
-    .diag-row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: var(--fs-btn); margin-bottom: 7px; }
+    .diag-row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: var(--fs-btn); margin-bottom: 6px; }
     .diag-lbl { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
     .diag-val { color: var(--text); }
+    /* Wrap two short readings in .diag-pair to put them on one line. Each half
+       keeps its natural width, so a long value or translation wraps the pair
+       back into full-width rows instead of truncating. */
+    .diag-pair { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 20px; }
+    .diag-pair > .diag-row { flex: 0 1 auto; min-width: max-content; gap: 8px; }
 
     /* ============ 10. table ============ */
     table.data { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: var(--fs-sm); }
