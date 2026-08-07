@@ -70,9 +70,26 @@ recurring gaps and the house rules for them:
 - **Clipboard needs a fallback.** `navigator.clipboard` is absent outside secure
   contexts; guard it and fall back to a `prompt()`/selection copy (see `index.html`).
 
-## License
+## Licensing
 
-Licensed under the **MIT License** — see [LICENSE](LICENSE). Copyright © 2026 Miguel Carino.
+**Mine — MIT licence.** Everything in this repository *except* the paths
+listed below. Copyright © 2026 Miguel Carino. Full terms in [LICENSE](LICENSE).
 
-Deliberately permissive: this repo is the fleet design system, meant to be copied
-from freely. Snippets and components carry no copyleft obligation.
+**Not mine.** The files below are third-party works redistributed here. This
+project's licence does not cover them and could not: they are not mine to
+relicense. Each keeps its own terms, and each carries its own notice.
+
+| Path | What it is | Licence | Notice |
+| --- | --- | --- | --- |
+| [`fonts/`](fonts/) | IBM Plex Mono, IBM Plex Sans, Red Hat Display | SIL OFL 1.1 | [`fonts/OFL.txt`](fonts/OFL.txt) |
+| [`vendor/`](vendor/) | third-party JavaScript | per package — see the notice | [`vendor/README.md`](vendor/README.md) |
+
+Those files travel with any fork, mirror or repackaging of this repository, and
+their notices must travel with them.
+
+**Why MIT and not AGPL.** This repository is the fleet design system, meant to be
+copied from freely — snippets and components carry no copyleft obligation. That
+is a deliberate exception to the fleet default, not an oversight. Note the
+consequence: unlike the AGPL repositories, this one grants no leverage for a
+commercial exception, because a permissive licence already gives away everything
+such an exception would sell.
