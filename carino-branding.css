@@ -105,7 +105,11 @@
     .toc {
       position: sticky; top: 0; z-index: 50;
       display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
-      padding: 14px 12px; margin: 0 -24px 48px;
+      /* Full-bleed already: <body> carries no horizontal padding, so the
+         -24px side margins this used to have bled out of a container that was
+         never inset — 1488px of ToC in a 1440px viewport, and a horizontal
+         scrollbar on every page of the reference at every width. */
+      padding: 14px 12px; margin: 0 0 48px;
       /* -webkit- first: Safari (all versions to date) only honours the prefixed
          property, so without this the sticky ToC has no blur on WebKit. */
       background: rgba(5,5,5,0.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
@@ -187,7 +191,50 @@
     }
     .demo + .demo-label { margin-top: 6px; }
 
-    /* ============ 1. color swatches ============ */
+    /* ============ 1. the mark ============
+       Every site is the gold C with one character beside it. The lockup is
+       wider than it is tall (86 x 62.7 in a 100 box), so tiles are sized on
+       width and the spare height sits above and below — never crop to a
+       square, which eats the character before it eats the ring. */
+    .mark-lockup { display: flex; flex-wrap: wrap; gap: 26px; align-items: center; }
+    .mark-big {
+      width: clamp(84px, 12vw, 128px); height: auto; flex: none;
+      filter: drop-shadow(0 0 24px rgba(234,179,8,0.12));
+    }
+    .mark-spec { flex: 1 1 260px; min-width: 0; margin: 0;
+      font-family: var(--mono); font-size: var(--fs-sm); }
+    .mark-spec div {
+      display: flex; gap: 12px; justify-content: space-between;
+      padding: 7px 0; border-bottom: 1px dashed var(--border);
+    }
+    .mark-spec div:last-child { border-bottom: none; }
+    .mark-spec dt { color: var(--text-sec); }
+    .mark-spec dd { margin: 0; color: var(--accent); text-align: right; }
+
+    /* 38 of them, so the tile is the smallest thing that still reads: the
+       character survives from about 32px and the ring from about 16. */
+    .mark-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px,1fr)); gap: 10px; }
+    .mark-tile {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 12px 6px; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg-elev); transition: border-color .15s, transform .15s;
+    }
+    .mark-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .mark-tile img { width: 52px; height: 52px; }
+    .mark-tile span {
+      font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted);
+      max-width: 100%; overflow-wrap: anywhere; text-align: center;
+    }
+    .mark-tile.is-hub { border-color: var(--accent-dim); background: var(--accent-faint); }
+    .mark-tile.is-hub span { color: var(--accent); }
+
+    /* Actual pixel sizes, unscaled — the point is that the character does not
+       survive the tab strip and the ring does. */
+    .mark-sizes { display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-end; }
+    .mark-size { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .mark-size span { font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); }
+
+    /* ============ 2. color swatches ============ */
     .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
     .swatch { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.15s; }
     .swatch:hover { border-color: var(--accent); transform: translateY(-2px); }
@@ -196,7 +243,7 @@
     .swatch .name { font-size: var(--fs-btn); font-weight: 600; }
     .swatch .val { font-family: var(--mono); font-size: var(--fs-label); color: var(--text-muted); }
 
-    /* ============ 2. typography ============ */
+    /* ============ 3. typography ============ */
     .type-sample { border-bottom: 1px dashed var(--border); padding: 14px 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
     .type-sample:last-child { border-bottom: none; }
     .type-sample .tag { font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); width: 130px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -216,7 +263,7 @@
     .t-micro { font-family: var(--mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
     .wordmark { font-family: var(--display); font-weight: 900; font-size: var(--fs-display); background: var(--gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
-    /* ============ 3. buttons ============ */
+    /* ============ 4. buttons ============ */
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--mono); font-size: var(--fs-btn); font-weight: 700;
@@ -248,7 +295,7 @@
     .toggle-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-faint); }
     .toggle-btn.active { background: var(--accent); border-color: var(--accent); color: #050505; font-weight: 700; }
 
-    /* ============ 4. tabs ============ */
+    /* ============ 5. tabs ============ */
     .tabbar { display: flex; gap: 4px; border-bottom: 1px solid var(--border); }
     .tabbtn {
       font-family: var(--mono); font-size: var(--fs-btn); text-transform: uppercase; letter-spacing: 0.06em;
@@ -259,7 +306,7 @@
     .tabbtn.active { color: var(--accent); border-bottom-color: var(--accent); }
     .tabpane { padding: 18px 2px 2px; color: var(--text-sec); font-size: var(--fs-sec); }
 
-    /* ============ 5. forms ============ */
+    /* ============ 6. forms ============ */
     .field { display: flex; flex-direction: column; gap: 6px; min-width: 220px; }
     .field label { font-family: var(--mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
     .input, .select, .textarea {
@@ -280,7 +327,7 @@
     .switch input:checked + .track { background: var(--accent-faint); border-color: var(--accent); }
     .switch input:checked + .track::before { transform: translateX(20px); background: var(--accent); }
 
-    /* ============ 6. alerts ============ */
+    /* ============ 7. alerts ============ */
     .alert { border: 1px solid; border-radius: 8px; padding: 12px 14px; font-family: var(--mono); font-size: var(--fs-sm); line-height: 1.5; margin-bottom: 10px; }
     .alert:last-child { margin-bottom: 0; }
     .alert.ok   { color: #86efac; background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.5); }
@@ -289,7 +336,7 @@
     .alert code { background: #1a1a1a; padding: 1px 5px; border-radius: 3px; color: #fde68a; }
     .alert b { color: #fde68a; }
 
-    /* ============ 7. badges & chips ============ */
+    /* ============ 8. badges & chips ============ */
     .chip-tag { font-family: var(--mono); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--border); border-radius: 4px; padding: 3px 6px; text-decoration: none; }
     /* split-brand: in the navbar the chip is an <a href="./"> (app reload) next
        to the wordmark's <a href="https://carino.systems/"> (hub) */
@@ -305,7 +352,7 @@
     .dot.live::before { animation: pulse 1.6s infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-    /* ============ 8. cards ============ */
+    /* ============ 9. cards ============ */
     .card {
       display: flex; flex-direction: column; background: var(--bg-card);
       border: 1px solid var(--border); padding: 22px; border-radius: 12px; transition: 0.22s;
@@ -320,7 +367,7 @@
     .panel-desc { font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-sec); margin-top: 6px; }
     .panel-num { font-family: var(--display); font-weight: 900; font-size: 3.2rem; line-height: 0.8; color: rgba(234,179,8,0.12); user-select: none; }
 
-    /* ============ 9. dropdown / diagnostics ============ */
+    /* ============ 10. dropdown / diagnostics ============ */
     .diag-wrap { position: relative; display: inline-block; }
     .diag-toggle {
       display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
@@ -345,18 +392,18 @@
     .diag-pair { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 20px; }
     .diag-pair > .diag-row { flex: 0 1 auto; min-width: max-content; gap: 8px; }
 
-    /* ============ 10. table ============ */
+    /* ============ 11. table ============ */
     table.data { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: var(--fs-sm); }
     table.data th { text-align: left; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--fs-micro); font-weight: 700; padding: 8px 12px; border-bottom: 1px solid var(--border); }
     table.data td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text-sec); }
     table.data tr:hover td { background: var(--accent-faint); color: var(--text); }
 
-    /* ============ 11. code ============ */
+    /* ============ 12. code ============ */
     pre.code { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; font-family: var(--mono); font-size: var(--fs-sm); line-height: 1.6; color: #e0e0e0; margin: 0; }
     pre.code .k { color: var(--accent); }
     pre.code .c { color: var(--text-muted); }
 
-    /* ============ 12. loading ============ */
+    /* ============ 13. loading ============ */
     .spinner { width: 26px; height: 26px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .progress { width: 260px; height: 6px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
@@ -365,7 +412,7 @@
     .ekg .trace { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px var(--accent-glow)); stroke-dasharray: 320; stroke-dashoffset: 320; animation: ekg 1.8s linear infinite; }
     @keyframes ekg { to { stroke-dashoffset: -320; } }
 
-    /* ============ 13. slice menu (scaled reference) ============ */
+    /* ============ 14. slice menu (scaled reference) ============ */
     .slice-demo { display: flex; height: 200px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
     .slice { flex: 1; position: relative; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; cursor: pointer; transition: 0.25s; background: #060606; }
     .slice:last-child { border-right: none; }
@@ -386,7 +433,7 @@
     .slice-demo.collapsed .slice.active { background: #0a0a0a; box-shadow: inset 0 2px 0 var(--accent); }
     .slice-demo.collapsed .slice.active .s-text { color: var(--accent); }
 
-    /* ============ 14. toast ============ */
+    /* ============ 15. toast ============ */
     .toast {
       position: fixed; top: 76px; right: 20px; z-index: 9999;
       display: inline-flex; align-items: center; gap: 10px;
@@ -404,7 +451,7 @@
     .toast-rack { display: flex; flex-wrap: wrap; gap: 12px; }
     .toast-rack .toast { position: static; opacity: 1; transform: none; pointer-events: auto; box-shadow: none; }
 
-    /* ============ 15. navbar action portal ============ */
+    /* ============ 16. navbar action portal ============ */
     /* carino-navbar.js relocates the real DOM node marked [data-carino-actions]
        into the navbar's .cn-right (handlers and ids survive) and removes the
        [data-carino-strip] wrapper. Controls riding in the bar follow this 32px
@@ -421,7 +468,7 @@
     /* preview-only strip for the reference page (the real thing lives in .cn-right) */
     .portal-demo { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; }
 
-    /* ============ 16. dropzone ============ */
+    /* ============ 17. dropzone ============ */
     .dropzone {
       border: 2px dashed var(--border); border-radius: 10px; padding: 30px 18px;
       text-align: center; cursor: pointer; background: var(--bg-elev);
@@ -433,7 +480,7 @@
     .dz-icon { font-size: 1.6rem; margin-bottom: 8px; opacity: 0.8; }
     .dz-hint { font-family: var(--mono); font-size: var(--fs-label); color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
 
-    /* ============ 17. modal & scrim ============ */
+    /* ============ 18. modal & scrim ============ */
     .modal-scrim {
       position: fixed; inset: 0; z-index: 1000; padding: 24px;
       display: flex; align-items: center; justify-content: center;
@@ -457,14 +504,14 @@
     .modal-rack { display: flex; justify-content: center; }
     .modal-rack .modal { position: static; }
 
-    /* ============ 18. command block ============ */
+    /* ============ 19. command block ============ */
     .terminal-wrapper { position: relative; }
     .terminal { background: #000; border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.6rem; overflow-x: auto; }
     .terminal code { display: block; font-family: var(--mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--ok); white-space: pre; }
     .terminal .prompt { color: var(--accent); user-select: none; }
     .term-copy { position: absolute; top: 10px; right: 10px; background: rgba(5,5,5,0.85); }
 
-    /* ============ 19. workspace shell ============ */
+    /* ============ 20. workspace shell ============ */
     /* Two-pane tool chrome: fixed sidebar rail + independently scrolling content.
        In apps the rail is ~340px (Metadata, Quote, Media);
        the demo is scaled down. */
@@ -476,7 +523,7 @@
       .ws-side { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
     }
 
-    /* ============ 20. key caps ============ */
+    /* ============ 21. key caps ============ */
     .kbd {
       display: inline-block; font-family: var(--mono); font-size: var(--fs-label); font-weight: 700;
       color: var(--text-sec); background: var(--bg-elev);
@@ -486,7 +533,7 @@
     .kbd-legend { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-family: var(--mono); font-size: var(--fs-btn); color: var(--text-muted); }
     .kbd-legend .lbl { text-transform: uppercase; letter-spacing: 0.06em; }
 
-    /* ============ 21. day/night world map ============ */
+    /* ============ 22. day/night world map ============ */
     /* Muted geography so the gold accent reads on both hemispheres; the night
        veil is a single translucent path whose edge is the solar terminator.
        Reference implementation: Time (time.carino.systems). */
@@ -558,7 +605,7 @@
 
     .note { font-family: var(--mono); font-size: var(--fs-btn); color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
 
-    /* ============ 23. finance / currency ============ */
+    /* ============ 24. finance / currency ============ */
     /* Composite cards from Currency (currency.carino.systems); they reuse the
        Data-Viz .spark micro-chart and .delta chip. Gold/green = the target
        currency strengthening vs base, red = weakening. */

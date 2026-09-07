@@ -21,6 +21,7 @@
   </div>
 
   <nav class="toc">
+    <a href="#marks" data-i18n>Mark</a>
     <a href="#tokens" data-i18n>Color</a>
     <a href="#type" data-i18n>Type</a>
     <a href="#buttons" data-i18n>Buttons</a>
@@ -49,10 +50,60 @@
 
   <main>
 
-    <!-- 1. COLOR -->
-    <section class="spec" id="tokens">
+    <!-- 1. THE MARK -->
+    <section class="spec" id="marks">
       <div class="spec-head">
         <div class="spec-num">01</div>
+        <h2 data-i18n>The Mark</h2>
+        <p data-i18n-html>Every site in the fleet is a gold <code>C</code> with exactly one character beside it. The hub keeps the bare C and no character &mdash; that is what makes it the parent rather than one more tool. All 38 are generated and never hand-drawn: <code>marks/marks.py</code> in this repo draws them, <code>deploy.py</code> copies each to the paths its site actually looks for one at, and <code>verify.py</code> follows every site&rsquo;s own <code>&lt;link rel=icon&gt;</code> and asserts the bytes at the end of it are that site&rsquo;s own mark.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>The lockup</div>
+        <div class="mark-lockup">
+          <img class="mark-big" src="marks/carino.svg" alt="" width="128" height="128">
+          <img class="mark-big" src="marks/dcm.svg" alt="" width="128" height="128">
+          <dl class="mark-spec">
+            <div><dt data-i18n>Bare ring</dt><dd>r 34.81 &middot; stroke 16.38</dd></div>
+            <div><dt data-i18n>Lettered ring</dt><dd>r 25.38 &middot; stroke 11.94</dd></div>
+            <div><dt data-i18n>Character box</dt><dd>x 69.71&ndash;93.00</dd></div>
+            <div><dt data-i18n>Grid</dt><dd>6 &times; 10 &middot; module 3.88</dd></div>
+            <div><dt data-i18n>Stem</dt><dd>2 modules &middot; 7.76</dd></div>
+            <div><dt data-i18n>Ink</dt><dd>#eab308 on transparency</dd></div>
+          </dl>
+        </div>
+        <div class="note" data-i18n-html>The lettered ring is the bare one at <b>0.729</b>, which is what frees the right-hand third for the character. Neither set of numbers was invented: both were read back off the two marks already shipping &mdash; <code>dcm</code>&rsquo;s E and <code>topo</code>&rsquo;s T &mdash; and both come out byte-identical from the generator, so it cannot quietly redraw a logo already in circulation.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>Six columns, ten rows</div>
+        <p data-i18n-html>The character is a bitmap on a <b>6 &times; 10</b> grid of half-modules, stems two modules wide. Three columns &mdash; the module the shipped E and T are drawn on &mdash; is too coarse to keep an alphabet apart: on it <b>A, K and M each sit one cell from H</b>. Halving the module fixes that while leaving those two marks unchanged. Diagonals are stepped rather than drawn, because at 32px a stepped module stays crisp where a hairline diagonal turns to porridge.</p>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Why blocky and not type</div>
+        <dl class="mark-spec">
+          <div><dt>Red Hat Display 900</dt><dd>77 / 700 = 0.11</dd></div>
+          <div><dt data-i18n>This character</dt><dd>7.76 / 38.82 = 0.20</dd></div>
+          <div><dt data-i18n>The ring&rsquo;s own arc</dt><dd>11.94 / 62.7 = 0.19</dd></div>
+        </dl>
+        <div class="note" data-i18n-html>Stem-to-cap ratios. The fleet&rsquo;s own display face at its heaviest weight is <b>half</b> the weight of the ring it would stand beside, so a typeset letter reads weedy against it. The blocky letter is a weight, not a pixel affectation.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>What survives at favicon size</div>
+        <div class="mark-sizes" id="markSizes"></div>
+        <div class="note" data-i18n-html>Actual pixel sizes, unscaled. A module is <b>1.24 device px at 16&times;16</b>, so the character is a smudge in a tab strip and only resolves from about 32px. It identifies the app in a dock, an app switcher or a hero &mdash; not in a tab. The ring carries the brand at every size, which is the division of labour the system is built on.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>The fleet</div>
+        <div class="mark-grid" id="markGrid"></div>
+        <div class="note" data-i18n-html>The character is the site&rsquo;s own initial wherever that initial is unclaimed &mdash; eighteen sites get one that way. Four sites want C, four want T, four want M and four want S, so all but one holder of each takes a symbol, and where a symbol says more than the letter would it wins outright. Three are deliberately not the initial: <code>dcm</code> is E for Editor, which is what keeps it off the D pile; <code>media</code> is a play triangle because M cannot be drawn six columns wide, its vee having no room to narrow; and <code>cybercity</code> is Y, unclaimed and sitting in its own name. <code>law</code> is the weakest glyph in the set &mdash; the box is three stems wide, so anything needing two separated uprights reads as one mass with a slot cut in it.</div>
+      </div>
+    </section>
+
+    <!-- 2. COLOR -->
+    <section class="spec" id="tokens">
+      <div class="spec-head">
+        <div class="spec-num">02</div>
         <h2 data-i18n>Color Tokens</h2>
         <p data-i18n-html>One accent — Sharp Gold <code>#eab308</code> — on a near-black stack. Everything else is a neutral or a translucent tint of the accent. Click a swatch to copy its value.</p>
       </div>
@@ -61,10 +112,10 @@
       </div>
     </section>
 
-    <!-- 2. TYPE -->
+    <!-- 3. TYPE -->
     <section class="spec" id="type">
       <div class="spec-head">
-        <div class="spec-num">02</div>
+        <div class="spec-num">03</div>
         <h2 data-i18n>Typography</h2>
         <p data-i18n-html>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display. Sizes come from the <b>type scale</b> — thirteen <code>--fs-*</code> tokens, nothing in between. Three rules: <code>--fs-micro</code> is the floor (no UI text below 0.6rem, ever); the body base is 15–16px; heroes are always fluid (<code>clamp()</code>). Decorative glyphs — watermark numerals, emoji, SVG-canvas labels — may size freely.</p>
       </div>
@@ -87,10 +138,10 @@
       </div>
     </section>
 
-    <!-- 3. BUTTONS -->
+    <!-- 4. BUTTONS -->
     <section class="spec" id="buttons">
       <div class="spec-head">
-        <div class="spec-num">03</div>
+        <div class="spec-num">04</div>
         <h2 data-i18n>Buttons</h2>
         <p data-i18n>Outline by default; hover reveals the accent. Primary is a solid gold fill. Toggle buttons fill gold when active (module / template pattern). Icon buttons invert on hover.</p>
       </div>
@@ -113,10 +164,10 @@
       </div>
     </section>
 
-    <!-- 4. TABS -->
+    <!-- 5. TABS -->
     <section class="spec" id="tabs">
       <div class="spec-head">
-        <div class="spec-num">04</div>
+        <div class="spec-num">05</div>
         <h2 data-i18n>Tabs</h2>
         <p data-i18n>Underline tabs for switching panels within a view. The active tab carries the accent underline.</p>
       </div>
@@ -130,10 +181,10 @@
       </div>
     </section>
 
-    <!-- 5. FORMS -->
+    <!-- 6. FORMS -->
     <section class="spec" id="forms">
       <div class="spec-head">
-        <div class="spec-num">05</div>
+        <div class="spec-num">06</div>
         <h2 data-i18n>Form Controls</h2>
         <p data-i18n>Dark elevated fields with a gold focus ring. Checkboxes and switches use the accent. All inputs are mono for alignment with the data they hold.</p>
       </div>
@@ -155,10 +206,10 @@
       </div>
     </section>
 
-    <!-- 6. ALERTS -->
+    <!-- 7. ALERTS -->
     <section class="spec" id="alerts">
       <div class="spec-head">
-        <div class="spec-num">06</div>
+        <div class="spec-num">07</div>
         <h2 data-i18n>Alerts &amp; Status Messages</h2>
         <p data-i18n-html>Translucent tinted boxes in the three semantic colors. Inline <code>code</code> and <b>bold</b> use a warm highlight.</p>
       </div>
@@ -169,10 +220,10 @@
       </div>
     </section>
 
-    <!-- 7. BADGES -->
+    <!-- 8. BADGES -->
     <section class="spec" id="badges">
       <div class="spec-head">
-        <div class="spec-num">07</div>
+        <div class="spec-num">08</div>
         <h2 data-i18n>Badges, Chips &amp; Status</h2>
         <p data-i18n-html>The app-tag chip (navbar — an <code>&lt;a href="./"&gt;</code> that reloads the app, while the gradient Carino wordmark beside it links to the hub at <code>carino.systems</code>), the clock timezone chip, semantic pills, and the live status dot with its pulse.</p>
       </div>
@@ -189,10 +240,10 @@
       </div>
     </section>
 
-    <!-- 8. CARDS -->
+    <!-- 9. CARDS -->
     <section class="spec" id="cards">
       <div class="spec-head">
-        <div class="spec-num">08</div>
+        <div class="spec-num">09</div>
         <h2 data-i18n>Cards &amp; Panels</h2>
         <p data-i18n>Cards lift and glow gold on hover. Panels use a large Red Hat Display title with a ghosted numeral.</p>
       </div>
@@ -224,10 +275,10 @@
       </div>
     </section>
 
-    <!-- 9. DROPDOWN -->
+    <!-- 10. DROPDOWN -->
     <section class="spec" id="dropdown">
       <div class="spec-head">
-        <div class="spec-num">09</div>
+        <div class="spec-num">10</div>
         <h2 data-i18n>Dropdown / Diagnostics</h2>
         <p data-i18n>The status toggle opens a diagnostics panel — label/value rows grouped under muted section headers. Used for the navbar status menu and app info panels.</p>
       </div>
@@ -248,10 +299,10 @@
       </div>
     </section>
 
-    <!-- 10. TABLE -->
+    <!-- 11. TABLE -->
     <section class="spec" id="table">
       <div class="spec-head">
-        <div class="spec-num">10</div>
+        <div class="spec-num">11</div>
         <h2 data-i18n>Tables</h2>
         <p data-i18n>Mono, hairline-separated rows with an uppercase muted header. Rows tint gold on hover.</p>
       </div>
@@ -267,10 +318,10 @@
       </div>
     </section>
 
-    <!-- 11. CODE -->
+    <!-- 12. CODE -->
     <section class="spec" id="code">
       <div class="spec-head">
-        <div class="spec-num">11</div>
+        <div class="spec-num">12</div>
         <h2 data-i18n>Code</h2>
         <p data-i18n>Dark elevated block, mono, with a subtle accent for keys and muted comments.</p>
       </div>
@@ -286,10 +337,10 @@
       </div>
     </section>
 
-    <!-- 12. LOADING -->
+    <!-- 13. LOADING -->
     <section class="spec" id="loading">
       <div class="spec-head">
-        <div class="spec-num">12</div>
+        <div class="spec-num">13</div>
         <h2 data-i18n>Loading &amp; Progress</h2>
         <p data-i18n>A gold ring spinner, a determinate progress bar, and the EKG heartbeat used for long copy/transfer operations.</p>
       </div>
@@ -304,10 +355,10 @@
       </div>
     </section>
 
-    <!-- 13. SLICE MENU -->
+    <!-- 14. SLICE MENU -->
     <section class="spec" id="slice">
       <div class="spec-head">
-        <div class="spec-num">13</div>
+        <div class="spec-num">14</div>
         <h2 data-i18n>Slice Menu</h2>
         <p data-i18n>The full-screen section chooser (Carino-Systems hub, CarinoLearn). Columns fill the viewport and expand with a radial gold glow on hover; selecting one collapses the rest to a thin bar. Shown here scaled down.</p>
       </div>
@@ -329,10 +380,10 @@
       </div>
     </section>
 
-    <!-- 14. TOAST -->
+    <!-- 15. TOAST -->
     <section class="spec" id="toast">
       <div class="spec-head">
-        <div class="spec-num">14</div>
+        <div class="spec-num">15</div>
         <h2 data-i18n>Toast Notifications</h2>
         <p data-i18n-html>Transient, top-right status messages in the four semantic tints. Fixed and hidden by default; add <code>.show</code> to reveal, then remove it after a timeout.</p>
       </div>
@@ -347,10 +398,10 @@
       </div>
     </section>
 
-    <!-- 15. NAVBAR ACTION PORTAL -->
+    <!-- 16. NAVBAR ACTION PORTAL -->
     <section class="spec" id="portal">
       <div class="spec-head">
-        <div class="spec-num">15</div>
+        <div class="spec-num">16</div>
         <h2 data-i18n>Navbar Action Portal</h2>
         <p data-i18n-html>Apps don't build their own top bar — they mark their controls with <code>data-carino-actions</code> and <code>carino-navbar.js</code> relocates the <b>real DOM node</b> into the navbar's right cluster. Ids and handlers survive the move; the emptied <code>data-carino-strip</code> wrapper is removed. Relocated controls use the compact 32px <code>.cs-btn</code> recipe.</p>
       </div>
@@ -376,10 +427,10 @@
       </div>
     </section>
 
-    <!-- 16. DROPZONE -->
+    <!-- 17. DROPZONE -->
     <section class="spec" id="dropzone">
       <div class="spec-head">
-        <div class="spec-num">16</div>
+        <div class="spec-num">17</div>
         <h2 data-i18n>Dropzone</h2>
         <p data-i18n>The drag-and-drop file input: dashed hairline at rest, gold glow while a file hovers, solid green once one lands. Drag anything over the first zone to see the live state.</p>
       </div>
@@ -398,10 +449,10 @@
       </div>
     </section>
 
-    <!-- 17. MODAL -->
+    <!-- 18. MODAL -->
     <section class="spec" id="modal">
       <div class="spec-head">
-        <div class="spec-num">17</div>
+        <div class="spec-num">18</div>
         <h2 data-i18n>Modal &amp; Scrim</h2>
         <p data-i18n-html>A centered card over a blurred dark scrim. The scrim closes on click, the card doesn't; toggle the whole thing with the <code>hidden</code> attribute on <code>.modal-scrim</code>.</p>
       </div>
@@ -424,10 +475,10 @@
       </div>
     </section>
 
-    <!-- 18. COMMAND BLOCK -->
+    <!-- 19. COMMAND BLOCK -->
     <section class="spec" id="terminal">
       <div class="spec-head">
-        <div class="spec-num">18</div>
+        <div class="spec-num">19</div>
         <h2 data-i18n>Command Block</h2>
         <p data-i18n>A pitch-black terminal card for copyable shell commands — green output, gold prompt, and a floating copy button that reuses the page-wide copy mechanics.</p>
       </div>
@@ -441,10 +492,10 @@
       </div>
     </section>
 
-    <!-- 19. WORKSPACE SHELL -->
+    <!-- 20. WORKSPACE SHELL -->
     <section class="spec" id="workspace">
       <div class="spec-head">
-        <div class="spec-num">19</div>
+        <div class="spec-num">20</div>
         <h2 data-i18n>Workspace Shell</h2>
         <p data-i18n-html>The standard chrome for every "tool with a settings rail" app: a fixed sidebar that scrolls on its own beside a fluid content pane (<code>min-width: 0</code> so it never forces overflow). Below 700px the rail stacks on top.</p>
       </div>
@@ -465,10 +516,10 @@
       </div>
     </section>
 
-    <!-- 20. KEY CAPS -->
+    <!-- 21. KEY CAPS -->
     <section class="spec" id="kbd">
       <div class="spec-head">
-        <div class="spec-num">20</div>
+        <div class="spec-num">21</div>
         <h2 data-i18n>Key Caps &amp; Shortcut Legend</h2>
         <p data-i18n>Small mono key caps for keyboard hints, with an accent variant for the active or featured binding. Compose them into a legend strip near the canvas they act on.</p>
       </div>
@@ -484,10 +535,10 @@
       </div>
     </section>
 
-    <!-- 21. DAY/NIGHT WORLD MAP -->
+    <!-- 22. DAY/NIGHT WORLD MAP -->
     <section class="spec" id="map">
       <div class="spec-head">
-        <div class="spec-num">21</div>
+        <div class="spec-num">22</div>
         <h2 data-i18n>Day/Night World Map</h2>
         <p data-i18n>The fleet's world-map canvas: slate ocean, olive land, and a translucent night veil whose edge is the real solar terminator. Gold is reserved for interactive geography — a glowing dot with an outlined mono label for a pinned city, small pale dots for everything else — and a floating mono legend sits bottom-right. The base palette is deliberately muted so the gold reads on both the day and night halves.</p>
       </div>
@@ -515,10 +566,10 @@
       </div>
     </section>
 
-    <!-- 22. DATA VIZ -->
+    <!-- 23. DATA VIZ -->
     <section class="spec" id="dataviz">
       <div class="spec-head">
-        <div class="spec-num">22</div>
+        <div class="spec-num">23</div>
         <h2 data-i18n>Data Viz</h2>
         <p data-i18n-html>Primitives for dashboards and monitoring apps: gains use <code>--ok</code> green, losses <code>--err</code> red, and gold stays the interactive/brand accent. All numerics use <code>tabular-nums</code> via <code>.num</code>. First adopted by Stocks (stocks.carino.systems). Sparkline and detail charts are drawn dependency-free (inline SVG / <code>&lt;canvas&gt;</code> reading tokens via <code>getComputedStyle</code>) — no chart library.</p>
       </div>
@@ -564,10 +615,10 @@
       </div>
     </section>
 
-    <!-- 23. FINANCE / CURRENCY -->
+    <!-- 24. FINANCE / CURRENCY -->
     <section class="spec" id="currency">
       <div class="spec-head">
-        <div class="spec-num">23</div>
+        <div class="spec-num">24</div>
         <h2 data-i18n>Finance / Currency</h2>
         <p data-i18n-html>Composite finance components introduced by Currency (currency.carino.systems). Each composes the Data-Viz primitives above — the <code>.spark</code> micro-chart and <code>.delta</code> chip — into two higher-level cards: the <strong>FX trend card</strong> (flag · pair · human rate · strength sparkline · window delta, where the series is the target's strength vs base so line colour and delta agree) and the <strong>news item</strong> (a headline link whose left border is tinted by article tone). A <strong>mover tile</strong> summarises the biggest gainer/loser over the window.</p>
       </div>
@@ -640,10 +691,10 @@
       </div>
     </section>
 
-    <!-- 24. SECTION ANIMATIONS -->
+    <!-- 25. SECTION ANIMATIONS -->
     <section class="spec" id="anim">
       <div class="spec-head">
-        <div class="spec-num">24</div>
+        <div class="spec-num">25</div>
         <h2 data-i18n>Section Animations</h2>
         <p data-i18n-html>One ambient loop per category in the fleet registry, used as a band under a section&rsquo;s cards on the hub. They are a mark, not a control: nothing here responds to the pointer, and none of them ever finish. The <strong>Medical</strong> EKG is the original — it is the Carino PACS splash — and the other seven were drawn to sit beside it.</p>
       </div>
@@ -684,6 +735,29 @@
     // i18n bridge — i18n.js is deferred, so window.t only exists once this
     // inline script has already run; resolve it lazily at call time.
     const TT = (s) => (window.t ? window.t(s) : s);
+
+    // ---- section 1: the mark ----------------------------------------
+    // Stems in the generator's own order, the hub first. Nothing here is
+    // translated: they are subdomains, which are proper nouns.
+    const MARK_STEMS = ["carino", "aldis", "asobi", "branding", "compass", "currency",
+      "cve", "cybercity", "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware",
+      "hash", "images", "kanban", "law", "learn", "media", "metadata", "multiweb",
+      "music", "netplan", "offline", "password", "quote", "retina", "setup", "software",
+      "stocks", "subs", "teleprompter", "time", "topo", "tv", "vitae"];
+    (() => {
+      const grid = document.getElementById("markGrid");
+      grid.innerHTML = MARK_STEMS.map(s =>
+        '<div class="mark-tile' + (s === "carino" ? " is-hub" : "") + '">' +
+        '<img src="marks/' + s + '.svg" alt="" width="52" height="52" loading="lazy">' +
+        '<span>' + s + '</span></div>').join("");
+      // Unscaled, at the sizes a browser actually asks for. dcm carries a
+      // character with the thinnest bands in the set, so it is the honest case.
+      document.getElementById("markSizes").innerHTML = [16, 24, 32, 48].map(n =>
+        '<div class="mark-size">' +
+        '<img src="marks/dcm.svg" alt="" width="' + n + '" height="' + n + '">' +
+        '<span>' + n + 'px</span></div>').join("");
+    })();
+
 
     // ---- color swatches (also the token list) ----
     const TOKENS = [
@@ -792,6 +866,25 @@
     // the source; the Colors section copies the design-token CSS instead.
     const SITE = "https://branding.carino.systems";
     const CSS_HREF = SITE + "/carino-branding.css";
+    // What a consumer of this system actually wants to paste is the ring, not
+    // 38 <img>s pointing at paths that only resolve on this host.
+    const MARK_SNIPPET =
+`<!-- Carino Branding · The Mark · ${SITE} -->
+<!-- Per-site files: ${SITE}/marks/<site>.svg — and <site>.webp, 50x50 lossless,
+     which is the favicon every Carino page links. Both are generated by
+     marks/marks.py in the Branding repo: edit the glyph table there and run
+     marks.py → deploy.py → verify.py. Never hand-edit a logo in place. -->
+
+<!-- The bare ring: the hub's mark, and no other site's. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="Carino"><path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" stroke="#eab308" stroke-width="16.38" stroke-linecap="butt"/></svg>
+
+<!-- The lettered ring: the same C at 0.729, freeing the box x 69.71..93.00,
+     y 30.59..69.41 for one character on a 6x10 grid of 3.88 modules. Shown
+     here with dcm's E. Every filled module is a rect subpath inside ONE
+     <path>, so modules sharing an edge are unioned by the scanline filler
+     instead of each antialiasing against its neighbour — a seam otherwise. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="Carino Editor"><path d="M 56.61 32.37 A 25.38 25.38 0 1 0 56.61 67.63" fill="none" stroke="#eab308" stroke-width="11.94" stroke-linecap="butt"/><path d="M 69.71 30.59 H 93.00 V 38.35 H 77.47 V 46.12 H 93.00 V 53.88 H 77.47 V 61.65 H 93.00 V 69.41 H 69.71 Z" fill="#eab308"/></svg>`;
+
     const TOKENS_CSS =
 `/* Carino Branding — design tokens · ${SITE} */
 :root {
@@ -933,6 +1026,8 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
           snippet = TOKENS_CSS;
         } else if (sec.id === "type") {
           snippet = TYPE_CSS;
+        } else if (sec.id === "marks") {
+          snippet = MARK_SNIPPET;
         } else if (sec.id === "anim") {
           // Two files rather than one, and the shapes come from the module —
           // so copy the drop-in, not eight <svg>s someone would have to
