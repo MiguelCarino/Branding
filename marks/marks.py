@@ -116,6 +116,7 @@ GLYPHS = {
  "up":       "..##../.####./######/..##../..##../..##../..##../..##../..##../..##..",
  "colon":    "....../..##../..##../....../....../....../....../..##../..##../......",
  "screen":   "######/######/##..##/##..##/##..##/######/######/..##../######/######",
+ "roundtrip": "....##/....##/######/######/....../....../######/######/##..../##....",
 }
 
 # The two shipped marks re-expressed on the half module, for the collision check.
@@ -154,6 +155,7 @@ MARKS = [
  ("netplan",      "Carino Netplan",        "N"),
  ("offline",      "Carino Offline",        "O"),
  ("password",     "Carino Password",       "P"),
+ ("ping",         "Carino Ping",           "roundtrip"),
  ("quote",        "Carino Quote",          "Q"),
  ("retina",       "Carino Retina",         "R"),
  ("setup",        "Carino Setup",          "prompt"),

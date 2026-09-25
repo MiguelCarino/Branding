@@ -23,6 +23,7 @@ SITES = {
  "MultiWeb/index.html": "multiweb",       "MusicGrid/index.html": "music",
  "NetplanConfig/index.html": "netplan",   "Offline/index.html": "offline",
  "Password/index.html": "password",       "Quote/index.html": "quote",
+ "Ping/index.html": "ping",               "Stocks/index.html": "stocks",
  "Retina/index.html": "retina",           "SimpleSetup/index.html": "setup",
  "SoftwareCatalog/index.html": "software","SyncSubsStudio/index.html": "subs",
  "Teleprompter/index.html": "teleprompter","Time/index.html": "time",

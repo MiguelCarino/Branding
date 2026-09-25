@@ -45,11 +45,13 @@ T = {
  "netplan":  (["NetplanConfig/logo.svg"], ["NetplanConfig/logo.webp"]),
  "offline":  (["Offline/logo.svg"], ["Offline/logo.webp"]),
  "password": (["Password/logo.svg"], ["Password/logo.webp"]),
+ "ping":     (["Ping/logo.svg"], ["Ping/logo.webp"]),
  "quote":    (["Quote/logo.svg"], ["Quote/logo.webp"]),
  "retina":   (["Retina/logo.svg", "Retina/desktop/assets/logo.svg"], ["Retina/logo.webp"]),
  "setup":    (["SimpleSetup/logo.svg"], ["SimpleSetup/logo.webp"]),
  "software": (["SoftwareCatalog/assets/images/logo.svg"],
               ["SoftwareCatalog/assets/images/logo.webp"]),
+ "stocks":   (["Stocks/logo.svg"], ["Stocks/logo.webp"]),
  "subs":     (["SyncSubsStudio/logo.svg"], ["SyncSubsStudio/logo.webp"]),
  "teleprompter": (["Teleprompter/logo.svg"], ["Teleprompter/logo.webp"]),
  "time":     (["Time/logo.svg"], ["Time/logo.webp"]),
@@ -57,8 +59,6 @@ T = {
  "tv":       (["TV/logo.svg"], ["TV/logo.webp"]),
  "vitae":    (["Vitae/logo.svg"], ["Vitae/logo.webp"]),
 }
-# stocks has a registry entry but no repository and no CNAME -- nowhere to put it.
-SKIP = {"stocks"}
 
 
 def main():
@@ -74,6 +74,6 @@ def main():
             shutil.copyfile(s, p)
             made += 1; new += fresh
             print(f"  {'+' if fresh else ' '} {dst}")
-    print(f"\n{made} files written ({new} new), {len(T)} sites; skipped: {', '.join(SKIP)}")
+    print(f"\n{made} files written ({new} new), {len(T)} sites")
 
 main()
