@@ -351,7 +351,7 @@
     .dot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
     .dot.live::before { animation: pulse 1.6s infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
-    /* AI Bloat Certified: a two-part seal for project footers. Gold half with the
+    /* AI Bloat Certified: a two-part seal for the top of a project page. Gold half with the
        rosette, dark half with the verdict; one gold hairline around both. */
     .cert-badge { display: inline-flex; align-items: stretch; vertical-align: middle; font-family: var(--mono); font-size: var(--fs-label); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1; border: 1px solid var(--accent); border-radius: 5px; overflow: hidden; white-space: nowrap; box-shadow: 0 0 14px var(--accent-glow); }
     .cert-badge .cert-l { display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px 5px 5px; background: var(--accent); color: #050505; }
