@@ -30,6 +30,7 @@ SITES = {
  "Topo/index.html": "topo",               "TV/index.html": "tv",
  "Vitae/index.html": "vitae",
 }
+APP_ICON_OWN = {"aldis"}   # sites whose apple-touch-icon is deliberate app artwork
 md5 = lambda p: hashlib.md5(open(p, "rb").read()).hexdigest()
 BLACK = "70b0e044dbdcbeff0da2edb2bcbd9be6"   # the old face, for the record
 
@@ -37,6 +38,11 @@ fails, seen = [], collections.defaultdict(list)
 for page, stem in sorted(SITES.items()):
     html = open(os.path.join(GH, page), encoding="utf-8", errors="replace").read()
     links = re.findall(r'<link[^>]*rel="[^"]*\bicon\b[^"]*"[^>]*>', html)
+    # An installable app's home-screen icon (apple-touch-icon) is its own
+    # artwork on an opaque square, like the PWA manifest icons beside it, not
+    # the flat mark: Aldis Lamp's is a lit lamp. Only the favicons must match.
+    if stem in APP_ICON_OWN:
+        links = [l for l in links if 'apple-touch-icon' not in l]
     hrefs = [re.search(r'href="([^"]+)"', l).group(1) for l in links
              if re.search(r'href="([^"]+)"', l) and 'playwright' not in l]
     if not hrefs:
