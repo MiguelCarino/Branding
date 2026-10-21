@@ -21,14 +21,14 @@ T = {
  "cybercity":(["CyberCity/logo.svg"], ["CyberCity/logo.webp"]),
  # dcm: site root, plus the desktop app's asset
  "dcm":      (["DICOM-editor/logo.svg", "DICOM-editor/desktop/assets/logo.svg",
-               "Carino-PACS/pacs/web/editor/logo.svg"],
-              ["DICOM-editor/logo.webp", "Carino-PACS/pacs/web/editor/logo.webp"]),
+               "Carino-DICOM/pacs/web/editor/logo.svg"],
+              ["DICOM-editor/logo.webp", "Carino-DICOM/pacs/web/editor/logo.webp"]),
  "desk":     (["Desk/logo.svg"], ["Desk/logo.webp"]),
  # dicom: the public site is docs/, the PACS server ships its own web UI, and
  # docs/favicon.webp + pacs/web/{logo,favicon}.webp are all one file today.
- "dicom":    (["Carino-PACS/docs/logo.svg", "Carino-PACS/desktop/assets/logo.svg"],
-              ["Carino-PACS/docs/favicon.webp", "Carino-PACS/docs/logo.webp",
-               "Carino-PACS/pacs/web/logo.webp", "Carino-PACS/pacs/web/favicon.webp"]),
+ "dicom":    (["Carino-DICOM/docs/logo.svg", "Carino-DICOM/desktop/assets/logo.svg"],
+              ["Carino-DICOM/docs/favicon.webp", "Carino-DICOM/docs/logo.webp",
+               "Carino-DICOM/pacs/web/logo.webp", "Carino-DICOM/pacs/web/favicon.webp"]),
  "distro":   (["findmeadistro/logo.svg"], ["findmeadistro/logo.webp"]),
  "fiscal":   (["Fiscal/logo.svg"], ["Fiscal/logo.webp"]),
  "font":     (["Fonts/logo.svg"], ["Fonts/logo.webp"]),

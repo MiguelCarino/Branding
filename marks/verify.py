@@ -10,7 +10,7 @@ SRC = os.path.join(GH, "Branding/marks")
 
 SITES = {
  "Aldis-Lamp/index.html": "aldis",        "Asobi/index.html": "asobi",
- "Branding/index.html": "branding",       "Carino-PACS/docs/index.html": "dicom",
+ "Branding/index.html": "branding",       "Carino-DICOM/docs/index.html": "dicom",
  "Carino-Systems/index.html": "carino",   "Compass/index.html": "compass",
  "Currency/index.html": "currency",       "Custom-Images/docs/index.html": "images",
  "CVE/index.html": "cve",                 "CyberCity/index.html": "cybercity",
