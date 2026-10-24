@@ -68,6 +68,15 @@
     <a href="#dataviz" data-i18n>Data Viz</a>
     <a href="#currency" data-i18n>Currency</a>
     <a href="#anim" data-i18n>Animations</a>
+    <a href="#landing" data-i18n>Landing Hero</a>
+    <a href="#shorthero" data-i18n>Short Hero</a>
+    <a href="#privacy" data-i18n>Privacy Line</a>
+    <a href="#fchips" data-i18n>Filter Chips</a>
+    <a href="#entry" data-i18n>Entry Card</a>
+    <a href="#lab" data-i18n>Lab</a>
+    <a href="#footer" data-i18n>Footer</a>
+    <a href="#play" data-i18n>Play</a>
+    <a href="#pagetypes" data-i18n>Page Types</a>
   </nav>
 
   <main>
@@ -131,6 +140,8 @@
       </div>
       <div class="demo">
         <div class="swatches" id="swatches"></div>
+        <div class="note" data-i18n-html><strong>Two greys, two names.</strong> <code>--text-sec</code> is #a3a3a3, for secondary prose; <code>--text-muted</code> is #8a8a8a, for labels. Many sites used <code>--text-muted</code> for #a3a3a3 and <code>--text-dim</code> for #8a8a8a: a site that moves to <code>carino-ui.css</code> renames them, and never redefines a token declared there.</div>
+        <div class="note" data-i18n-html><strong>One file.</strong> Every token and production component on this page is in <code>carino-ui.css</code> (behaviour in <code>carino-ui.js</code>). <code>Carino-Systems/propagate.sh</code> copies both into each site, the way it copies the navbar; a site links them before its own stylesheet.</div>
       </div>
     </section>
 
@@ -385,23 +396,29 @@
       <div class="spec-head">
         <div class="spec-num">14</div>
         <h2 data-i18n>Slice Menu</h2>
-        <p data-i18n>The full-screen section chooser (Carino-Systems hub, CarinoLearn). Columns fill the viewport and expand with a radial gold glow on hover; selecting one collapses the rest to a thin bar. Shown here scaled down.</p>
+        <p data-i18n>The module chooser of a Suite and the module grid of a Learning site. Slices widen with a gold glow on hover; once a module is open the menu becomes a 44px bar fixed at the top of the page. Shown here in a frame.</p>
       </div>
       <div class="demo">
-        <div class="slice-demo">
-          <div class="slice"><div class="s-num">01</div><div class="s-text" data-i18n>Projects</div></div>
-          <div class="slice"><div class="s-num">02</div><div class="s-text" data-i18n>Systems</div></div>
-          <div class="slice"><div class="s-num">03</div><div class="s-text" data-i18n>About</div></div>
-          <div class="slice"><div class="s-num">04</div><div class="s-text" data-i18n>Contact</div></div>
+        <div class="demo-label" data-i18n>Overview</div>
+        <div class="slice-frame">
+          <nav class="slice-menu" aria-label="Modules">
+            <button type="button" class="slice"><span class="s-num">01</span><span class="s-text" data-i18n>Projects</span></button>
+            <button type="button" class="slice"><span class="s-num">02</span><span class="s-text" data-i18n>Systems</span></button>
+            <button type="button" class="slice"><span class="s-num">03</span><span class="s-text" data-i18n>About</span></button>
+            <button type="button" class="slice"><span class="s-num">04</span><span class="s-text" data-i18n>Contact</span></button>
+          </nav>
         </div>
         <div class="demo-label" style="margin-top:18px;" data-i18n>Collapsed tab-bar state (after a slice is chosen)</div>
-        <div class="slice-demo collapsed" id="sliceCollapsed">
-          <div class="slice active"><div class="s-num">01</div><div class="s-text" data-i18n>Projects</div></div>
-          <div class="slice"><div class="s-num">02</div><div class="s-text" data-i18n>Systems</div></div>
-          <div class="slice"><div class="s-num">03</div><div class="s-text" data-i18n>About</div></div>
-          <div class="slice"><div class="s-num">04</div><div class="s-text" data-i18n>Contact</div></div>
+        <div class="slice-frame">
+          <nav class="slice-menu collapsed" id="sliceCollapsed" aria-label="Modules">
+            <button type="button" class="slice active"><span class="s-num">01</span><span class="s-text" data-i18n>Projects</span></button>
+            <button type="button" class="slice"><span class="s-num">02</span><span class="s-text" data-i18n>Systems</span></button>
+            <button type="button" class="slice"><span class="s-num">03</span><span class="s-text" data-i18n>About</span></button>
+            <button type="button" class="slice"><span class="s-num">04</span><span class="s-text" data-i18n>Contact</span></button>
+          </nav>
         </div>
-        <div class="note" data-i18n-html>Reference: Carino-Systems/index.html (the hub), Asobi and Learn (in-app the collapsed bar is <code>body.state-playing .slice-menu</code>, sticky under the navbar; here it is the <code>.collapsed</code> modifier). Click a tab above to move the active accent.</div>
+        <div class="note" data-i18n-html><strong>Routing.</strong> Every module is <code>#module</code>, with extra parameters after <code>&amp;</code> (<code>#edit&amp;sample=ct</code>). <code>CarinoUI.slices({ menu, onRoute })</code> in <code>carino-ui.js</code> follows <code>hashchange</code>, marks the active slice and keeps <code>body.state-overview</code> and <code>body.state-module</code> in step, so Back, bookmarks and shared links open the right module. When every module works on the same file (dcm, Media), pass <code>collapsed: true</code> so the bar sits above the drop area from the start.</div>
+        <div class="note" data-i18n-html>On phones the overview stacks, and the bar shows labels only, never icons alone, at equal widths that scroll sideways past four. Modules never go in the navbar, and <a href="#tabs">Tabs</a> are for views inside a module, never for choosing one. Classes: <code>.slice-menu</code> › <code>.slice[data-id]</code> (<code>.s-num</code>, <code>.s-text</code>, <code>.s-blurb</code>), <code>.collapsed</code>. Reference: Asobi, Learn.</div>
       </div>
     </section>
 
@@ -513,7 +530,7 @@
 <span class="prompt">$</span> netplan try --timeout 30</code></div>
           <button type="button" class="copy-btn term-copy" id="termCopyBtn" aria-label="Copy commands"><span data-i18n>Copy</span></button>
         </div>
-        <div class="note" data-i18n-html>Reference: SimpleSetup (installer one-liner), Desk (snippet cards), Password. Distinct from <a href="#code">Code</a>: this is for commands the visitor runs, not source being read.</div>
+        <div class="note" data-i18n-html>Reference: SimpleSetup (one tab per operating system, the detected one first), Desk, Password. Copy takes the commands without their prompts, and on phones the commands keep clear of the button. Distinct from <a href="#code">Code</a>: this is for commands the visitor runs, not source being read.</div>
       </div>
     </section>
 
@@ -522,22 +539,45 @@
       <div class="spec-head">
         <div class="spec-num">20</div>
         <h2 data-i18n>Workspace Shell</h2>
-        <p data-i18n-html>The standard chrome for every "tool with a settings rail" app: a fixed sidebar that scrolls on its own beside a fluid content pane (<code>min-width: 0</code> so it never forces overflow). Below 700px the rail stacks on top.</p>
+        <p data-i18n-html>The chrome of every Tool and every Suite module: a 340px settings rail on the left that scrolls on its own, beside a fluid work pane. At 900px and below the rail becomes a drawer, opened by a <code>[data-ws-toggle]</code> button. Shown here in a frame.</p>
       </div>
       <div class="demo">
-        <div class="ws-demo">
-          <div class="ws-side">
-            <div class="t-label" data-i18n>Settings</div>
-            <div class="field"><label data-i18n>Format</label><select class="select"><option>PNG</option><option>WEBP</option></select></div>
-            <div class="field"><label data-i18n>Quality</label><input class="input" value="92" /></div>
-            <label class="check"><input type="checkbox" checked> <span data-i18n data-i18n-wrap>Keep metadata</span></label>
-          </div>
-          <div class="ws-main">
-            <div class="t-label" style="margin-bottom:8px;" data-i18n>Output</div>
-            <span data-i18n data-i18n-wrap>The content pane owns its own scroll and takes every remaining pixel. Results, previews, and tables render here while the rail keeps the controls in reach.</span>
+        <div class="ws-frame">
+          <div class="ws">
+            <aside class="ws-rail">
+              <div class="t-label" data-i18n>Settings</div>
+              <div class="field"><label data-i18n>Format</label><select class="select"><option>PNG</option><option>WEBP</option></select></div>
+              <div class="field"><label data-i18n>Quality</label><input class="input" value="92" /></div>
+              <label class="check"><input type="checkbox" checked> <span data-i18n data-i18n-wrap>Keep metadata</span></label>
+              <div class="ws-rail-foot"><p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p></div>
+            </aside>
+            <div class="ws-pane">
+              <button type="button" class="cs-btn ws-toggle" data-ws-toggle style="margin-bottom:12px;" data-i18n>☰ Settings</button>
+              <div class="t-label" style="margin-bottom:8px;" data-i18n>Output</div>
+              <span data-i18n data-i18n-wrap>The content pane owns its own scroll and takes every remaining pixel. Results, previews, and tables render here while the rail keeps the controls in reach.</span>
+            </div>
           </div>
         </div>
-        <div class="note" data-i18n>In apps the rail is ~340px wide. Reference: Metadata, Quote, Media, Vitae.</div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Drawer: 900px and below</div>
+        <div class="ws-frame">
+          <div class="ws drawer-demo">
+            <aside class="ws-rail">
+              <div class="t-label" data-i18n>Settings</div>
+              <div class="field"><label data-i18n>Format</label><select class="select"><option>PNG</option><option>WEBP</option></select></div>
+              <div class="ws-rail-foot"><p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p></div>
+            </aside>
+            <div class="ws-pane"><span data-i18n data-i18n-wrap>The content pane owns its own scroll and takes every remaining pixel. Results, previews, and tables render here while the rail keeps the controls in reach.</span></div>
+          </div>
+        </div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Column: three settings or fewer</div>
+        <div class="ws-frame">
+          <div class="col">
+            <div class="field"><label data-i18n>Length</label><input class="input" value="20" /></div>
+            <div><button type="button" class="btn btn-primary" data-i18n>Generate</button></div>
+            <p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p>
+          </div>
+        </div>
+        <div class="note" data-i18n-html>Inputs go at the top of the rail or in the pane’s empty state (a <a href="#shorthero">Short Hero</a>), settings below them, and the privacy line in <code>.ws-rail-foot</code>. Every output goes in one Export menu in the navbar through <code>data-carino-actions</code>, never in the rail. Classes: <code>.ws</code> › <code>.ws-rail</code> (+ <code>.ws-rail-foot</code>) and <code>.ws-pane</code>; <code>.ws-toggle</code>; <code>.col</code>. Load <code>carino-ui.js</code> for the drawer. Reference: Metadata, Topo, Netplan.</div>
       </div>
     </section>
 
@@ -624,7 +664,23 @@
           <span class="delta down">▼ 2.10 (1.31%)</span>
           <span class="delta flat">—</span>
           <span class="live-chip live">LIVE · Finnhub</span>
-          <span class="live-chip">DEMO</span>
+          <span class="live-chip sample">DEMO</span>
+        </div>
+        <div class="demo-label" style="margin-top:16px;" data-i18n>Source badge states</div>
+        <div class="demo-row" style="gap:8px;flex-wrap:wrap;">
+          <span class="live-chip live">LIVE · Finnhub</span>
+          <span class="live-chip delayed">DELAYED · 15m</span>
+          <span class="live-chip stale">STALE · 3h</span>
+          <span class="live-chip err">ERROR</span>
+          <span class="live-chip paused">PAUSED</span>
+          <span class="live-chip sample">DEMO</span>
+          <span class="fresh">15:49:13</span>
+          <span class="fresh stale">12:02:40</span>
+        </div>
+        <div class="stat-tile is-stale" style="max-width:240px;margin:12px 0;">
+          <div class="st-label" data-i18n>Total value</div>
+          <div class="st-value num">$48,215.60</div>
+          <div class="stale-note" data-i18n>Showing the last good copy from 12:02.</div>
         </div>
         <div class="rangebar" style="max-width:280px;margin-top:6px;">
           <span class="rb-lo">124.10</span>
@@ -637,6 +693,7 @@
           <button class="icon-mini" type="button">✕</button>
         </div>
         <div class="note" data-i18n-html>Components: <code>.stat-tile</code> (KPI), <code>.delta.up/.down/.flat</code> (signed change chip), <code>.spark</code> (SVG micro-chart, direction classes tint it), <code>.rangebar</code> (low→high with marker), <code>.rule-row</code> (<code>.switch</code> + condition + remove), <code>.live-chip</code> (data-freshness), plus the <code>.num</code> tabular-nums utility and the <code>body.privacy-on .amount { filter: blur() }</code> screenshot-safe utility.</div>
+        <div class="note" data-i18n-html><strong>Freshness.</strong> A Live page shows its source badge and the time of its last update in the navbar, each panel shows its own “as of”, and every state looks different: loading, live, delayed, stale, error, demo, paused, empty. An error never reads as “no results”. Sites that measure their own data use <code>THIS BROWSER</code> or <code>DEVICE CLOCK</code> as the source. Classes: <code>.live-chip</code> (<code>.live</code> <code>.delayed</code> <code>.stale</code> <code>.err</code> <code>.paused</code> <code>.sample</code>), <code>.fresh</code> (<code>.stale</code> <code>.err</code> <code>.paused</code>), <code>.is-stale</code> with <code>.stale-note</code>, and the <code>.data-foot</code> source line.</div>
       </div>
     </section>
 
@@ -730,7 +787,375 @@
       </div>
     </section>
 
+    <!-- 26. LANDING HERO -->
+    <section class="spec" id="landing">
+      <div class="spec-head">
+        <div class="spec-num">26</div>
+        <h2 data-i18n>Landing Hero</h2>
+        <p data-i18n-html>The gold-C hero that opens a landing page: the hub, a Product, a Reference site, a Learning overview. Reference: <a href="https://dicom.carino.systems/">dicom.carino.systems</a>. It is anchored to the top, and every size grows with the height a screen has beyond 900px, so a laptop and a tall monitor both look composed.</p>
+      </div>
+      <div class="demo">
+        <div class="hero-frame">
+          <header class="landing-hero">
+            <div class="lh-wrap">
+              <div class="lh-mark" aria-hidden="true">
+                <img class="mark" src="marks/branding.svg" alt="" width="100" height="100">
+              </div>
+              <h1><span data-i18n>One look across every site.</span><br><span class="gold" data-i18n>Copy it, don’t redraw it.</span></h1>
+              <p class="lh-lede" data-i18n-html><strong>Carino Branding</strong> holds the tokens and components every Carino site is built from.</p>
+              <ul class="lh-situations">
+                <li data-i18n>Starting a site? Link carino-ui.css and the page already looks like the fleet.</li>
+                <li data-i18n>Not sure where a control goes? The page types say which blocks a page has.</li>
+              </ul>
+              <p class="lh-stats" data-i18n>34 sections · 8 page types · reviewed 2026-10</p>
+              <div class="lh-actions">
+                <a class="btn btn-primary" href="#pagetypes" data-i18n>See the page types</a>
+                <a class="btn" href="#tokens" data-i18n>Color tokens</a>
+              </div>
+            </div>
+          </header>
+        </div>
+        <div class="note" data-i18n-html><strong>Rules.</strong> The headline is two lines in sentence case, the second in solid gold: never uppercase, never a gradient. One sentence of lede names the product in bold, then up to four situations. A motif under the mark (dicom’s heartbeat) is optional and decorative: <code>aria-hidden</code>, still under reduced motion, removed on phones. A Product adds its systems line (<code>.sys-line</code>: version · systems · licence) above its install buttons; a Reference site puts its counts and reviewed date in <code>.lh-stats</code>.</div>
+        <div class="note" data-i18n-html>Classes: <code>.landing-hero</code> › <code>.lh-wrap</code> › <code>.lh-mark</code> (<code>img.mark</code>, optional <code>svg.lh-motif</code>), <code>h1</code> with <code>.gold</code>, <code>.lh-lede</code>, <code>.lh-situations</code>, <code>.lh-stats</code> or <code>.sys-line</code>, <code>.lh-actions</code>. The mark is the site’s own <code>logo.svg</code>.</div>
+      </div>
+    </section>
+
+    <!-- 27. SHORT HERO -->
+    <section class="spec" id="shorthero">
+      <div class="spec-head">
+        <div class="spec-num">27</div>
+        <h2 data-i18n>Short Hero</h2>
+        <p data-i18n-html>A tool’s empty state. It sits inside the work pane, never as a band above it, and leaves as soon as there is work. It holds the one input target, example chips as a second way in, and the privacy line. Reference: Metadata and Topo.</p>
+      </div>
+      <div class="demo">
+        <div class="pane-frame">
+          <div class="short-hero">
+            <img class="mark" src="marks/metadata.svg" alt="" width="48" height="48">
+            <h1><span data-i18n>See what a file says</span><br><span class="gold" data-i18n>about itself.</span></h1>
+            <p class="sh-lede" data-i18n>Drop a photo, a PDF or a song to read and edit its hidden details.</p>
+            <div class="sh-input">
+              <div class="dropzone"><div data-i18n-html>Drop a file here or <strong>browse</strong></div><div class="dz-hint" data-i18n>Read in this browser</div></div>
+            </div>
+            <div class="examples"><span class="ex-label" data-i18n>Try:</span><button type="button" class="chip-tag" data-i18n>A photo</button><button type="button" class="chip-tag" data-i18n>A PDF</button><button type="button" class="chip-tag" data-i18n>An MP3</button></div>
+            <p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p>
+          </div>
+        </div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Rail head: for tools that always open with content</div>
+        <div class="rail-frame">
+          <div class="short-hero rail-head">
+            <img class="mark" src="marks/password.svg" alt="" width="32" height="32">
+            <div><h1>Password</h1><p class="sh-lede" data-i18n>Make a strong password and send it safely.</p></div>
+          </div>
+        </div>
+        <div class="note" data-i18n-html><strong>Rules.</strong> One <code>&lt;h1&gt;</code> per page, naming the job in plain words, not the product in capitals. The lede is two lines at most. Every tool has example chips or an “Open the example” link, and sample data says it is sample. Tools that always open with content (Desk, Netplan, Password, Aldis, Teleprompter) use <code>.rail-head</code> at the top of the rail instead.</div>
+        <div class="note" data-i18n-html>Classes: <code>.short-hero</code> › <code>img.mark</code>, <code>h1</code>, <code>.sh-lede</code>, <code>.sh-input</code>, <code>.examples</code> (<code>.ex-label</code> + <code>button.chip-tag</code>), <code>.privacy-line</code>. Compact form: <code>.short-hero.rail-head</code>.</div>
+      </div>
+    </section>
+
+    <!-- 28. PRIVACY LINE -->
+    <section class="spec" id="privacy">
+      <div class="spec-head">
+        <div class="spec-num">28</div>
+        <h2 data-i18n>Privacy Line</h2>
+        <p data-i18n-html>One sentence, the same on every site, saying where the visitor’s things go. It must be literally true, so a page that contacts anything names it in the same line.</p>
+      </div>
+      <div class="demo">
+        <div class="privacy-stack">
+          <p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p>
+          <p class="privacy-line"><span data-i18n>Runs in your browser. Nothing you add here is uploaded.</span>&nbsp;<span class="pl-also" data-i18n>Exchange rates come from frankfurter.app; nothing you type is sent.</span></p>
+          <p class="privacy-line"><span data-i18n>Runs in your browser. Nothing you add here is uploaded.</span>&nbsp;<span class="pl-also" data-i18n>In Chrome, speech is recognised by Google’s servers unless the on-device pack is installed.</span></p>
+          <p class="privacy-line" data-i18n>Progress is saved in this browser only. No account, nothing sent anywhere.</p>
+          <p class="privacy-line" data-i18n>Your answers stay in this link and this browser. Nothing is sent anywhere.</p>
+        </div>
+        <div class="note" data-i18n-html><strong>Where it goes.</strong> Tool: in the empty state and pinned to the foot of the rail. Suite: at the end of the hero’s lede. Learning: under the progress pill, worded for progress. Questionnaire: under the result. Product: under the install block. Live data names its source in the footer line instead (see <a href="#dataviz">Data Viz</a>).</div>
+        <div class="note" data-i18n-html>The first sentence is one i18n key shared fleet-wide; disclosure clauses go in <code>.pl-also</code>. Where a page sends nothing at all, back the claim with a meta CSP that limits <code>connect-src</code>, as Password does.</div>
+      </div>
+    </section>
+
+    <!-- 29. FILTER CHIPS -->
+    <section class="spec" id="fchips">
+      <div class="spec-head">
+        <div class="spec-num">29</div>
+        <h2 data-i18n>Filter Chips</h2>
+        <p data-i18n-html>A Reference page’s first control: a sticky bar of facet chips with the number of entries shown. One choice per facet, and clicking a chosen chip clears it. Reference: Law.</p>
+      </div>
+      <div class="demo">
+        <div class="fchips" id="fchipsDemo">
+          <span class="fchip-lbl" data-i18n>Region</span>
+          <button type="button" class="fchip active" data-facet="region" data-i18n>Americas</button>
+          <button type="button" class="fchip" data-facet="region" data-i18n>Europe</button>
+          <button type="button" class="fchip" data-facet="region" data-i18n>Asia</button>
+          <span class="fchip-sep"></span>
+          <span class="fchip-lbl" data-i18n>Kind</span>
+          <button type="button" class="fchip" data-facet="kind" data-i18n>Gazette</button>
+          <button type="button" class="fchip" data-facet="kind" data-i18n>Constitution</button>
+          <span class="fchip-sep"></span>
+          <button type="button" class="fchip clear" id="fchipsClear" data-i18n>Clear</button>
+          <span class="fchips-count" id="fchipsCount">9 shown</span>
+        </div>
+        <div class="note" data-i18n-html><strong>Rules.</strong> Chips come first and a search box never does. A list longer than about 300 entries may add a Find after the chips (a small chip, or the <span class="kbd">/</span> key). On phones the bar is one line that scrolls sideways, never several wrapped rows.</div>
+        <div class="note" data-i18n-html>Classes: <code>.fchips</code> › <code>.fchip-lbl</code>, <code>button.fchip</code> (<code>.active</code> or <code>aria-pressed="true"</code>), <code>.fchip-sep</code>, <code>.fchip.clear</code>, <code>.fchips-count</code>.</div>
+      </div>
+    </section>
+
+    <!-- 30. ENTRY CARD -->
+    <section class="spec" id="entry">
+      <div class="spec-head">
+        <div class="spec-num">30</div>
+        <h2 data-i18n>Entry Card &amp; Source Line</h2>
+        <p data-i18n-html>The dense card of a Reference page. Every entry ends in a source line: the publisher’s domain, a link, and the month it was last checked.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card entry">
+          <div class="e-title">Mexico</div>
+          <div class="e-sub">Diario Oficial de la Federación</div>
+          <p class="e-desc" data-i18n>The federal gazette of record: laws, decrees and regulations take effect when published here.</p>
+          <div class="e-badges"><span class="pill ok" data-i18n>Official</span></div>
+          <div class="src-line"><span data-i18n>Source:</span><a href="https://www.dof.gob.mx/" target="_blank" rel="noopener">dof.gob.mx ↗</a><span class="src-date" data-i18n>checked 2026-08</span></div>
+        </div>
+        <div class="card entry">
+          <div class="e-title">Japan</div>
+          <div class="e-sub">官報 · Kanpō</div>
+          <p class="e-desc" data-i18n>The official gazette, published by the National Printing Bureau every weekday.</p>
+          <div class="e-badges"><span class="pill ok" data-i18n>Official</span></div>
+          <div class="src-line"><span data-i18n>Source:</span><a href="https://www.kanpo.go.jp/" target="_blank" rel="noopener">kanpo.go.jp ↗</a><span class="src-date" data-i18n>checked 2026-08</span></div>
+        </div>
+        <div class="card entry">
+          <div class="e-title">Brazil</div>
+          <div class="e-sub">Diário Oficial da União</div>
+          <p class="e-desc" data-i18n>The federal gazette; a consolidated legislation portal is listed beside it as a secondary source.</p>
+          <div class="e-badges"><span class="pill ok" data-i18n>Official</span><span class="pill muted" data-i18n>Unofficial copy listed</span></div>
+          <div class="src-line"><span data-i18n>Source:</span><a href="https://www.in.gov.br/" target="_blank" rel="noopener">in.gov.br ↗</a><span class="src-date" data-i18n>checked 2026-08</span></div>
+        </div>
+      </div>
+      <div class="demo" style="margin-top:14px;">
+        <div class="note" style="margin-top:0;" data-i18n-html><strong>Data.</strong> One JSON file per entry, each with a <code>url</code> and an <code>updated</code> date, checked by <code>tools/validate.py</code> and <code>tools/linkcheck.py</code> (copy Law’s). The source line reads that date; an entry with no source is not published.</div>
+        <div class="note" data-i18n-html>Classes: <code>.card.entry</code> › <code>.e-title</code>, <code>.e-sub</code>, <code>.e-desc</code> (two lines), <code>.e-badges</code> (<code>.pill</code>), <code>.src-line</code> (<code>a</code> + <code>.src-date</code>). Details open in a <a href="#modal">Modal</a> with a <code>#id</code> link.</div>
+      </div>
+    </section>
+
+    <!-- 31. LAB -->
+    <section class="spec" id="lab">
+      <div class="spec-head">
+        <div class="spec-num">31</div>
+        <h2 data-i18n>Lab &amp; Progress</h2>
+        <p data-i18n-html>Learning pages end every topic in something to try. An inline lab sits at the stage it teaches; the step player walks an algorithm one step at a time. Reference: Learn (inline labs) and Hash (step player).</p>
+      </div>
+      <div class="demo">
+        <div class="demo-label" data-i18n>Course progress</div>
+        <span class="progress-pill"><span data-i18n>12 / 40 steps · 30%</span><span class="progress"><span style="width:30%"></span></span></span>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Lab with the step player</div>
+        <section class="lab">
+          <div class="lab-kicker" data-i18n>Interactive lab</div>
+          <h3 data-i18n>One round of SHA-256</h3>
+          <p class="lab-blurb" data-i18n>Step through how one word of the message is mixed into the state.</p>
+          <div class="step-player">
+            <div class="sp-controls">
+              <button type="button" class="btn btn-primary" data-i18n>▶ Play</button>
+              <button type="button" class="btn" data-i18n>Step</button>
+              <button type="button" class="btn" data-i18n>Back</button>
+              <button type="button" class="btn btn-ghost" data-i18n>Reset</button>
+              <select class="select" style="width:auto;" aria-label="Speed"><option>1×</option><option>2×</option><option>0.5×</option></select>
+              <span class="sp-count">3 / 64</span>
+            </div>
+            <div class="sp-stage">Σ1(e) = (e ⋙ 6) ⊕ (e ⋙ 11) ⊕ (e ⋙ 25) = <span class="hot">0x3587272b</span></div>
+          </div>
+        </section>
+        <div class="note" data-i18n-html><strong>Progress.</strong> Ticked by the learner, never graded. Kept in <code>localStorage['&lt;site&gt;.&lt;module&gt;']</code> as a list of finished stages, every read and write in try/catch, with Export and Import as a JSON file — the only way to move it without an account. Every module, stage and lab is linkable: <code>#module</code>, <code>#module/stage-3</code>, <code>#module/lab</code>.</div>
+        <div class="note" data-i18n-html>Keys: <span class="kbd">Space</span> plays and pauses, <span class="kbd">←</span> <span class="kbd">→</span> step. Classes: <code>.lab</code> › <code>.lab-kicker</code>, <code>h3</code>, <code>.lab-blurb</code>, <code>.lab-mount</code> or <code>.step-player</code> (<code>.sp-controls</code>, <code>.sp-count</code>, <code>.sp-stage</code>); <code>.progress-pill</code>. A lab that fails to start shows an <code>.alert</code> inside its box; the reading still works.</div>
+      </div>
+    </section>
+
+    <!-- 32. FOOTER -->
+    <section class="spec" id="footer">
+      <div class="spec-head">
+        <div class="spec-num">32</div>
+        <h2 data-i18n>Footer</h2>
+        <p data-i18n-html>Hub, Reference, Learning and Product pages end in a footer. Live data ends in one source line. Tools, a Suite’s modules and a Play stage have none: legal is in the navbar’s shield.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-label" data-i18n>Product footer</div>
+        <footer class="site-foot">
+          <div class="sf-links"><a href="#footer" data-i18n>Source</a><a href="#footer" data-i18n>Changelog</a><a href="#footer" data-i18n>Docs</a><a href="#footer" data-i18n>Third-party notices</a><a href="#footer" data-i18n>Legal &amp; privacy</a></div>
+          <div class="sf-line" data-i18n>Carino DICOM v1.1.0 · AGPL-3.0 · part of carino.systems</div>
+        </footer>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Live data source line</div>
+        <div class="data-foot" data-i18n>Data: Finnhub, 15-minute delay. Runs in your browser; nothing is uploaded. Monitoring only, not advice.</div>
+        <div class="note" data-i18n-html><strong>What each type says.</strong> Product: name and version, licence, source, changelog, docs, third-party notices, legal, and any trademark line. Reference: “Runs entirely in your browser. Every entry links to its source; checked YYYY-MM.” Learning: the progress privacy line. Live data: the source, its delay, the privacy sentence, and “Monitoring only, not advice.” on finance and security sites.</div>
+      </div>
+    </section>
+
+    <!-- 33. PLAY CONTROLS -->
+    <section class="spec" id="play">
+      <div class="spec-head">
+        <div class="spec-num">33</div>
+        <h2 data-i18n>Play Controls</h2>
+        <p data-i18n-html>Games and ambient pieces share one stage and one set of keys, so a visitor who knows one knows them all. The stage takes every pixel under the navbar; help and pause open in a <a href="#modal">Modal</a>.</p>
+      </div>
+      <div class="demo">
+        <div class="play-frame">
+          <div class="play-stage">
+            <div class="play-art" aria-hidden="true"></div>
+            <div class="play-dock">
+              <button type="button" class="cs-btn" data-i18n>❚❚ Pause</button>
+              <button type="button" class="cs-btn" data-i18n>Sound off</button>
+              <button type="button" class="cs-btn" data-i18n>Fullscreen</button>
+              <button type="button" class="cs-btn" aria-label="Help">?</button>
+            </div>
+          </div>
+        </div>
+        <div class="kbd-legend" style="margin-top:14px;">
+          <span><span class="kbd">?</span> <span class="kbd">H</span> <span class="lbl" data-i18n>Help</span></span>
+          <span><span class="kbd">P</span> <span class="kbd">Space</span> <span class="lbl" data-i18n>Pause</span></span>
+          <span><span class="kbd">Esc</span> <span class="lbl" data-i18n>Close</span></span>
+          <span><span class="kbd">F</span> <span class="lbl" data-i18n>Fullscreen</span></span>
+          <span><span class="kbd">M</span> <span class="lbl" data-i18n>Sound</span></span>
+        </div>
+        <div class="note" data-i18n-html><strong>Rules.</strong> Opening help pauses the scene. Phones get a visible help button, and help lists the touch gestures. Reduced motion is read live, and anything that moves for more than 5 seconds can be paused. Sound and outside media start only after a click or tap. Pure ambient pieces (Jellyfish) may skip the help overlay, but every control must still work by touch.</div>
+        <div class="note" data-i18n-html>Classes: <code>body.play-body</code> (a full-height column), <code>.play-stage</code> (canvas, wall or board), <code>.play-dock</code> (optional, built from <code>.cs-btn</code>). Three kinds: Canvas (CyberCity, Jellyfish), Wall (MusicGrid), Board (Asobi’s games).</div>
+      </div>
+    </section>
+
+    <!-- 34. PAGE TYPES -->
+    <section class="spec" id="pagetypes">
+      <div class="spec-head">
+        <div class="spec-num">34</div>
+        <h2 data-i18n>Page Types</h2>
+        <p data-i18n-html>Every Carino site is one page, and every page is one of eight types. The type fixes the layout: the blocks it must have, in order, the ones it may add, and the ones it never has. A site declares its type in <code>Carino-Systems/baseline/sites.json</code> as <code>"type"</code>; <code>"also"</code> names a second type whose blocks it borrows.</p>
+      </div>
+      <div class="demo">
+        <div class="pt-grid">
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Hub</div><span class="chip-tag">hub</span></div>
+            <div class="pt-job" data-i18n>The front door of the whole fleet. There is exactly one.</div>
+            <div class="pt-wire">
+              <a class="pt-blk" href="#landing" data-i18n>Hero</a>
+              <span class="pt-blk" data-i18n>Spotlight</span>
+              <a class="pt-blk big" href="#marks" data-i18n>Plate wall</a>
+              <a class="pt-blk" href="#cards" data-i18n>Safety cards</a>
+              <a class="pt-blk" href="#footer" data-i18n>Footer</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>A status panel, a start list, a contact band.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>A tool’s own controls, or a search box first.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://carino.systems/">carino</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Tool</div><span class="chip-tag">tool</span></div>
+            <div class="pt-job" data-i18n>You bring an input — a file, some text, a few answers — and take a result away.</div>
+            <div class="pt-wire">
+              <a class="pt-blk big" href="#workspace" data-i18n>Workspace</a>
+              <a class="pt-blk" href="#shorthero" data-i18n>Short hero, as the empty state</a>
+              <a class="pt-blk" href="#dropzone" data-i18n>Input and output, one place each</a>
+              <a class="pt-blk" href="#privacy" data-i18n>Privacy line</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>Keyboard keys, a help modal, a Bridge hand-off, one column for three settings or fewer, a light page when it is the exported document.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>An account, a second top bar, or anything sent to a server without saying so.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://metadata.carino.systems/">metadata</a><a class="chip-tag" href="https://topo.carino.systems/">topo</a><a class="chip-tag" href="https://quote.carino.systems/">quote</a><a class="chip-tag" href="https://vitae.carino.systems/">vitae</a><a class="chip-tag" href="https://font.carino.systems/">font</a><a class="chip-tag" href="https://kanban.carino.systems/">kanban</a><a class="chip-tag" href="https://fiscal.carino.systems/">fiscal</a><a class="chip-tag" href="https://password.carino.systems/">password</a><a class="chip-tag" href="https://netplan.carino.systems/">netplan</a><a class="chip-tag" href="https://desk.carino.systems/">desk</a><a class="chip-tag" href="https://subs.carino.systems/">subs</a><a class="chip-tag" href="https://teleprompter.carino.systems/">teleprompter</a><a class="chip-tag" href="https://aldis.carino.systems/">aldis</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Suite</div><span class="chip-tag">suite</span></div>
+            <div class="pt-job" data-i18n>Several tools under one name. Each module keeps the Tool layout.</div>
+            <div class="pt-wire">
+              <a class="pt-blk" href="#shorthero" data-i18n>Short hero, ending in the privacy line</a>
+              <a class="pt-blk" href="#slice" data-i18n>Slice menu</a>
+              <a class="pt-blk big" href="#workspace" data-i18n>Module, in the Tool layout</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>A Live data or Learning module, which names its outside sources instead of the privacy line.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>Modules in the navbar, tabs as the module chooser, or a module you cannot link to by #hash.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://dcm.carino.systems/">dcm</a><a class="chip-tag" href="https://media.carino.systems/">media</a><a class="chip-tag" href="https://retina.carino.systems/">retina</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Live data</div><span class="chip-tag">live</span></div>
+            <div class="pt-job" data-i18n>Watches outside data that keeps changing, or measures this browser.</div>
+            <div class="pt-wire">
+              <a class="pt-blk" href="#dataviz" data-i18n>Source badge and Updated, in the navbar</a>
+              <span class="pt-blk" data-i18n>Refresh controls</span>
+              <a class="pt-blk big" href="#dataviz" data-i18n>Dashboard</a>
+              <a class="pt-blk" href="#footer" data-i18n>Source line</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>Alerts, a watchlist, a scope strip under the navbar, a demo source labelled as demo.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>Old data shown as current, an error shown as no results, or advice. Monitoring only.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://stocks.carino.systems/">stocks</a><a class="chip-tag" href="https://currency.carino.systems/">currency</a><a class="chip-tag" href="https://cve.carino.systems/">cve</a><a class="chip-tag" href="https://tv.carino.systems/">tv</a><a class="chip-tag" href="https://time.carino.systems/">time</a><a class="chip-tag" href="https://ping.carino.systems/">ping</a><a class="chip-tag" href="https://test.carino.systems/">test</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Reference</div><span class="chip-tag">reference</span></div>
+            <div class="pt-job" data-i18n>Curated facts you read: one JSON file per entry, checked by a validator.</div>
+            <div class="pt-wire">
+              <a class="pt-blk" href="#landing" data-i18n>Hero with the reviewed date</a>
+              <a class="pt-blk" href="#fchips" data-i18n>Filter chips</a>
+              <a class="pt-blk big" href="#entry" data-i18n>Entry cards</a>
+              <a class="pt-blk" href="#entry" data-i18n>Source and checked date</a>
+              <a class="pt-blk" href="#footer" data-i18n>Footer</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>A detail dialog with a #id link, a side-by-side comparison, a print view, a Find after the chips when there are over 300 entries.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>A search box first, or an entry without its source.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://law.carino.systems/">law</a><a class="chip-tag" href="https://hardware.carino.systems/">hardware</a><a class="chip-tag" href="https://software.carino.systems/">software</a><a class="chip-tag" href="https://offline.carino.systems/">offline</a><a class="chip-tag" href="https://branding.carino.systems/">branding</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Learning</div><span class="chip-tag">learn</span></div>
+            <div class="pt-job" data-i18n>Teaches by doing: every topic ends in something you try.</div>
+            <div class="pt-wire">
+              <a class="pt-blk" href="#landing" data-i18n>Hero with overall progress</a>
+              <a class="pt-blk" href="#slice" data-i18n>Module grid</a>
+              <a class="pt-blk big" href="#lab" data-i18n>Module page: the lab first</a>
+              <a class="pt-blk" href="#lab" data-i18n>Stages with done ticks</a>
+              <a class="pt-blk" href="#footer" data-i18n>Footer</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>A questionnaire: how it works, the questions, then a result that says why, with the answers kept in the link.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>A grade kept on a server, an account to save progress, or a random pick presented as a match.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://learn.carino.systems/">learn</a><a class="chip-tag" href="https://hash.carino.systems/">hash</a><a class="chip-tag" href="https://compass.carino.systems/">compass</a><a class="chip-tag" href="https://distro.carino.systems/">distro</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Games and ambient</div><span class="chip-tag">play</span></div>
+            <div class="pt-job" data-i18n>The screen is the work: games, worlds and things to watch.</div>
+            <div class="pt-wire">
+              <a class="pt-blk huge" href="#play" data-i18n>Stage: canvas, wall or board</a>
+              <a class="pt-blk" href="#play" data-i18n>Control dock, optional</a>
+              <a class="pt-blk" href="#modal" data-i18n>Help and pause, in a modal</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>A navbar that hides, sound that starts muted, outside media that loads only after a click.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>Motion that ignores reduced-motion or starts scrolling on load, motion over 5 seconds with no pause, sound before a click, or ads.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://cybercity.carino.systems/">cybercity</a><a class="chip-tag" href="https://jellyfish.carino.systems/">jellyfish</a><a class="chip-tag" href="https://music.carino.systems/">music</a><a class="chip-tag" href="https://asobi.carino.systems/">asobi</a></div>
+          </div>
+
+          <div class="pt-card">
+            <div class="pt-head"><div class="c-title" data-i18n>Product</div><span class="chip-tag">product</span></div>
+            <div class="pt-job" data-i18n>Software you install. The page explains it; it does not run it.</div>
+            <div class="pt-wire">
+              <a class="pt-blk" href="#landing" data-i18n>Hero, with what it does</a>
+              <a class="pt-blk" href="#landing" data-i18n>Systems, version and licence</a>
+              <a class="pt-blk big" href="#terminal" data-i18n>Install, with copyable commands</a>
+              <a class="pt-blk" href="#modal" data-i18n>Dialogs: features, docs, technical</a>
+              <a class="pt-blk" href="#privacy" data-i18n>Privacy line</a>
+              <a class="pt-blk" href="#footer" data-i18n>Footer</a>
+            </div>
+            <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>Screenshots, a changelog, one tab per operating system.</span></div>
+            <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>An install step you cannot copy, or a page that hides which systems it runs on.</span></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://butter.carino.systems/">butter</a><a class="chip-tag" href="https://dlss.carino.systems/">dlss</a><a class="chip-tag" href="https://setup.carino.systems/">setup</a><a class="chip-tag" href="https://dicom.carino.systems/">dicom</a><a class="chip-tag" href="https://images.carino.systems/">images</a></div>
+          </div>
+
+        </div>
+        <div class="note" data-i18n-html><strong>Every type</strong> also has the navbar (<code>carino-navbar.js</code>), the gold-C mark, and the head, robots, sitemap and 404 that <code>baseline/apply.py</code> writes, so no card lists them. The thin bar at the top of each sketch is the navbar. A linked block opens the component it is built from.</div>
+        <div class="note" data-i18n-html><strong>One type, and at most one more.</strong> Choose by the page’s job, not its looks. <code>"also"</code> lets a site borrow another type’s blocks: Asobi is <code>play</code> with <code>"also": "suite"</code> because its games sit behind a slice menu. The main type’s Never line still applies. A ninth type is added here first, then in <code>sites.json</code>.</div>
+        <div class="note" data-i18n-html><strong>Standalone products</strong> (ButterEye, DLSS for Linux; <code>"standalone": true</code>) follow the Product layout but keep their own icon, and skip the Carino navbar and translations.</div>
+      </div>
+    </section>
+
   </main>
+
+  <div class="page-foot">
+    <footer class="site-foot">
+      <div class="sf-links"><a href="https://github.com/MiguelCarino/Branding" target="_blank" rel="noopener" data-i18n>Source</a><a href="https://carino.systems/legal.html" data-i18n>Legal &amp; privacy</a><a href="https://carino.systems/">carino.systems</a></div>
+      <div class="sf-line" data-i18n>Carino Branding · MIT licence · reviewed 2026-10. Runs entirely in your browser.</div>
+    </footer>
+  </div>
 
   <!-- live modal demo (opened from section 17) -->
   <div class="modal-scrim" id="liveScrim" hidden>
@@ -749,6 +1174,8 @@
   <script src="carino-navbar.js" data-app="Branding" data-repo="Branding" defer></script>
   <!-- Section-animation geometry; the motion lives in carino-anim.css. -->
   <script src="carino-anim.js" defer></script>
+  <!-- The workspace drawer and the slice router (only the drawer runs here). -->
+  <script src="carino-ui.js" defer></script>
   <script src="carino-lang.js" defer></script>
   <script src="i18n.js" defer></script>
 
@@ -788,7 +1215,7 @@
     const TOKENS = [
       ["--accent", "#eab308"], ["--bg", "#050505"], ["--bg-elev", "#0d0d0d"],
       ["--bg-card", "#0b0b0b"], ["--border", "#262626"], ["--text", "#ffffff"],
-      ["--text-sec", "#a3a3a3"], ["--text-muted", "#666666"],
+      ["--text-sec", "#a3a3a3"], ["--text-muted", "#8a8a8a"],
       ["--accent-faint", "rgba(234,179,8,0.05)"], ["--accent-glow", "rgba(234,179,8,0.15)"],
       ["--accent-dim", "rgba(234,179,8,0.30)"], ["--ok", "#22c55e"], ["--warn", "#eab308"], ["--err", "#ef4444"], ["--info", "#38bdf8"],
     ];
@@ -849,6 +1276,29 @@
       slice.classList.add("active");
     });
 
+    // ---- filter chips: one choice per facet, click again to clear ----
+    const FCHIP_COUNTS = [28, 9, 3];
+    function fchipsUpdate() {
+      const bar = document.getElementById("fchipsDemo");
+      const on = bar.querySelectorAll(".fchip.active[data-facet]").length;
+      bar.querySelectorAll(".fchip[data-facet]").forEach(c => c.setAttribute("aria-pressed", c.classList.contains("active") ? "true" : "false"));
+      document.getElementById("fchipsClear").hidden = on === 0;
+      document.getElementById("fchipsCount").textContent = TT("{n} shown").replace("{n}", FCHIP_COUNTS[on]);
+    }
+    document.getElementById("fchipsDemo").addEventListener("click", (e) => {
+      const chip = e.target.closest(".fchip");
+      if (!chip) return;
+      const bar = e.currentTarget;
+      if (chip.id === "fchipsClear") bar.querySelectorAll(".fchip.active").forEach(c => c.classList.remove("active"));
+      else {
+        const was = chip.classList.contains("active");
+        bar.querySelectorAll('.fchip[data-facet="' + chip.dataset.facet + '"]').forEach(c => c.classList.remove("active"));
+        if (!was) chip.classList.add("active");
+      }
+      fchipsUpdate();
+    });
+    fchipsUpdate();
+
     // ---- dropzone live states ----
     const dz = document.getElementById("dzLive");
     ["dragenter", "dragover"].forEach(ev => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add("dragover"); }));
@@ -867,7 +1317,10 @@
 
     // ---- command block copy (same mechanics as the section buttons) ----
     document.getElementById("termCopyBtn").addEventListener("click", function () {
-      copyText(this.closest(".terminal-wrapper").querySelector("code").innerText, this);
+      // Commands only: the prompt glyph is decoration, never part of what runs.
+      const code = this.closest(".terminal-wrapper").querySelector("code").cloneNode(true);
+      code.querySelectorAll(".prompt").forEach(p => p.remove());
+      copyText(code.textContent.replace(/^ /gm, ""), this);
     });
 
     // ---- Animations: the drop-in, since this section's markup is generated ----
@@ -930,6 +1383,7 @@
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --display: 'Red Hat Display', var(--sans);
   --radius: 10px;
+  --nav-h: 60px;                /* carino-navbar.js height      */
 }`;
     const TYPE_CSS =
 `/* Carino Branding — type scale · ${SITE}
@@ -953,6 +1407,21 @@
   --fs-hero:    clamp(2.6rem, 7vw, 4.6rem);  /* landing hero — always fluid */
 }
 body { font-size: 15px; }  /* body base: 15-16px */`;
+    // What a site needs to declare its type is one line in sites.json, not
+    // the eight cards that explain the types.
+    const PAGETYPES_SNIPPET =
+`<!-- Carino Branding · Page Types · ${SITE}/#pagetypes -->
+<!-- One of: hub, tool, suite, live, reference, learn, play, product.
+     "also" is optional: a second type whose blocks the site borrows.
+     Set it in Carino-Systems/baseline/sites.json, next to "name". -->
+{
+  "domain": "asobi.carino.systems",
+  "dir": "Asobi",
+  "name": "Asobi — Board Games",
+  "type": "play",
+  "also": "suite",
+  "desc": "…"
+}`;
     const COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 
     function fallbackCopy(text, cb) {
@@ -1053,6 +1522,8 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
           snippet = TYPE_CSS;
         } else if (sec.id === "marks") {
           snippet = MARK_SNIPPET;
+        } else if (sec.id === "pagetypes") {
+          snippet = PAGETYPES_SNIPPET;
         } else if (sec.id === "anim") {
           // Two files rather than one, and the shapes come from the module —
           // so copy the drop-in, not eight <svg>s someone would have to
@@ -1226,6 +1697,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       const active = document.querySelector("#tabbar .tabbtn.active");
       if (active) document.getElementById("tabpane").textContent = TT(PANES[+active.dataset.tab]);
       buildAnimGrid();
+      fchipsUpdate();
     };
   </script>
 </body>

@@ -4,8 +4,23 @@ The living reference for the **Carino** visual language — the shared navbar, t
 gold-on-black palette, and every component pattern used across the workshop.
 Hosted at **branding.carino.systems**.
 
-All component styles live in **`carino-branding.css`** — the hosted source of
-truth. `index.html` links it, and so does every copied snippet.
+Two files hold everything sites share:
+
+- **`carino-ui.css`**: the design tokens, the base, and every production
+  component. This is the source of truth for how a Carino page looks.
+- **`carino-ui.js`**: the behaviour some components need (the workspace drawer
+  and the `#module` slice router). Opt-in by markup; it does nothing on a page
+  that uses neither.
+
+`Carino-Systems/propagate.sh` copies both into every site that carries them, the
+way it copies `carino-navbar.js`. A site adopts them by linking `carino-ui.css`
+before its own stylesheet and deleting its local `:root` and look-alike classes
+in the same change. Sites may add new tokens but never redefine one declared in
+`carino-ui.css`.
+
+`carino-branding.css` imports `carino-ui.css` and adds only what this reference
+page needs: its chrome, the frames components are shown in, and the page-type
+sketches.
 
 Every section has a **Copy** button. It lifts the component's markup preceded by
 a link to the hosted stylesheet:
@@ -16,16 +31,31 @@ a link to the hosted stylesheet:
 <div class="demo">…</div>
 ```
 
-Paste that anywhere and the component renders correctly — it pulls its styling
-straight from `branding.carino.systems`, no local CSS needed. The Colors
-section's Copy button yields the raw design-token CSS (`:root { … }`) for when
-you want the values inline. When the style changes, edit `carino-branding.css`
-first and treat it as the source of truth.
+Paste that anywhere and the component renders correctly: the hosted stylesheet
+imports `carino-ui.css`. The Colors section's Copy button yields the raw token
+CSS (`:root { … }`). When the style changes, edit `carino-ui.css` first.
 
 ## What's inside
 Color tokens · typography · buttons & toggles · tabs · form controls · alerts ·
 badges/chips/status · cards & panels · dropdown/diagnostics · tables · code
-blocks · loading (spinner / progress / EKG) · slice menu.
+blocks · loading (spinner / progress / EKG) · slice menu and router · toast ·
+navbar action portal · dropzone · modal · command block · workspace shell and
+drawer · key caps · map · data viz and freshness states · currency · animations ·
+landing hero · short hero · privacy line · filter chips · entry card and source
+line · lab and progress · footer · play controls · page types.
+
+## Page types
+Every site is one page of one of eight types — `hub`, `tool`, `suite`, `live`,
+`reference`, `learn`, `play`, `product` — and the type fixes its layout: the
+blocks it must have, may add and never has. Section 34 (`#pagetypes`) defines
+them. Each site declares its type in `Carino-Systems/baseline/sites.json` as
+`"type"`, with an optional `"also"` for a second type whose blocks it borrows.
+A new type is added in Branding first, then in `sites.json`. Each block in a
+type's sketch links to the component it is built from.
+
+## Breakpoints
+Two, and nothing else: at 900px and below a workspace rail becomes a drawer; at
+640px and below is the phone layout.
 
 ## Design tokens
 | Token | Value |
