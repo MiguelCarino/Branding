@@ -466,6 +466,7 @@
 &lt;script src="carino-navbar.js" <span class="k">data-app</span>="MyApp" <span class="k">data-repo</span>="MyRepo" defer&gt;&lt;/script&gt;</pre>
         <div class="note" data-i18n-html>Fallback: with no <code>data-carino-actions</code> marker the script auto-absorbs a leftover <code>body &gt; header.cs-header</code>. Reference: carino-navbar.js (relocateActions), consumer markup in Time/index.html and Hardware/index.html; SoftwareCatalog shows the explicit-marker pattern.</div>
         <div class="note" data-i18n-html><code>data-app</code> is the tag beside the brand; <code>data-repo</code> is the repository the GitHub button opens — set it whenever the repo name differs from the tag (it falls back to <code>data-app</code>). The right cluster is ordered by CSS, not by DOM position, because four scripts insert into it independently. Read it inwards from the right edge: <strong>4</strong> GitHub and LinkedIn, always last · <strong>3</strong> language, immediately beside them · <strong>2</strong> status · <strong>1</strong> the app's own controls, furthest from the edge.</div>
+        <div class="note" data-i18n-html><strong>Fitting.</strong> The brand is never squeezed out. When the bar runs out of room, the legal and social links fold into a ⋯ menu first, then the clock steps aside, then the app’s controls fold too. Mark the one main action <code>data-priority="1"</code> to keep it in the bar; without a mark, the first <code>.btn-primary</code> stays. The real nodes move, so ids, handlers and <code>#carinoNav .cn-actions …</code> rules keep working.</div>
       </div>
     </section>
 
@@ -1013,6 +1014,7 @@
         </div>
         <div class="note" data-i18n-html><strong>Rules.</strong> Opening help pauses the scene. Phones get a visible help button, and help lists the touch gestures. Reduced motion is read live, and anything that moves for more than 5 seconds can be paused. Sound and outside media start only after a click or tap. Pure ambient pieces (Jellyfish) may skip the help overlay, but every control must still work by touch.</div>
         <div class="note" data-i18n-html>Classes: <code>body.play-body</code> (a full-height column), <code>.play-stage</code> (canvas, wall or board), <code>.play-dock</code> (optional, built from <code>.cs-btn</code>). Three kinds: Canvas (CyberCity, Jellyfish), Wall (MusicGrid), Board (Asobi’s games).</div>
+        <div class="note" data-i18n-html><strong>Immersive navbar.</strong> Add <code>data-immersive</code> to the <code>carino-navbar.js</code> script tag: the bar slides away in fullscreen or after 3 seconds idle (<code>data-immersive="5000"</code> for 5), and comes back at the top edge, on keyboard focus or on Esc. On touch screens it hides only in fullscreen. It fires <code>carino:navbar</code> with <code>{hidden}</code>.</div>
       </div>
     </section>
 
