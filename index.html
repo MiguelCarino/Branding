@@ -250,6 +250,7 @@
         <div class="alert ok" data-i18n>✔ No problems found. Configuration is valid.</div>
         <div class="alert warn" data-i18n-html>⚠ <b>DHCP and a static address</b> on the same interface — <code>networkd</code> applies both.</div>
         <div class="alert err" data-i18n>YAML Error: mapping values are not allowed here (line 8).</div>
+        <div class="alert info" data-i18n>ℹ This page reads the file in your browser; nothing is uploaded.</div>
       </div>
     </section>
 
@@ -418,6 +419,7 @@
           </nav>
         </div>
         <div class="note" data-i18n-html><strong>Routing.</strong> Every module is <code>#module</code>, with extra parameters after <code>&amp;</code> (<code>#edit&amp;sample=ct</code>). <code>CarinoUI.slices({ menu, onRoute })</code> in <code>carino-ui.js</code> follows <code>hashchange</code>, marks the active slice and keeps <code>body.state-overview</code> and <code>body.state-module</code> in step, so Back, bookmarks and shared links open the right module. When every module works on the same file (dcm, Media), pass <code>collapsed: true</code> so the bar sits above the drop area from the start.</div>
+        <div class="note" data-i18n-html>A place inside a module rides after a slash: <code>#sha2/stage-3</code>, <code>#learn/lab</code>. <code>onRoute</code> receives it as <code>params.path</code>, and the module id is what comes before the first slash.</div>
         <div class="note" data-i18n-html>On phones the overview stacks, and the bar shows labels only, never icons alone, at equal widths that scroll sideways past four. Modules never go in the navbar, and <a href="#tabs">Tabs</a> are for views inside a module, never for choosing one. Classes: <code>.slice-menu</code> › <code>.slice[data-id]</code> (<code>.s-num</code>, <code>.s-text</code>, <code>.s-blurb</code>), <code>.collapsed</code>. Reference: Asobi, Learn.</div>
       </div>
     </section>
@@ -467,6 +469,20 @@
         <div class="note" data-i18n-html>Fallback: with no <code>data-carino-actions</code> marker the script auto-absorbs a leftover <code>body &gt; header.cs-header</code>. Reference: carino-navbar.js (relocateActions), consumer markup in Time/index.html and Hardware/index.html; SoftwareCatalog shows the explicit-marker pattern.</div>
         <div class="note" data-i18n-html><code>data-app</code> is the tag beside the brand; <code>data-repo</code> is the repository the GitHub button opens — set it whenever the repo name differs from the tag (it falls back to <code>data-app</code>). The right cluster is ordered by CSS, not by DOM position, because four scripts insert into it independently. Read it inwards from the right edge: <strong>4</strong> GitHub and LinkedIn, always last · <strong>3</strong> language, immediately beside them · <strong>2</strong> status · <strong>1</strong> the app's own controls, furthest from the edge.</div>
         <div class="note" data-i18n-html><strong>Fitting.</strong> The brand is never squeezed out. When the bar runs out of room, the legal and social links fold into a ⋯ menu first, then the clock steps aside, then the app’s controls fold too. Mark the one main action <code>data-priority="1"</code> to keep it in the bar; without a mark, the first <code>.btn-primary</code> stays. The real nodes move, so ids, handlers and <code>#carinoNav .cn-actions …</code> rules keep working.</div>
+        <div class="demo-label" style="margin-top:18px;" data-i18n>Export menu: every output behind one button</div>
+        <div class="portal-demo">
+          <button type="button" class="cs-btn primary" data-i18n>Print PDF</button>
+          <div class="cs-menu">
+            <button type="button" class="cs-btn" aria-haspopup="true" aria-expanded="false"><span data-i18n>Export</span> <span class="cs-caret">▾</span></button>
+            <div class="cs-menu-panel" role="menu" hidden>
+              <button type="button" class="cs-menu-item" role="menuitem"><span data-i18n>Plain text</span> <span class="cs-menu-note">.txt</span></button>
+              <button type="button" class="cs-menu-item" role="menuitem" data-i18n>Copy link</button>
+              <div class="cs-menu-div"></div>
+              <button type="button" class="cs-menu-item danger" role="menuitem" data-i18n>Start over…</button>
+            </div>
+          </div>
+        </div>
+        <div class="note" data-i18n-html><strong>Export menu.</strong> A tool puts every output (downloads, copy link, print, import, reset) in one <code>.cs-menu</code> in the navbar: a <code>.cs-btn</code> with <code>aria-haspopup</code> opens its <code>.cs-menu-panel</code> (hidden with the <code>hidden</code> attribute), and <code>carino-ui.js</code> wires every menu on the page, so a page never adds its own toggle. Folded into the navbar’s ⋯ menu, the items show there directly. <code>.cs-btn.primary</code> is the one filled control: the page’s main action, marked <code>data-priority="1"</code>; <code>data-priority="2"</code> keeps a second control (a Live page’s source badge) while there is room, and folds before the first.</div>
       </div>
     </section>
 
@@ -532,6 +548,7 @@
           <button type="button" class="copy-btn term-copy" id="termCopyBtn" aria-label="Copy commands"><span data-i18n>Copy</span></button>
         </div>
         <div class="note" data-i18n-html>Reference: SimpleSetup (one tab per operating system, the detected one first), Desk, Password. Copy takes the commands without their prompts, and on phones the commands keep clear of the button. Distinct from <a href="#code">Code</a>: this is for commands the visitor runs, not source being read.</div>
+        <div class="note" data-i18n-html>Long commands that scroll: add <code>.band</code> to the <code>.terminal-wrapper</code> and the Copy button gets its own strip at every width, as it does on phones.</div>
       </div>
     </section>
 

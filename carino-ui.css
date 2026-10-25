@@ -81,6 +81,8 @@
       -webkit-font-smoothing: antialiased;
     }
     a { color: var(--accent); }
+    /* Components below set display:flex/grid; the hidden attribute still wins. */
+    [hidden] { display: none !important; }
     code, .mono { font-family: var(--mono); }
     /* ============ 3. typography ============ */
     .t-hero { font-family: var(--display); font-weight: 900; font-size: var(--fs-hero); text-transform: uppercase; line-height: 0.95; }
@@ -161,6 +163,7 @@
     .alert.ok   { color: #86efac; background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.5); }
     .alert.warn { color: #fcd34d; background: rgba(234,179,8,0.08);  border-color: rgba(234,179,8,0.45); }
     .alert.err  { color: #fca5a5; background: rgba(239,68,68,0.08);  border-color: rgba(239,68,68,0.5); }
+    .alert.info { color: #bae6fd; background: color-mix(in srgb, var(--info) 8%, transparent); border-color: color-mix(in srgb, var(--info) 50%, transparent); }
     .alert code { background: #1a1a1a; padding: 1px 5px; border-radius: 3px; color: #fde68a; }
     .alert b { color: #fde68a; }
 
@@ -278,6 +281,48 @@
     }
     .cs-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-faint); }
     .cs-btn:disabled, .cs-btn.disabled { opacity: 0.35; pointer-events: none; }
+    /* a toggle that is on (pause, a chosen view, sound) */
+    .cs-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-faint); }
+    /* the one filled control in the bar: a page's main action */
+    .cs-btn.primary { background: var(--accent); border-color: var(--accent); color: #050505; }
+    .cs-btn.primary:hover { background: #fbbf24; color: #050505; box-shadow: 0 4px 16px var(--accent-glow); }
+
+    /* ---- Export menu: every output of a tool behind one navbar button ----
+       <div class="cs-menu">
+         <button class="cs-btn" aria-haspopup="true" aria-expanded="false">Export ▾</button>
+         <div class="cs-menu-panel" role="menu" hidden>
+           <button class="cs-menu-item" role="menuitem">PDF <span class="cs-menu-note">printable</span></button>
+           <div class="cs-menu-div"></div> …
+         </div>
+       </div>
+       carino-ui.js opens and closes it. When the navbar folds the controls
+       into its ⋯ menu, the items show there directly. Reference: Topo. */
+    .cs-menu { position: relative; display: flex; }
+    .cs-caret { font-size: 0.6rem; opacity: 0.7; margin-left: 1px; }
+    .cs-menu-panel {
+      position: absolute; top: calc(100% + 6px); right: 0; z-index: 60; min-width: 210px; padding: 6px;
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+    }
+    .cs-menu-item {
+      display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px; border: none; border-radius: 5px;
+      background: transparent; color: var(--text-sec); font-family: var(--sans); font-size: var(--fs-sm);
+      text-align: left; white-space: nowrap; cursor: pointer; transition: 0.15s; text-decoration: none;
+    }
+    .cs-menu-item:hover, .cs-menu-item:focus-visible { background: var(--accent-faint); color: var(--accent); outline: none; }
+    .cs-menu-item.danger { color: #fca5a5; }
+    .cs-menu-item.danger:hover { background: rgba(239,68,68,0.08); color: var(--err); }
+    .cs-menu-item:disabled { opacity: 0.35; pointer-events: none; }
+    .cs-menu-note { margin-left: auto; padding-left: 14px; font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); }
+    .cs-menu-div { height: 1px; background: var(--border); margin: 4px; }
+    /* On a phone the panel hangs from the screen's right edge, not the
+       button's, so it never runs off the left side. */
+    @media (max-width: 640px) { .cs-menu-panel { position: fixed; top: calc(var(--nav-h) + 6px); right: 12px; } }
+    #carinoNav .cn-more-menu .cs-menu { flex-basis: 100%; }
+    #carinoNav .cn-more-menu .cs-menu > [aria-haspopup] { display: none; }
+    #carinoNav .cn-more-menu .cs-menu-panel, #carinoNav .cn-more-menu .cs-menu-panel[hidden] {
+      display: flex !important; position: static; min-width: 0; padding: 0; border: 0; box-shadow: none; background: transparent;
+    }
 
     /* ============ 17. dropzone ============ */
     .dropzone {
@@ -292,12 +337,18 @@
     .dz-hint { font-family: var(--mono); font-size: var(--fs-label); color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
 
     /* ============ 18. modal & scrim ============ */
+    /* Above the navbar (which sits at 2147483000 to stay over app content),
+       so a tall dialog's head is never hidden under it. */
     .modal-scrim {
-      position: fixed; inset: 0; z-index: 1000; padding: 24px;
+      position: fixed; inset: 0; z-index: 2147483600; padding: 24px;
       display: flex; align-items: center; justify-content: center;
       background: rgba(0,0,0,0.65); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
     .modal-scrim[hidden] { display: none; }
+    /* .modal on a native <dialog>: closed, it stays closed (.modal sets display). */
+    dialog.modal:not([open]) { display: none; }
+    dialog.modal { padding: 0; color: inherit; }
+    dialog.modal::backdrop { background: rgba(0,0,0,0.65); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
     .modal {
       display: flex; flex-direction: column; width: 100%; max-width: 520px;
       max-height: min(90vh, 640px); overflow: hidden;
@@ -305,6 +356,8 @@
       box-shadow: 0 30px 80px rgba(0,0,0,0.75);
     }
     .modal-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--border); }
+    /* the title (or the block wrapping title + subtitle) takes the row, so ✕ sits at the end */
+    .modal-head > :first-child { flex: 1; min-width: 0; }
     .modal-title { font-family: var(--display); font-weight: 900; font-size: var(--fs-lg); text-transform: uppercase; letter-spacing: 0.5px; flex: 1; }
     .modal-sub { font-family: var(--mono); font-size: var(--fs-label); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
     .modal-x { border: none; background: transparent; color: var(--text-muted); font-size: var(--fs-lg); line-height: 1; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: 0.15s; }
@@ -424,6 +477,8 @@
 
     /* ============ utilities ============ */
     .gold { color: var(--accent); }
+    /* shown only where the pointer is a finger (help's touch section) */
+    @media (pointer: fine) { .touch-only { display: none !important; } }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
     button.chip-tag { background: transparent; cursor: pointer; transition: 0.2s; }
     button.chip-tag:hover, button.chip-tag:focus-visible { border-color: var(--accent); background: var(--accent-glow); outline: none; }
@@ -433,6 +488,9 @@
        The floating Copy sat on top of the command on phones. Desktop
        reserves the right edge; a phone gives the button its own band. */
     .terminal-wrapper:has(.term-copy) .terminal { padding-right: 6.5rem; }
+    /* .band: commands long enough to scroll get the button's own band at
+       every width, so the text never slides under it. */
+    .terminal-wrapper.band:has(.term-copy) .terminal { padding: 3.1rem 1.1rem 1.1rem; }
     @media (max-width: 640px) {
       .terminal-wrapper:has(.term-copy) .terminal { padding: 3.1rem 1.1rem 1.1rem; }
     }
@@ -512,14 +570,17 @@
        (an i18n key, shared fleet-wide): "Runs in your browser. Nothing you add
        here is uploaded." Any outside request is named in the same line as a
        .pl-also clause — the line must be literally true. */
-    .privacy-line { display: flex; align-items: flex-start; gap: 8px; margin: 0; font-family: var(--mono); font-size: var(--fs-label); line-height: 1.55; color: var(--text-muted); text-align: left; }
+    /* Block, not flex: a sentence and its .pl-also clause flow as one paragraph. */
+    .privacy-line { display: block; margin: 0; padding-left: 20px; text-indent: -20px; font-family: var(--mono); font-size: var(--fs-label); line-height: 1.55; color: var(--text-muted); text-align: left; }
+    /* Inline with a hanging indent, so the lock stays on the first line
+       whatever padding a page gives the line. */
     .privacy-line::before {
-      content: ""; flex: none; width: 12px; height: 12px; margin-top: 1px; background: var(--ok);
+      content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; background: var(--ok);
       -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
               mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
     }
     .privacy-line .pl-also { color: var(--text-sec); }
-    .short-hero .privacy-line { justify-content: center; }
+    .short-hero .privacy-line { display: inline-block; text-align: left; }
 
     /* ============ workspace shell ============
        Tool chrome: a 340px settings rail on the LEFT, scrolling on its own,
@@ -532,6 +593,7 @@
       background: var(--bg-card); border-right: 1px solid var(--border); overflow-y: auto;
     }
     .ws-rail-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+    .ws-rail .field { min-width: 0; }
     .ws-pane { flex: 1; min-width: 0; overflow: auto; padding: 20px; }
     .ws-toggle { display: none; }
     .ws-scrim { display: none; }
@@ -539,12 +601,19 @@
     @media (max-width: 900px) {
       .ws-toggle { display: inline-flex; }
       .ws-rail {
-        position: fixed; top: 0; bottom: 0; left: 0; z-index: 1001; width: min(340px, 86vw);
-        transform: translateX(-100%); transition: transform 0.22s ease; box-shadow: 0 0 40px rgba(0,0,0,0.6);
+        position: fixed; top: var(--nav-h); bottom: 0; left: 0; z-index: 1001; width: min(340px, 86vw);
+        transform: translateX(-100%); transition: transform 0.22s ease;
       }
-      .ws.drawer-open .ws-rail { transform: none; }
-      .ws.drawer-open .ws-scrim { display: block; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.55); }
+      /* the shadow only while open: closed, it would bleed onto the page edge */
+      .ws.drawer-open .ws-rail { transform: none; box-shadow: 0 0 40px rgba(0,0,0,0.6); }
+      .ws.drawer-open .ws-scrim { display: block; position: fixed; inset: var(--nav-h) 0 0 0; z-index: 1000; background: rgba(0,0,0,0.55); }
       .ws-pane { padding: 16px; }
+      /* .ws-stack: the rail stacks above the pane instead of becoming a
+         drawer — for suites whose files-in sits in the rail (dcm, Media). */
+      .ws.ws-stack { flex-direction: column; min-height: 0; }
+      .ws.ws-stack .ws-rail { position: static; transform: none; width: auto; box-shadow: none; border-right: 0; border-bottom: 1px solid var(--border); overflow: visible; }
+      .ws.ws-stack .ws-pane { overflow: visible; }
+      .ws.ws-stack .ws-toggle { display: none; }
     }
     @media (max-width: 900px) and (prefers-reduced-motion: reduce) { .ws-rail { transition: none; } }
 
@@ -583,7 +652,8 @@
       .slice-menu:not(.collapsed) .slice { flex: none; min-height: auto; border-right: none; border-bottom: 1px solid var(--border); }
       body.state-module .slice-menu .slice { flex: 1 0 auto; min-height: 0; border-bottom: none; border-right: 1px solid var(--border); }
       .slice-menu.collapsed, body.state-module .slice-menu { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-      .slice-menu.collapsed .slice, body.state-module .slice-menu .slice { flex: 1 0 25%; scroll-snap-align: start; padding: 0 8px; }
+      .slice-menu.collapsed .slice, body.state-module .slice-menu .slice,
+      .slice-menu.collapsed .slice:hover, body.state-module .slice-menu .slice:hover { flex: 1 0 25%; scroll-snap-align: start; padding: 0 8px; }
       .slice-menu.collapsed .s-num, body.state-module .slice-menu .s-num { display: none; }
     }
     @media (prefers-reduced-motion: reduce) { .slice-menu .slice, .slice-menu .slice::before { transition: none; } .slice-menu .slice:hover { flex: 1; } }

@@ -4,15 +4,16 @@
    copies it into each site. Load it deferred, after carino-navbar.js:
      <script src="carino-ui.js" defer></script>
 
-   Two pieces, both opt-in by markup, so loading the file on a page that
-   uses neither does nothing:
+   Three pieces, all opt-in by markup, so loading the file on a page that
+   uses none of them does nothing:
 
    1. Workspace drawer. Below 900px .ws-rail is an off-canvas drawer.
       Any [data-ws-toggle] button opens and closes it; the scrim, Esc and
       growing past 900px close it. The scrim is created here.
 
    2. Slice router. A Suite's (or Learning's) modules are addressable as
-      #<module>, with extra parameters after "&": #edit&sample=ct.
+      #<module>, with extra parameters after "&": #edit&sample=ct, and a
+      place inside a module after "/": #sha2/stage-3 (as params.path).
         CarinoUI.slices({
           menu: document.querySelector('.slice-menu'),   // .slice[data-id] inside
           onRoute(id, params) { … },                     // id null = overview
@@ -21,6 +22,10 @@
       Clicking a slice only sets location.hash; hashchange drives
       everything, so Back, bookmarks and shared links all land right.
       It keeps body.state-overview / body.state-module and .active in step.
+
+   3. Export menu. Every .cs-menu: its [aria-haspopup] button opens the
+      .cs-menu-panel; choosing an item, clicking away or Esc closes it.
+      Items keep their own handlers; the menu only governs visibility.
    ============================================================ */
 (function () {
   'use strict';
@@ -59,6 +64,10 @@
     var raw = decodeURIComponent(location.hash.replace(/^#/, ''));
     var parts = raw.split('&');
     var params = {};
+    // A path inside a module (#hash-family/stage-3, #module/lab) travels as
+    // params.path; the module id is what comes before the first "/".
+    var slash = parts[0].indexOf('/');
+    if (slash >= 0) { params.path = parts[0].slice(slash + 1); parts[0] = parts[0].slice(0, slash); }
     parts.slice(1).forEach(function (p) {
       if (!p) return;
       var i = p.indexOf('=');
@@ -78,7 +87,7 @@
       var s = e.target.closest && e.target.closest('.slice[data-id]');
       if (!s) return;
       e.preventDefault();
-      if (location.hash.replace(/^#/, '').split('&')[0] !== s.dataset.id) location.hash = '#' + s.dataset.id;
+      if (parseHash().id !== s.dataset.id) location.hash = '#' + s.dataset.id;
     });
     function route() {
       var h = parseHash();
@@ -99,11 +108,26 @@
     return { route: route, go: function (id) { location.hash = id ? '#' + id : '#'; } };
   }
 
+  function initMenu(m) {
+    if (m.dataset.menuReady) return;
+    m.dataset.menuReady = '1';
+    var btn = m.querySelector('[aria-haspopup]'), panel = m.querySelector('.cs-menu-panel');
+    if (!btn || !panel) return;
+    var isOpen = function () { return !panel.hidden; };
+    function set(open) { panel.hidden = !open; btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); set(!isOpen()); });
+    panel.addEventListener('click', function (e) { if (e.target.closest('.cs-menu-item')) set(false); });
+    document.addEventListener('click', function (e) { if (isOpen() && !m.contains(e.target)) set(false); });
+    window.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen()) { set(false); btn.focus(); } });
+    set(false);
+  }
+
   function boot() {
     Array.prototype.forEach.call(document.querySelectorAll('.ws'), initDrawer);
+    Array.prototype.forEach.call(document.querySelectorAll('.cs-menu'), initMenu);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 
-  window.CarinoUI = { slices: slices, drawer: initDrawer, parseHash: parseHash };
+  window.CarinoUI = { slices: slices, drawer: initDrawer, menu: initMenu, parseHash: parseHash };
 })();
