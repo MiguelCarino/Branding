@@ -54,6 +54,7 @@ T = {
  "stocks":   (["Stocks/logo.svg"], ["Stocks/logo.webp"]),
  "subs":     (["SyncSubsStudio/logo.svg"], ["SyncSubsStudio/logo.webp"]),
  "teleprompter": (["Teleprompter/logo.svg"], ["Teleprompter/logo.webp"]),
+ "test":     (["Test/logo.svg"], ["Test/logo.webp"]),
  "time":     (["Time/logo.svg"], ["Time/logo.webp"]),
  "topo":     (["Topo/logo.svg"], ["Topo/logo.webp"]),
  "tv":       (["TV/logo.svg"], ["TV/logo.webp"]),

@@ -117,6 +117,7 @@ GLYPHS = {
  "colon":    "....../..##../..##../....../....../....../....../..##../..##../......",
  "screen":   "######/######/##..##/##..##/##..##/######/######/..##../######/######",
  "roundtrip": "....##/....##/######/######/....../....../######/######/##..../##....",
+ "crosshair": "..##../..##../..##../..##../######/######/..##../..##../..##../..##..",
 }
 
 # The two shipped marks re-expressed on the half module, for the collision check.
@@ -163,6 +164,7 @@ MARKS = [
  ("stocks",       "Carino Stocks",         "rise"),
  ("subs",         "Carino Sync Studio",    "into"),
  ("teleprompter", "Carino TelePrompter",   "up"),
+ ("test",         "Carino Test",           "crosshair"),
  ("time",         "Carino Time",           "colon"),
  ("topo",         "Carino Topo",           "T"),
  ("tv",           "Carino TV",             "screen"),
