@@ -69,9 +69,13 @@ T = {
 # byte copies of the files here, so they move with them.
 HUB = "Carino-Systems/assets/marks"
 PROFILE = "MiguelCarino/assets"
+# The hub also takes each tool's glyph, for its directory rows.
+GLYPHS = []
 for stem, (svgs, _) in T.items():
     if os.path.exists(os.path.join(GH, HUB, f"{stem}.svg")):
         svgs.append(f"{HUB}/{stem}.svg")
+        if os.path.exists(os.path.join(SRC, f"{stem}-glyph.svg")):
+            GLYPHS.append((f"{stem}-glyph.svg", f"{HUB}/{stem}-glyph.svg"))
     if os.path.exists(os.path.join(GH, PROFILE, f"{stem}.svg")):
         svgs.append(f"{PROFILE}/{stem}.svg")
 
@@ -104,6 +108,11 @@ def main():
             shutil.copyfile(s, p)
             made += 1; new += fresh
             print(f"  {'+' if fresh else ' '} {dst}")
+    for src, dst in GLYPHS:
+        p = os.path.join(GH, dst)
+        fresh = not os.path.exists(p)
+        shutil.copyfile(os.path.join(SRC, src), p)
+        made += 1; new += fresh
     print(f"\n{made} files written ({new} new), {len(T)} sites")
 
 main()
