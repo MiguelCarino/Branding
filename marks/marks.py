@@ -142,7 +142,7 @@ MARKS = [
  ("software",     "Carino Software"),
  ("stocks",       "Carino Stocks"),
  ("subs",         "Carino Sync Studio"),
- ("teleprompter", "Carino TelePrompter"),
+ ("teleprompter", "Carino Teleprompter"),
  ("test",         "Carino Test"),
  ("time",         "Carino Time"),
  ("topo",         "Carino Topo"),
