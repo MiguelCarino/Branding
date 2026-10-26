@@ -513,11 +513,12 @@
       <div class="spec-head">
         <div class="spec-num">18</div>
         <h2 data-i18n>Modal &amp; Scrim</h2>
-        <p data-i18n-html>A centered card over a blurred dark scrim. The scrim closes on click, the card doesn't; toggle the whole thing with the <code>hidden</code> attribute on <code>.modal-scrim</code>.</p>
+        <p data-i18n-html>A centered card over a blurred dark scrim, or a native <code>&lt;dialog&gt;</code>. Open and close it with <code>CarinoUI.modal</code>: focus moves in and back out, Tab stays inside, and Esc, a click on the scrim or ✕ closes it.</p>
       </div>
       <div class="demo">
         <div class="demo-row">
           <button class="btn btn-primary" id="modalOpenBtn" data-i18n>Open live modal</button>
+          <button class="btn btn-ghost" id="dialogOpenBtn" data-i18n>Open as native dialog</button>
         </div>
         <div class="demo-label" style="margin-top:18px;" data-i18n>Anatomy (inline preview via .modal-rack)</div>
         <div class="modal-rack">
@@ -530,7 +531,8 @@
             <div class="modal-foot"><button class="btn btn-ghost" data-i18n>Cancel</button><button class="btn btn-primary" data-i18n>Export</button></div>
           </div>
         </div>
-        <div class="note" data-i18n>Reference: MultiWeb (folder picker), Hash (algorithm info), Learn, Compass, Carino Retina (chart picker).</div>
+        <div class="note" data-i18n-html><strong>Behaviour.</strong> <code>CarinoUI.modal.open(el, { returnFocus, onDismiss, onClose })</code> in <code>carino-ui.js</code> takes a <code>.modal-scrim</code> (or the <code>.modal</code> inside it) or a <code>&lt;dialog class="modal"&gt;</code>. It moves focus to the first control and keeps Tab inside; Esc, a click on the scrim or backdrop, and any <code>[data-close]</code> button dismiss the top modal. Without <code>onDismiss</code> that closes it; with it the page decides (confirm unsaved changes, then call <code>CarinoUI.modal.close(el)</code>). Closing returns focus to the opener and fires <code>carino:modalclose</code> on the scrim or dialog. Never toggle <code>hidden</code> by hand. Give the card <code>role="dialog"</code>, <code>aria-modal="true"</code> and <code>aria-labelledby</code> pointing at its title.</div>
+        <div class="note" data-i18n>Reference: MultiWeb (folder picker), Hash (algorithm info), Learn, Compass, Carino Retina (chart picker), Desk (nine dialogs).</div>
       </div>
     </section>
 
@@ -1178,15 +1180,23 @@
 
   <!-- live modal demo (opened from section 17) -->
   <div class="modal-scrim" id="liveScrim" hidden>
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="liveModalTitle">
       <div class="modal-head">
-        <div><div class="modal-title" data-i18n>Live modal</div><div class="modal-sub" data-i18n>click the scrim or ✕ to close</div></div>
-        <button class="modal-x" id="liveModalX" aria-label="Close">✕</button>
+        <div><div class="modal-title" id="liveModalTitle" data-i18n>Live modal</div><div class="modal-sub" data-i18n>Esc, the scrim or ✕ closes it</div></div>
+        <button class="modal-x" data-close aria-label="Close">✕</button>
       </div>
       <div class="modal-body" data-i18n-html>This is the real fixed-position component over the blurred scrim — the same markup as the inline preview, minus the <code>.modal-rack</code> wrapper.</div>
-      <div class="modal-foot"><button class="btn btn-primary" id="liveModalOk" data-i18n>Done</button></div>
+      <div class="modal-foot"><button class="btn btn-ghost" id="liveModalNested" data-i18n>Open a second one</button><button class="btn btn-primary" data-close data-i18n>Done</button></div>
     </div>
   </div>
+  <dialog class="modal" id="liveDialog" aria-labelledby="liveDialogTitle">
+    <div class="modal-head">
+      <div><div class="modal-title" id="liveDialogTitle" data-i18n>Native dialog</div><div class="modal-sub" data-i18n>Esc, the backdrop or ✕ closes it</div></div>
+      <button class="modal-x" data-close aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" data-i18n-html>The same card on a native <code>&lt;dialog&gt;</code>: the browser draws the backdrop, <code>CarinoUI.modal</code> does the rest.</div>
+    <div class="modal-foot"><button class="btn btn-primary" data-close data-i18n>Done</button></div>
+  </dialog>
 
 
   <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
@@ -1326,13 +1336,11 @@
     dz.addEventListener("click", () => { dz.classList.add("success"); setTimeout(() => dz.classList.remove("success"), 1600); });
 
     // ---- live modal ----
-    const scrimEl = document.getElementById("liveScrim");
-    document.getElementById("modalOpenBtn").addEventListener("click", () => { scrimEl.hidden = false; });
-    const closeModal = () => { scrimEl.hidden = true; };
-    scrimEl.addEventListener("click", (e) => { if (e.target === scrimEl) closeModal(); });
-    document.getElementById("liveModalX").addEventListener("click", closeModal);
-    document.getElementById("liveModalOk").addEventListener("click", closeModal);
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+    // CarinoUI.modal (carino-ui.js) does focus, Tab, Esc, the scrim and every
+    // [data-close]; the page only says which dialog to open.
+    document.getElementById("modalOpenBtn").addEventListener("click", () => CarinoUI.modal.open("liveScrim"));
+    document.getElementById("dialogOpenBtn").addEventListener("click", () => CarinoUI.modal.open("liveDialog"));
+    document.getElementById("liveModalNested").addEventListener("click", () => CarinoUI.modal.open("liveDialog"));
 
     // ---- command block copy (same mechanics as the section buttons) ----
     document.getElementById("termCopyBtn").addEventListener("click", function () {
