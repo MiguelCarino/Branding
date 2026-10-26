@@ -86,48 +86,45 @@
       <div class="spec-head">
         <div class="spec-num">01</div>
         <h2 data-i18n>The Mark</h2>
-        <p data-i18n-html>Every site in the fleet is a gold <code>C</code> with exactly one character beside it. The hub keeps the bare C and no character &mdash; that is what makes it the parent rather than one more tool. All 38 are generated and never hand-drawn: <code>marks/marks.py</code> in this repo draws them, <code>deploy.py</code> copies each to the paths its site actually looks for one at, and <code>verify.py</code> follows every site&rsquo;s own <code>&lt;link rel=icon&gt;</code> and asserts the bytes at the end of it are that site&rsquo;s own mark.</p>
+        <p data-i18n-html>Every site in the fleet wears the hub&rsquo;s gold <code>C</code>. The hub&rsquo;s bowl stays empty &mdash; that is what makes it the parent rather than one more tool &mdash; and every tool&rsquo;s holds one pictogram of the job it does: a key for Password, an eye for Retina, a clock for Time. All 41 are generated and never hand-drawn: <code>marks/marks.py</code> in this repo draws them, <code>deploy.py</code> copies each to the paths its site actually looks for one at, and <code>verify.py</code> follows every site&rsquo;s own <code>&lt;link rel=icon&gt;</code> and asserts the bytes at the end of it are that site&rsquo;s own mark.</p>
       </div>
 
       <div class="demo">
         <div class="demo-label" data-i18n>The lockup</div>
         <div class="mark-lockup">
           <img class="mark-big" src="marks/carino.svg" alt="" width="128" height="128">
-          <img class="mark-big" src="marks/dcm.svg" alt="" width="128" height="128">
+          <img class="mark-big" src="marks/password.svg" alt="" width="128" height="128">
           <dl class="mark-spec">
-            <div><dt data-i18n>Bare ring</dt><dd>r 34.81 &middot; stroke 16.38</dd></div>
-            <div><dt data-i18n>Lettered ring</dt><dd>r 25.38 &middot; stroke 11.94</dd></div>
-            <div><dt data-i18n>Character box</dt><dd>x 69.71&ndash;93.00</dd></div>
-            <div><dt data-i18n>Grid</dt><dd>6 &times; 10 &middot; module 3.88</dd></div>
-            <div><dt data-i18n>Stem</dt><dd>2 modules &middot; 7.76</dd></div>
+            <div><dt data-i18n>Ring</dt><dd>r 34.81 &middot; stroke 16.38</dd></div>
+            <div><dt data-i18n>Bowl</dt><dd>r 26.62 clear</dd></div>
+            <div><dt data-i18n>Pictogram grid</dt><dd>24 &rarr; 40 units</dd></div>
+            <div><dt data-i18n>Stroke</dt><dd>3 (mark) &middot; 2 (glyph)</dd></div>
             <div><dt data-i18n>Ink</dt><dd>#eab308 on transparency</dd></div>
           </dl>
         </div>
-        <div class="note" data-i18n-html>The lettered ring is the bare one at <b>0.729</b>, which is what frees the right-hand third for the character. Neither set of numbers was invented: both were read back off the two marks already shipping &mdash; <code>dcm</code>&rsquo;s E and <code>topo</code>&rsquo;s T &mdash; and both come out byte-identical from the generator, so it cannot quietly redraw a logo already in circulation.</div>
+        <div class="note" data-i18n-html>The ring is the hub&rsquo;s own, unchanged &mdash; <code>carino.svg</code> still comes out of the generator byte-identical to the file that shipped first. The pictogram is drawn on a 24 grid, scaled to 40 units, centred on the ring and kept inside 2&ndash;22 of its grid, so even with half a stroke it never touches the ring.</div>
       </div>
 
       <div class="demo">
-        <div class="demo-label" data-i18n>Six columns, ten rows</div>
-        <p data-i18n-html>The character is a bitmap on a <b>6 &times; 10</b> grid of half-modules, stems two modules wide. Three columns &mdash; the module the shipped E and T are drawn on &mdash; is too coarse to keep an alphabet apart: on it <b>A, K and M each sit one cell from H</b>. Halving the module fixes that while leaving those two marks unchanged. Diagonals are stepped rather than drawn, because at 32px a stepped module stays crisp where a hairline diagonal turns to porridge.</p>
-        <div class="demo-label" style="margin-top:18px;" data-i18n>Why blocky and not type</div>
-        <dl class="mark-spec">
-          <div><dt>Red Hat Display 900</dt><dd>77 / 700 = 0.11</dd></div>
-          <div><dt data-i18n>This character</dt><dd>7.76 / 38.82 = 0.20</dd></div>
-          <div><dt data-i18n>The ring&rsquo;s own arc</dt><dd>11.94 / 62.7 = 0.19</dd></div>
-        </dl>
-        <div class="note" data-i18n-html>Stem-to-cap ratios. The fleet&rsquo;s own display face at its heaviest weight is <b>half</b> the weight of the ring it would stand beside, so a typeset letter reads weedy against it. The blocky letter is a weight, not a pixel affectation.</div>
+        <div class="demo-label" data-i18n>Two variants</div>
+        <div class="mark-lockup">
+          <img class="mark-big" src="marks/retina.svg" alt="" width="128" height="128">
+          <span class="mark-glyph" style="--g:url(marks/retina-glyph.svg);width:48px;height:48px"></span>
+          <span class="mark-glyph" style="--g:url(marks/retina-glyph.svg);width:24px;height:24px"></span>
+        </div>
+        <div class="note" data-i18n-html>Every tool is drawn twice from one pictogram, so the two cannot drift apart. The <b>mark</b> &mdash; ring and pictogram, gold on transparency &mdash; identifies the app in a dock, a hero or a share card. The <b>glyph</b> &mdash; the pictogram alone, stroke 2 on a 24 grid, in <code>currentColor</code> &mdash; is for text-sized places: a list row, a navbar tag. It sits beside each mark as <code>marks/&lt;site&gt;-glyph.svg</code>.</div>
       </div>
 
       <div class="demo">
         <div class="demo-label" data-i18n>What survives at favicon size</div>
         <div class="mark-sizes" id="markSizes"></div>
-        <div class="note" data-i18n-html>Actual pixel sizes, unscaled. A module is <b>1.24 device px at 16&times;16</b>, so the character is a smudge in a tab strip and only resolves from about 32px. It identifies the app in a dock, an app switcher or a hero &mdash; not in a tab. The ring carries the brand at every size, which is the division of labour the system is built on.</div>
+        <div class="note" data-i18n-html>Actual pixel sizes, unscaled, mark above and glyph below. Under about 32px the pictogram inside the ring gets small and the ring carries the brand on its own; the glyph is what still reads in a list at 16px. Every pictogram keeps at least one solid shape for exactly that reason &mdash; lines alone dissolve at this size.</div>
       </div>
 
       <div class="demo">
         <div class="demo-label" data-i18n>The fleet</div>
         <div class="mark-grid" id="markGrid"></div>
-        <div class="note" data-i18n-html>The character is the site&rsquo;s own initial wherever that initial is unclaimed &mdash; eighteen sites get one that way. Four sites want C, four want T, four want M and four want S, so all but one holder of each takes a symbol, and where a symbol says more than the letter would it wins outright. Three are deliberately not the initial: <code>dcm</code> is E for Editor, which is what keeps it off the D pile; <code>media</code> is a play triangle because M cannot be drawn six columns wide, its vee having no room to narrow; and <code>cybercity</code> is Y, unclaimed and sitting in its own name. <code>law</code> is the weakest glyph in the set &mdash; the box is three stems wide, so anything needing two separated uprights reads as one mass with a slot cut in it.</div>
+        <div class="note" data-i18n-html>One pictogram per job, drawn from primitives rather than taken from an icon set, with as few parts as the idea allows. <code>dcm</code> and <code>dicom</code> are a pair: the Editor is one chest film, Carino DICOM a stack of them &mdash; one film to edit, a stack of studies to keep moving. Every candidate tried for DICOM is kept in <code>marks/dicom-options/</code>.</div>
       </div>
     </section>
 
@@ -1222,7 +1219,7 @@
     // translated: they are subdomains, which are proper nouns.
     const MARK_STEMS = ["carino", "aldis", "asobi", "branding", "compass", "currency",
       "cve", "cybercity", "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware",
-      "hash", "images", "kanban", "law", "learn", "media", "metadata", "multiweb",
+      "hash", "images", "jellyfish", "kanban", "law", "learn", "media", "metadata", "multiweb",
       "music", "netplan", "offline", "password", "quote", "retina", "setup", "software",
       "stocks", "subs", "teleprompter", "time", "topo", "tv", "vitae"];
     (() => {
@@ -1231,11 +1228,12 @@
         '<div class="mark-tile' + (s === "carino" ? " is-hub" : "") + '">' +
         '<img src="marks/' + s + '.svg" alt="" width="52" height="52" loading="lazy">' +
         '<span>' + s + '</span></div>').join("");
-      // Unscaled, at the sizes a browser actually asks for. dcm carries a
-      // character with the thinnest bands in the set, so it is the honest case.
+      // Unscaled, at the sizes a browser actually asks for: the mark, and
+      // under it the glyph a list row would use at the same size.
       document.getElementById("markSizes").innerHTML = [16, 24, 32, 48].map(n =>
         '<div class="mark-size">' +
-        '<img src="marks/dcm.svg" alt="" width="' + n + '" height="' + n + '">' +
+        '<img src="marks/retina.svg" alt="" width="' + n + '" height="' + n + '">' +
+        '<span class="mark-glyph" style="--g:url(marks/retina-glyph.svg);width:' + n + 'px;height:' + n + 'px"></span>' +
         '<span>' + n + 'px</span></div>').join("");
     })();
 
@@ -1372,23 +1370,24 @@
     const SITE = "https://branding.carino.systems";
     const CSS_HREF = SITE + "/carino-branding.css";
     // What a consumer of this system actually wants to paste is the ring, not
-    // 38 <img>s pointing at paths that only resolve on this host.
+    // 41 <img>s pointing at paths that only resolve on this host.
     const MARK_SNIPPET =
 `<!-- Carino Branding · The Mark · ${SITE} -->
 <!-- Per-site files: ${SITE}/marks/<site>.svg — and <site>.webp, 50x50 lossless,
-     which is the favicon every Carino page links. Both are generated by
-     marks/marks.py in the Branding repo: edit the glyph table there and run
+     which is the favicon every Carino page links, and <site>-glyph.svg. All are
+     generated by marks/marks.py in the Branding repo: edit the pictogram there and run
      marks.py → deploy.py → verify.py. Never hand-edit a logo in place. -->
 
 <!-- The bare ring: the hub's mark, and no other site's. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="Carino"><path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" stroke="#eab308" stroke-width="16.38" stroke-linecap="butt"/></svg>
 
-<!-- The lettered ring: the same C at 0.729, freeing the box x 69.71..93.00,
-     y 30.59..69.41 for one character on a 6x10 grid of 3.88 modules. Shown
-     here with dcm's E. Every filled module is a rect subpath inside ONE
-     <path>, so modules sharing an edge are unioned by the scanline filler
-     instead of each antialiasing against its neighbour — a seam otherwise. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="Carino Editor"><path d="M 56.61 32.37 A 25.38 25.38 0 1 0 56.61 67.63" fill="none" stroke="#eab308" stroke-width="11.94" stroke-linecap="butt"/><path d="M 69.71 30.59 H 93.00 V 38.35 H 77.47 V 46.12 H 93.00 V 53.88 H 77.47 V 61.65 H 93.00 V 69.41 H 69.71 Z" fill="#eab308"/></svg>`;
+<!-- A tool's mark: the same ring, with its pictogram -- drawn on a 24 grid --
+     scaled to 40 units and centred in the bowl. Shown here with Password's key. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="Carino Password"><path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" stroke="#eab308" stroke-width="16.38" stroke-linecap="butt"/><g transform="translate(36.030 30.000) scale(1.66667)" fill="none" stroke="#eab308" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="16" r="5" fill="#eab308"/><path d="M11.5 12.5L20.5 3.5M17 7l3 3"/></g></svg>
+
+<!-- The same tool's glyph: the pictogram alone, stroke 2, currentColor, for
+     text-sized places. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Carino Password" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="16" r="5" fill="currentColor"/><path d="M11.5 12.5L20.5 3.5M17 7l3 3"/></svg>`;
 
     const TOKENS_CSS =
 `/* Carino Branding — design tokens · ${SITE} */

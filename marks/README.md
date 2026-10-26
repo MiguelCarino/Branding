@@ -1,122 +1,80 @@
 # The Carino marks
 
-One gold `C` with one character set beside it, for every site in the fleet.
-38 of them: 36 tools in `tools.json`, plus CyberCity (live, still unregistered)
-and the hub itself, which keeps the bare `C` and no character.
+Every site in the fleet wears the hub's gold `C`. The hub keeps its bowl empty —
+that is what makes it the parent — and every tool's bowl holds one pictogram of
+the job it does: a key for Password, an eye for Retina, a clock for Time. 41 in
+all: 40 tools plus the hub.
 
-`marks.py` draws all of them. Run it and it rewrites every `.svg` and `.webp`
-in this folder:
+`marks.py` draws all of them. Run it and it rewrites, for every site:
+
+| file | what it is |
+|---|---|
+| `<stem>.svg` | the **mark**: ring + pictogram, 100 x 100, gold on transparency |
+| `<stem>.webp` | the mark at 50x50, lossless — the favicon every page links |
+| `<stem>-glyph.svg` | the **glyph**: the pictogram alone, 24 grid, stroke 2, `currentColor` |
+
+plus `sheet.html` (every mark at 128/64/32/16 and every glyph at 24/16, on dark
+and light) and `dicom-options/`.
 
     python3 marks.py        # needs rsvg-convert and magick for the webp
-
-`deploy.py` copies each mark to every path its site actually looks for one at,
-and `verify.py` follows each site's own `<link rel=icon>` and asserts the bytes
-at the end of it are that site's mark, all 37 distinct. Both are checked in
-beside the marks so this is repeatable rather than a one-off.
-
-    python3 deploy.py       # run from ~/Github
+    python3 deploy.py       # run from anywhere; paths are under ~/Github
     python3 verify.py
 
-**Deployed.** The old black `logo.webp` is gone from the fleet — zero files
-matching it remain.
+`deploy.py` copies each mark to every path its site actually looks for one at,
+plus the hub's vendored `Carino-Systems/assets/marks/` and the profile site's
+`MiguelCarino/assets/`, and re-renders Fiscal's 180px `apple-touch-icon.png`.
+`verify.py` follows each site's own `<link rel=icon>` and asserts the bytes at
+the end of it are that site's mark, all distinct.
 
-## The geometry is inherited, not invented
-
-Read back off the two marks already shipping — `DICOM-editor/logo.svg` and
-`Topo/logo.svg`:
+## The geometry
 
 | | |
 |---|---|
-| bare C | centre (56.03, 50), r 34.81, stroke 16.38 |
-| lettered C | centre (38.35, 50), r 25.38, stroke 11.94 — everything x 0.729 |
-| character box | x 69.71..93.00, y 30.59..69.41 |
+| ring | centre (56.03, 50), r 34.81, stroke 16.38 — the hub's, unchanged |
+| bowl | clear disc of radius 26.62 |
+| pictogram | drawn on a 24 grid, scaled to 40 units, centred on the ring |
+| stroke | 3 grid units in the mark, 2 in the glyph |
 
-`dcm.svg` and `topo.svg` come out **byte-identical** to the files in those
-repos. The generator carries their original path strings verbatim so it cannot
-quietly redraw a logo that is already in circulation.
+`carino.svg` comes out byte-identical to the first file that shipped. A
+pictogram stays within 2..22 of its grid, so its farthest point is 23.6 from
+the centre; with half a stroke (2.5) it clears the ring by ~0.5. The mark's
+stroke is heavier than the glyph's because beside a 16.38 ring a 3.3 line
+reads as a hairline.
 
-## Six columns, ten rows
+## Drawing rules
 
-The box is 23.29 x 38.82. `E` and `T` are drawn on a 7.76 module — 3 columns by
-5 rows — and three columns is too coarse to keep an alphabet apart: on that
-grid **A, K and M each sit one cell from H**. So the grid here is the half
-module, 3.88, giving 6 x 10. Stems stay two modules (7.76), which is why E and
-T survive unchanged, while A gets a real apex, K real arms and V a real taper.
+* **As few parts as the idea allows** — most are two or three.
+* **At least one solid shape in each.** Lines alone dissolve at 16px; a solid
+  shape keeps a silhouette. Hash, Ping and Offline are the line-only exceptions,
+  because a fingerprint, a pulse and a crossed-out cloud have no solid form.
+* **Drawn here from primitives**, not copied from an icon set.
+* **The mark is for a dock, a hero or a share card; the glyph for anything
+  text-sized.** Under about 32px the pictogram inside the ring gets small and
+  the ring carries the brand alone — the glyph is what reads in a list.
 
-Closest pair in the finished set is 6 modules of 60 — B/D, D/O, F/P and H/N,
-which are just ordinary alphabet relationships.
+## Why it replaced the first set
 
-Every filled module is a rect subpath inside **one** `<path>`. Modules sharing
-an edge are unioned by the scanline filler rather than each antialiasing
-against its neighbour, so a glyph has no internal seams.
+The first marks set one blocky character beside a smaller C (on a 6 x 10 grid
+of 3.88 modules). At 16px the character was 1.24 device px per module, so a
+wall of forty marks read as forty copies of one logo, and a letter said nothing
+about what the tool does. Those letters are in this folder's git history.
 
-## Why not type
+## Pictograms worth not re-deriving
 
-Red Hat Display 900, the fleet's own display face, has a stem-to-cap ratio of
-77/700 = **0.11**. This glyph is 7.76/38.82 = **0.20**, and the C's own arc is
-11.94/62.7 = **0.19**. A typeset letter reads weedy beside the ring. The blocky
-letter is a weight, not a pixel affectation.
+* **dicom / dcm are a pair.** The Editor is one chest film (two solid lungs);
+  Carino DICOM is a stack of the same film. Every candidate tried for DICOM —
+  stack with a cross, CT scanner, bone, head slices, workstation, slice series,
+  skull — is in `dicom-options/` with its own sheet. The CT scanner read as a
+  goblet face-on and a `£` from the side; head slices read as a `0`; a skull
+  says poison.
+* **currency is a `$`.** A banknote and a coin stack were tried; the coin stack
+  reads as a database cylinder.
+* **cybercity has a spire.** Plain towers read as Stocks' bar chart.
+* **teleprompter is lines with an `A`**, not an up arrow.
 
-Diagonals are stepped rather than drawn: at 32px a stepped module stays crisp
-where a hairline diagonal turns to porridge.
+## Desktop apps
 
-## Which character, and why
-
-The character is the site's own initial wherever that initial is unclaimed.
-Eighteen sites get one that way. The rest share an initial — four sites want C,
-four want T, four want M, four want S — so all but one holder of each takes a
-symbol instead. Where a symbol says more than the letter would, it wins
-outright: `hash` gets `#`, `music` a note, `media` a play triangle.
-
-Three characters are **not** the site's initial, each for a reason worth
-keeping:
-
-* **dcm — E**, for Editor. Already shipping. It is what keeps dcm off the
-  D pile.
-* **media — a play triangle, not M.** M cannot be drawn six columns wide: any
-  ink in the two middle columns fills them completely, so the vee cannot narrow
-  and it reads as a solid-topped Pi.
-* **cybercity — Y**, not a symbol. Y is unused, drawable, and sits in
-  CyberCity's own name.
-
-## Known weak point
-
-`law` is the weakest glyph in the set. The box is three stems wide, so any
-pictogram needing two separated uprights reads as one mass with a slot cut in
-it — the scales came out looking like a bolt and a house came out looking like
-a battery. What survives is a pedimented portico with its feet open, which
-reads as *an institution* rather than specifically as *law*. The section sign
-`§` is the right symbol and was tried first: at this size it collapses into an
-S, which is `software`'s letter.
-
-## What deploying touched
-
-82 files across 37 sites. Most took `<stem>.svg` as `logo.svg` and
-`<stem>.webp` as `logo.webp`, but the map in `deploy.py` is built from a survey
-of what each page actually references, not from that pattern, because several
-sites do not follow it:
-
-* **Carino-PACS** serves `dicom.carino.systems` out of `docs/`, and
-  `docs/favicon.webp`, `docs/logo.webp` and `pacs/web/{logo,favicon}.webp` were
-  all one file. The DICOM editor embedded at `pacs/web/editor/` keeps the
-  editor's own E, not the PACS D.
-* **Custom-Images** serves out of `docs/`; **MusicGrid** and **SoftwareCatalog**
-  out of `assets/images/`.
-* **CyberCity** declared no favicon at all — it got a `<link>` as well as files.
-* **findmeadistro** pointed its favicon at `img/distromoe-inverted.png`, which
-  is also a button graphic on the page, so the link was repointed rather than
-  that file overwritten.
-* **SimpleSetup** draws its hero mark inline on purpose (its own comment says
-  why), so the bare C in the markup became the lettered one.
-* **Fiscal** also ships a 180x180 `apple-touch-icon.png`, regenerated from
-  `fiscal.svg`.
-
-Three desktop apps generate their icons rather than copying them, from a
-`make_icon.py` that draws with the standard library alone. Carino-PACS's drew
-the bare C and now draws the D; Retina's drew a pupil inside the ring and now
-draws the R; DICOM-editor's already drew its E and is untouched. All three
-`write_svg()` outputs are **byte-identical to the copies here**, which is two
-independent derivations landing on the same numbers.
-
-`stocks` is the one mark with nowhere to go: a registry entry with no repo and
-no CNAME.
+Carino-DICOM, DICOM-editor and Retina each have a `desktop/assets/make_icon.py`.
+They no longer draw the mark: `deploy.py` puts the mark there as `logo.svg`,
+and the script rasterises it (with `rsvg-convert`) into the window, tray and
+`.icns`/`.ico`/Linux packaging icons. Rerun it in each repo after a deploy.

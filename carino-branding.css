@@ -121,10 +121,9 @@
     .demo + .demo-label { margin-top: 6px; }
 
     /* ============ 1. the mark ============
-       Every site is the gold C with one character beside it. The lockup is
-       wider than it is tall (86 x 62.7 in a 100 box), so tiles are sized on
-       width and the spare height sits above and below — never crop to a
-       square, which eats the character before it eats the ring. */
+       Every site is the hub's gold C with a pictogram of its job in the bowl;
+       the hub's bowl stays empty. A mark is square ink in a 100 box (x 13..90,
+       y 7..93), so tiles are sized on width and never cropped. */
     .mark-lockup { display: flex; flex-wrap: wrap; gap: 26px; align-items: center; }
     .mark-big {
       width: clamp(84px, 12vw, 128px); height: auto; flex: none;
@@ -140,8 +139,8 @@
     .mark-spec dt { color: var(--text-sec); }
     .mark-spec dd { margin: 0; color: var(--accent); text-align: right; }
 
-    /* 38 of them, so the tile is the smallest thing that still reads: the
-       character survives from about 32px and the ring from about 16. */
+    /* 41 of them, so the tile is the smallest thing that still reads: the
+       pictogram survives from about 32px and the ring from about 16. */
     .mark-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px,1fr)); gap: 10px; }
     .mark-tile {
       display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -157,11 +156,18 @@
     .mark-tile.is-hub { border-color: var(--accent-dim); background: var(--accent-faint); }
     .mark-tile.is-hub span { color: var(--accent); }
 
-    /* Actual pixel sizes, unscaled — the point is that the character does not
-       survive the tab strip and the ring does. */
+    /* Actual pixel sizes, unscaled — the point is that below ~32px the
+       pictogram inside the ring gets small and the glyph is what still reads. */
     .mark-sizes { display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-end; }
     .mark-size { display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .mark-size span { font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); }
+
+    /* The glyph variant is a currentColor svg; drawn through a mask here so it
+       takes the text colour the way it does when inlined in a page. */
+    .mark-glyph {
+      display: inline-block; flex: none; background: currentColor; color: var(--text);
+      -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat;
+    }
 
     /* ============ 2. color swatches ============ */
     .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }

@@ -35,6 +35,7 @@ T = {
  "hardware": (["Hardware/logo.svg"], ["Hardware/logo.webp"]),
  "hash":     (["Hash/logo.svg"], ["Hash/logo.webp"]),
  "images":   (["Custom-Images/docs/logo.svg"], ["Custom-Images/docs/logo.webp"]),
+ "jellyfish":(["Jellyfish/logo.svg"], ["Jellyfish/logo.webp"]),
  "kanban":   (["Kanban/logo.svg"], ["Kanban/logo.webp"]),
  "law":      (["Law/logo.svg"], ["Law/logo.webp"]),
  "learn":    (["Learn/logo.svg"], ["Learn/logo.webp"]),
@@ -62,9 +63,37 @@ T = {
 }
 
 
+# Vendored copies outside the sites themselves. The hub draws every tool's mark
+# from its own assets/marks/ (the spotlight and the plate wall), and the
+# profile site, MiguelCarino, shows a subset beside its project list. Both were
+# byte copies of the files here, so they move with them.
+HUB = "Carino-Systems/assets/marks"
+PROFILE = "MiguelCarino/assets"
+for stem, (svgs, _) in T.items():
+    if os.path.exists(os.path.join(GH, HUB, f"{stem}.svg")):
+        svgs.append(f"{HUB}/{stem}.svg")
+    if os.path.exists(os.path.join(GH, PROFILE, f"{stem}.svg")):
+        svgs.append(f"{PROFILE}/{stem}.svg")
+
+
+# PNG icons are re-rendered from the stem's svg at the file's own size rather
+# than copied: there is no .png source here. Fiscal ships a 180x180
+# apple-touch-icon.png, which verify.py checks the same way.
+PNG = {"fiscal": ["Fiscal/apple-touch-icon.png"]}
+
+
 def main():
-    import subprocess
+    import subprocess, struct
     made = new = 0
+    for stem, dests in sorted(PNG.items()):
+        for dst in dests:
+            p = os.path.join(GH, dst)
+            with open(p, "rb") as fh:
+                w = struct.unpack(">I", fh.read(24)[16:20])[0]
+            subprocess.run(["rsvg-convert", "-w", str(w), "-h", str(w),
+                            os.path.join(SRC, f"{stem}.svg"), "-o", p], check=True)
+            made += 1
+            print(f"    {dst} ({w}px)")
     for stem, (svgs, rasters) in sorted(T.items()):
         for dst, src in [(d, f"{stem}.svg") for d in svgs] + [(d, f"{stem}.webp") for d in rasters]:
             s, p = os.path.join(SRC, src), os.path.join(GH, dst)
