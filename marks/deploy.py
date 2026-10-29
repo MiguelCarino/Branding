@@ -89,7 +89,8 @@ PNG = {"fiscal": ["Fiscal/apple-touch-icon.png"]}
 
 # The colour marks (<stem>-color.svg), only where a page has asked for one.
 # Never a favicon: verify.py holds every favicon to the gold mark.
-COLOR = {"software": ["SoftwareCatalog/assets/images/logo-color.svg"]}
+COLOR = {"software": ["SoftwareCatalog/assets/images/logo-color.svg"],
+         "media": ["Media/logo-color.svg"]}
 
 
 def main():
