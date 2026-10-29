@@ -91,7 +91,11 @@ PNG = {"fiscal": ["Fiscal/apple-touch-icon.png"]}
 COLOR = {"software": ["SoftwareCatalog/assets/images/logo-color.svg"],
          "media": ["Media/logo-color.svg"],
          "font": ["Fonts/logo-color.svg"],
-         "metadata": ["Metadata/logo-color.svg"]}
+         "metadata": ["Metadata/logo-color.svg"],
+         "currency": ["Currency/logo-color.svg"],
+         "images": ["Custom-Images/docs/logo-color.svg"],
+         "offline": ["Offline/logo-color.svg"],
+         "setup": ["SimpleSetup/logo-color.svg"]}
 
 
 def main():
