@@ -69,13 +69,15 @@ T = {
 # byte copies of the files here, so they move with them.
 HUB = "Carino-Systems/assets/marks"
 PROFILE = "MiguelCarino/assets"
-# The hub also takes each tool's glyph, for its directory rows.
+# The hub also takes each tool's glyph, for its directory rows, and its colour
+# mark, for the picks in the Colourful theme.
 GLYPHS = []
 for stem, (svgs, _) in T.items():
     if os.path.exists(os.path.join(GH, HUB, f"{stem}.svg")):
         svgs.append(f"{HUB}/{stem}.svg")
-        if os.path.exists(os.path.join(SRC, f"{stem}-glyph.svg")):
-            GLYPHS.append((f"{stem}-glyph.svg", f"{HUB}/{stem}-glyph.svg"))
+        for kind in ("glyph", "color"):
+            if os.path.exists(os.path.join(SRC, f"{stem}-{kind}.svg")):
+                GLYPHS.append((f"{stem}-{kind}.svg", f"{HUB}/{stem}-{kind}.svg"))
     if os.path.exists(os.path.join(GH, PROFILE, f"{stem}.svg")):
         svgs.append(f"{PROFILE}/{stem}.svg")
 

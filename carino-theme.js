@@ -112,11 +112,12 @@
   }
 
   // carino-navbar.js builds #carinoNav at DOMContentLoaded; put the switch
-  // just left of its "Carino" once it exists.
+  // just left of its "Carino" once it exists. The hub draws its own header
+  // inline (.top-header), with the same .brand-name.
   function mount() {
     if (document.getElementById('ctSwitch')) return true;
-    var brand = document.querySelector('#carinoNav .cn-brand');
-    var name = brand && brand.querySelector('.brand-name');
+    var name = document.querySelector('#carinoNav .cn-brand .brand-name') ||
+      document.querySelector('.top-header .brand-name');
     if (!name) return false;
     var btn = document.createElement('button');
     btn.type = 'button';
@@ -128,7 +129,7 @@
     btn.innerHTML = '<img class="ct-switch-gold" src="' + MARK + '" alt="" width="28" height="28">' +
       '<img class="ct-switch-color" src="' + MARK_COLOR + '" alt="" width="28" height="28">';
     btn.addEventListener('click', function () { toggle(btn); });
-    brand.insertBefore(btn, name);
+    name.parentNode.insertBefore(btn, name);
     labelSwitch(btn);
     // the navbar refits on resize; nudge it now that the brand is wider
     window.dispatchEvent(new Event('resize'));

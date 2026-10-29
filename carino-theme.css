@@ -357,24 +357,24 @@
       "Carino". It shows the current theme's mark and, under a real
       pointer, the other one: the theme a click switches to.
    ============================================================ */
-#carinoNav .cn-brand .ct-switch {
+.ct-switch {
   flex: none; width: 32px; height: 32px; margin: 0 8px 0 -4px; padding: 0;
   border: 0; border-radius: 8px; background: transparent; cursor: pointer;
   display: inline-flex; align-items: center; justify-content: center;
   -webkit-tap-highlight-color: transparent;
 }
-#carinoNav .cn-brand .ct-switch img { width: 28px; height: 28px; display: block; }
-#carinoNav .cn-brand .ct-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-#carinoNav .cn-brand .ct-switch .ct-switch-color,
-:root[data-carino-theme="color"] #carinoNav .cn-brand .ct-switch .ct-switch-gold { display: none; }
-:root[data-carino-theme="color"] #carinoNav .cn-brand .ct-switch .ct-switch-color { display: block; }
+.ct-switch img { width: 28px; height: 28px; display: block; }
+.ct-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ct-switch .ct-switch-color,
+:root[data-carino-theme="color"] .ct-switch .ct-switch-gold { display: none; }
+:root[data-carino-theme="color"] .ct-switch .ct-switch-color { display: block; }
 /* hover only where there is a real pointer: after a tap a sticky hover
    would show the theme just left */
 @media (hover: hover) and (pointer: fine) {
-  #carinoNav .cn-brand .ct-switch:hover .ct-switch-gold { display: none; }
-  #carinoNav .cn-brand .ct-switch:hover .ct-switch-color { display: block; }
-  :root[data-carino-theme="color"] #carinoNav .cn-brand .ct-switch:hover .ct-switch-color { display: none; }
-  :root[data-carino-theme="color"] #carinoNav .cn-brand .ct-switch:hover .ct-switch-gold { display: block; }
+  .ct-switch:hover .ct-switch-gold { display: none; }
+  .ct-switch:hover .ct-switch-color { display: block; }
+  :root[data-carino-theme="color"] .ct-switch:hover .ct-switch-color { display: none; }
+  :root[data-carino-theme="color"] .ct-switch:hover .ct-switch-gold { display: block; }
 }
 
 /* the switch itself: a circle of the new theme grows out of the mark
