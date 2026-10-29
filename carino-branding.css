@@ -174,9 +174,129 @@
     .swatch { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.15s; }
     .swatch:hover { border-color: var(--accent); transform: translateY(-2px); }
     .swatch .chip { height: 64px; }
+    /* each chip sits on its own theme's page, so a translucent token shows what it
+       paints there, whatever theme this page is in */
+    #swatches .chip { background-color: #050505; }
+    #ctSwatchesLight .chip { background-color: #eef3fc; }
+    #ctSwatchesDark .chip { background-color: #0e1420; }
     .swatch .meta { padding: 8px 10px; }
     .swatch .name { font-size: var(--fs-btn); font-weight: 600; }
     .swatch .val { font-family: var(--mono); font-size: var(--fs-label); color: var(--text-muted); }
+
+    /* ============ 3. themes ============
+       A .tf frame declares its own tokens inline (the page script writes
+       them from its tables), so a frame renders Gold & Black or Colourful
+       whatever theme the page itself is in. */
+    .demo-label.tf-sub { margin-top: 22px; }
+    .tf-trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 12px; }
+    .tf-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 12px; }
+    .tf {
+      min-width: 0; display: flex; flex-direction: column; gap: 12px;
+      padding: 14px; border: 1px solid var(--border); border-radius: 12px;
+      background: var(--bg); color: var(--text); font-family: var(--sans);
+    }
+    .tf-cap {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: var(--fs-micro); letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .tf-cap i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+    /* the mini interface */
+    .tm-search {
+      display: flex; align-items: center; gap: 8px; min-width: 0;
+      padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--bg-elev); color: var(--text-muted); font-size: var(--fs-sm);
+    }
+    .tm-search svg { width: 15px; height: 15px; flex: none; }
+    .tm-search span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tm-chip {
+      font-family: var(--mono); font-size: var(--fs-label); padding: 5px 11px;
+      border: 1px solid var(--border); border-radius: var(--tf-radius, 6px); color: var(--text-sec);
+    }
+    .tm-chip.on { background: var(--tf-pick); color: var(--tf-on-pick); border-color: transparent; font-weight: 600; }
+    .tm-card {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px 12px; align-items: start;
+      padding: 14px; border: 1px solid var(--border); border-radius: 12px;
+      background: var(--bg-card); box-shadow: var(--tf-shadow, none);
+    }
+    .tm-cover {
+      width: 46px; height: 46px; border-radius: 10px; background: var(--tf-cover);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tm-cover img { width: 34px; height: 34px; display: block; }
+    .tm-body { min-width: 0; }
+    .tm-title { font-weight: 600; font-size: var(--fs-lg); line-height: 1.2; }
+    .tm-src { font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); margin-top: 2px; }
+    .tm-desc { font-size: var(--fs-sm); color: var(--text-sec); margin-top: 6px; line-height: 1.45; }
+    .tm-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tm-btn {
+      font-family: var(--mono); font-size: var(--fs-btn); font-weight: 600; letter-spacing: 0.04em;
+      padding: 7px 16px; border-radius: var(--tf-radius, 6px); border: 1px solid var(--accent);
+      background: var(--accent); color: var(--tf-on-accent);
+    }
+    .tm-btn.ghost { background: transparent; color: var(--accent); border-color: var(--border); }
+    /* category colours and icon hues */
+    .tc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+    .tc { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .tc-fill, .tc-tonal {
+      font-size: var(--fs-sm); font-weight: 600; padding: 6px 10px; border-radius: 8px; text-align: center;
+    }
+    .tc code, .th code { font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); text-align: center; }
+    .th-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .th { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .th-cover {
+      width: 46px; height: 46px; border-radius: 12px; background: var(--tf-cover);
+      display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);
+    }
+    /* the switch, in a strip shaped like the navbar's left end */
+    .tsw-bar { display: flex; align-items: center; min-width: 0; padding: 6px 4px; }
+    .tsw {
+      flex: none; width: 32px; height: 32px; margin: 0 8px 0 -4px; padding: 0;
+      border: 0; border-radius: 8px; background: transparent; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tsw img { width: 28px; height: 28px; display: block; }
+    .tsw:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .tsw .tsw-c, .tf:not([data-tf="gold"]) .tsw .tsw-g { display: none; }
+    .tf:not([data-tf="gold"]) .tsw .tsw-c { display: block; }
+    @media (hover: hover) and (pointer: fine) {
+      .tf[data-tf="gold"] .tsw:hover .tsw-g { display: none; }
+      .tf[data-tf="gold"] .tsw:hover .tsw-c { display: block; }
+      .tf:not([data-tf="gold"]) .tsw:hover .tsw-c { display: none; }
+      .tf:not([data-tf="gold"]) .tsw:hover .tsw-g { display: block; }
+    }
+    .tsw-brand {
+      font-family: var(--display); font-weight: 900; font-size: 1.5rem; line-height: 1;
+      background: var(--gold-text); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .tsw-tag {
+      margin-left: 10px; padding-left: 10px; border-left: 1px solid var(--border);
+      font-family: var(--mono); font-size: var(--fs-label); letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .tsw-spec { margin-top: 16px; }
+    .tsw-try { margin-top: 14px; }
+    /* colour marks: gold on black beside colour on white, each on its own ground */
+    .mark-pairs { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); }
+    .mark-pair {
+      display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;
+      border: 1px solid var(--border); border-radius: 8px; background: var(--bg-elev);
+    }
+    .mark-pair .mp { display: flex; align-items: center; justify-content: center; padding: 10px 4px; }
+    .mark-pair .mp-g { background: #050505; }
+    .mark-pair .mp-c { background: #ffffff; }
+    .mark-pair img { width: 40px; height: 40px; display: block; }
+    .mark-pair .mp-name {
+      grid-column: 1 / -1; padding: 6px 4px; border-top: 1px solid var(--border); text-align: center;
+      font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-muted); overflow-wrap: anywhere;
+    }
+    .tf-table { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+    .tf-table table.data { min-width: 560px; }
+    .tf-table td code { white-space: nowrap; }
+    .tf-snip pre.code { white-space: pre; padding-top: 3.1rem; }
 
     .type-sample { border-bottom: 1px dashed var(--border); padding: 14px 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
     .type-sample:last-child { border-bottom: none; }
@@ -198,7 +318,7 @@
     .modal-rack { display: flex; justify-content: center; }
     .modal-rack .modal { position: static; }
 
-    /* ============ 22. day/night world map ============ */
+    /* ============ 23. day/night world map ============ */
     /* Muted geography so the gold accent reads on both hemispheres; the night
        veil is a single translucent path whose edge is the solar terminator.
        Reference implementation: Time (time.carino.systems). */
@@ -220,7 +340,7 @@
     .tzmap-legend { position: absolute; bottom: 7px; right: 10px; font-family: var(--mono); font-size: var(--fs-micro); color: var(--text-sec); background: rgba(5,5,5,0.55); padding: 2px 8px; border-radius: 10px; pointer-events: none; }
     .note { font-family: var(--mono); font-size: var(--fs-btn); color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
 
-    /* ── Section animations (24) ──────────────────────────────────
+    /* ── Section animations (26) ──────────────────────────────────
        The reference grid on branding.carino.systems. The animations
        themselves live in carino-anim.css — this is only the case they
        are shown in. */
@@ -242,7 +362,391 @@
     }
     .anim-cell .a-what { font-size: var(--fs-sm); color: var(--text-sec); line-height: 1.4; }
 
-    /* ============ 26. page types ============
+    /* ============ 32. store ============
+       Software's storefront as fleet components: the featured banner, the
+       shelf, the store card and the category tile. The markup is the same in
+       both themes; only the --sto-* values change (with carino-ui's own
+       tokens), so a .tf frame shows either theme whatever the page is in. A
+       site takes the :root blocks and the .sto-* rules; the .tf selectors are
+       this page's frames. The Colourful values read carino-theme.css's --ct-*. */
+    :root, .tf[data-tf="gold"] {
+      --sto-line: #1d1b17; --sto-line-2: #36322a; --sto-line-hv: rgba(234,179,8,0.42);
+      --sto-card: linear-gradient(180deg, #0d0d0d 0%, #090909 100%);
+      --sto-card-hv: linear-gradient(180deg, #0f0f0e 0%, #0a0a0a 100%);
+      --sto-lift: 0 0 0 1px rgba(234,179,8,0.12), 0 14px 32px -16px rgba(234,179,8,0.45), 0 2px 8px rgba(0,0,0,0.6);
+      --sto-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      --sto-cover: radial-gradient(90% 120% at 50% 0%, #15130f 0%, #0f0e0c 70%);
+      --sto-banner: linear-gradient(180deg, #0f0e0c 0%, #080808 100%);
+      --sto-banner-line: #221f19;
+      --sto-glow: rgba(234,179,8,0.13); --sto-glow-hue: 0%;   /* lit by gold, not by the app's hue */
+      --sto-badge-bg: #0b0b0b; --sto-badge-line: rgba(234,179,8,0.4); --sto-badge-fg: #f6d56e;
+      --sto-cta: linear-gradient(180deg, #f5c62e 0%, #eab308 100%); --sto-on-cta: #050505;
+      --sto-cta-hv: 0 6px 20px -8px rgba(234,179,8,0.7);
+      --sto-nav-bg: #0e0e0e; --sto-nav-line: #2a2720; --sto-nav-line-hv: rgba(234,179,8,0.5); --sto-nav-fg-hv: var(--accent);
+      --sto-h-weight: 800;
+      --sto-count-bg: rgba(234,179,8,0.12); --sto-count-fg: #f6d56e; --sto-count-ring: rgba(234,179,8,0.22); --sto-count-font: var(--mono);
+      --sto-hover: rgba(234,179,8,0.06);
+      --sto-domain: #c9a85a;
+      /* install chips: one warm neutral; the platform glyph carries the gold */
+      --sto-chip-ring: #26231d; --sto-chip-ring-hv: rgba(234,179,8,0.5); --sto-chip-lift: 0 0 #0000; --sto-chip-glyph: var(--accent);
+      --sto-p-win-bg: #14130f; --sto-p-win-fg: #e2dbcb;
+      --sto-p-mac-bg: #14130f; --sto-p-mac-fg: #e2dbcb;
+      --sto-p-lin-bg: #14130f; --sto-p-lin-fg: #e2dbcb;
+      --sto-tip-bg: #050505; --sto-tip-fg: #f6d56e; --sto-tip-line: rgba(234,179,8,0.3);
+      --sto-tip-shadow: 0 10px 28px -14px rgba(234,179,8,0.28), 0 2px 8px rgba(0,0,0,0.6);
+      /* category tile: black, the icon in its category colour mixed into gold */
+      --sto-cat-fill: 0%; --sto-cat-end: 0%; --sto-cat-tint: 20%;
+      --sto-cat-ground: #0d0d0c; --sto-cat-ground-2: #0d0d0c; --sto-cat-ring: #24211b;
+      --sto-cat-hv: inset 0 0 0 1px rgba(234,179,8,0.5), 0 14px 30px -18px rgba(234,179,8,0.5);
+      --sto-cat-icon: 0.6; --sto-cat-n: 1;
+      --sto-blue:   color-mix(in oklab, #8ab4f8 42%, #d9b45a); --sto-blue-on:   #050505;
+      --sto-red:    color-mix(in oklab, #f28b82 42%, #d9b45a); --sto-red-on:    #050505;
+      --sto-amber:  #eab308;                                   --sto-amber-on:  #050505;
+      --sto-green:  color-mix(in oklab, #81c995 42%, #d9b45a); --sto-green-on:  #050505;
+      --sto-purple: color-mix(in oklab, #c58af9 42%, #d9b45a); --sto-purple-on: #050505;
+      --sto-teal:   color-mix(in oklab, #78d9ec 42%, #d9b45a); --sto-teal-on:   #050505;
+      --sto-pink:   color-mix(in oklab, #ff8bcb 42%, #d9b45a); --sto-pink-on:   #050505;
+      --sto-grey:   #eab308;                                   --sto-grey-on:   #050505;
+      /* icon paints: the gold sweep three times out of seven, then four warm metals */
+      --sto-art-0: linear-gradient(130deg, #fef08a 0%, #eab308 50%, #c2700a 100%);
+      --sto-art-1: linear-gradient(130deg, #fde68a 0%, #f59e0b 55%, #b45309 100%);   /* amber */
+      --sto-art-2: var(--sto-art-0);
+      --sto-art-3: linear-gradient(130deg, #fbf3dc 0%, #e4cf9a 50%, #b59a5c 100%);   /* champagne */
+      --sto-art-4: var(--sto-art-0);
+      --sto-art-5: linear-gradient(130deg, #f5d0a9 0%, #d4945a 50%, #a8642a 100%);   /* bronze */
+      --sto-art-6: linear-gradient(130deg, #fef9c3 0%, #fcd34d 50%, #ca8a04 100%);   /* honey */
+    }
+    :root[data-carino-theme="color"], .tf[data-tf="light"], .tf[data-tf="dark"] {
+      --sto-line: var(--border); --sto-line-2: #c4c7c5; --sto-line-hv: transparent;
+      --sto-card: var(--bg-card); --sto-card-hv: var(--bg-card);
+      --sto-lift: 0 1px 3px rgba(60,64,67,0.22), 0 4px 10px 3px rgba(60,64,67,0.12);
+      --sto-shadow: 0 1px 2px rgba(60,64,67,0.16), 0 1px 3px 1px rgba(60,64,67,0.08);
+      --sto-cover: var(--ct-cover);
+      --sto-banner: var(--ct-cover); --sto-banner-line: var(--border);
+      --sto-glow: transparent; --sto-glow-hue: 16%;            /* lit by the app's own hue */
+      --sto-badge-bg: var(--bg-card); --sto-badge-line: var(--sto-line-2); --sto-badge-fg: var(--text-sec);
+      --sto-cta: var(--accent); --sto-on-cta: var(--ct-on-accent); --sto-cta-hv: var(--sto-lift);
+      --sto-nav-bg: var(--bg-card); --sto-nav-line: var(--border); --sto-nav-line-hv: var(--sto-line-2); --sto-nav-fg-hv: var(--text);
+      --sto-h-weight: 700;
+      --sto-count-bg: var(--ct-tonal); --sto-count-fg: var(--ct-on-tonal); --sto-count-ring: transparent; --sto-count-font: var(--sans);
+      --sto-hover: rgba(68,71,70,0.08);
+      --sto-domain: #188038;
+      /* install chips: tinted by the platform they install on */
+      --sto-chip-ring: transparent; --sto-chip-ring-hv: transparent; --sto-chip-lift: var(--sto-shadow); --sto-chip-glyph: currentColor;
+      --sto-p-win-bg: #e8f0fe; --sto-p-win-fg: #174ea6;
+      --sto-p-mac-bg: #eef0f2; --sto-p-mac-fg: #3c4043;
+      --sto-p-lin-bg: #e6f4ea; --sto-p-lin-fg: #0d652d;
+      --sto-tip-bg: #303134; --sto-tip-fg: #f1f3f4; --sto-tip-line: transparent; --sto-tip-shadow: var(--sto-lift);
+      /* category tile: filled with its category colour */
+      --sto-cat-fill: 100%; --sto-cat-end: 72%; --sto-cat-tint: 0%;
+      --sto-cat-ground: #000; --sto-cat-ground-2: #000; --sto-cat-ring: transparent;
+      --sto-cat-hv: var(--sto-lift);
+      --sto-cat-icon: 0.32; --sto-cat-n: 0.85;
+      --sto-blue:   #1a73e8; --sto-blue-on:   #fff;
+      --sto-red:    #d93025; --sto-red-on:    #fff;
+      --sto-amber:  #f9ab00; --sto-amber-on:  #1f1f1f;
+      --sto-green:  #188038; --sto-green-on:  #fff;
+      --sto-purple: #8430ce; --sto-purple-on: #fff;
+      --sto-teal:   #00838f; --sto-teal-on:   #fff;
+      --sto-pink:   #c2185b; --sto-pink-on:   #fff;
+      --sto-grey:   #3c4043; --sto-grey-on:   #fff;
+      /* icon hues: the seven category colours, one flat paint each */
+      --sto-h0: #1a73e8; --sto-h1: #d93025; --sto-h2: #ea8600; --sto-h3: #1e8e3e;
+      --sto-h4: #8430ce; --sto-h5: #00838f; --sto-h6: #c2185b;
+      --sto-art-0: linear-gradient(var(--sto-h0) 0 0); --sto-art-1: linear-gradient(var(--sto-h1) 0 0);
+      --sto-art-2: linear-gradient(var(--sto-h2) 0 0); --sto-art-3: linear-gradient(var(--sto-h3) 0 0);
+      --sto-art-4: linear-gradient(var(--sto-h4) 0 0); --sto-art-5: linear-gradient(var(--sto-h5) 0 0);
+      --sto-art-6: linear-gradient(var(--sto-h6) 0 0);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root[data-carino-theme="color"]:not([data-theme="light"]) {
+        --sto-line-2: #5f6368;
+        --sto-lift: 0 2px 6px 2px rgba(0,0,0,0.45); --sto-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        --sto-hover: rgba(227,227,227,0.08); --sto-domain: #81c995;
+        --sto-p-win-bg: rgba(138,180,248,0.14); --sto-p-win-fg: #a8c7fa;
+        --sto-p-mac-bg: rgba(227,227,227,0.09); --sto-p-mac-fg: #d5d7d9;
+        --sto-p-lin-bg: rgba(129,201,149,0.14); --sto-p-lin-fg: #9fdcaf;
+        --sto-tip-bg: #e3e3e3; --sto-tip-fg: #1f1f1f;
+        --sto-blue: #8ab4f8; --sto-blue-on: #0b1f45;  --sto-red: #f28b82;    --sto-red-on: #3b0907;
+        --sto-amber: #fdd663; --sto-amber-on: #1f1f1f; --sto-green: #81c995; --sto-green-on: #072711;
+        --sto-purple: #c58af9; --sto-purple-on: #2a0a4a; --sto-teal: #78d9ec; --sto-teal-on: #00363d;
+        --sto-pink: #ff8bcb; --sto-pink-on: #3e0021;  --sto-grey: #e3e3e3;   --sto-grey-on: #1f1f1f;
+        /* on dark the lighter hue carries the icon */
+        --sto-h0: #5e97f6; --sto-h1: #f07368; --sto-h2: #fbc02d; --sto-h3: #4cc06b;
+        --sto-h4: #b373f0; --sto-h5: #33c3d4; --sto-h6: #f06aa8;
+      }
+    }
+    .tf[data-tf="dark"] {
+      --sto-line-2: #5f6368;
+      --sto-lift: 0 2px 6px 2px rgba(0,0,0,0.45); --sto-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      --sto-hover: rgba(227,227,227,0.08); --sto-domain: #81c995;
+      --sto-p-win-bg: rgba(138,180,248,0.14); --sto-p-win-fg: #a8c7fa;
+      --sto-p-mac-bg: rgba(227,227,227,0.09); --sto-p-mac-fg: #d5d7d9;
+      --sto-p-lin-bg: rgba(129,201,149,0.14); --sto-p-lin-fg: #9fdcaf;
+      --sto-tip-bg: #e3e3e3; --sto-tip-fg: #1f1f1f;
+      --sto-blue: #8ab4f8; --sto-blue-on: #0b1f45;  --sto-red: #f28b82;    --sto-red-on: #3b0907;
+      --sto-amber: #fdd663; --sto-amber-on: #1f1f1f; --sto-green: #81c995; --sto-green-on: #072711;
+      --sto-purple: #c58af9; --sto-purple-on: #2a0a4a; --sto-teal: #78d9ec; --sto-teal-on: #00363d;
+      --sto-pink: #ff8bcb; --sto-pink-on: #3e0021;  --sto-grey: #e3e3e3;   --sto-grey-on: #1f1f1f;
+      --sto-h0: #5e97f6; --sto-h1: #f07368; --sto-h2: #fbc02d; --sto-h3: #4cc06b;
+      --sto-h4: #b373f0; --sto-h5: #33c3d4; --sto-h6: #f06aa8;
+    }
+    .sto-c-blue   { --c: var(--sto-blue);   --on: var(--sto-blue-on); }
+    .sto-c-red    { --c: var(--sto-red);    --on: var(--sto-red-on); }
+    .sto-c-amber  { --c: var(--sto-amber);  --on: var(--sto-amber-on); }
+    .sto-c-green  { --c: var(--sto-green);  --on: var(--sto-green-on); }
+    .sto-c-purple { --c: var(--sto-purple); --on: var(--sto-purple-on); }
+    .sto-c-teal   { --c: var(--sto-teal);   --on: var(--sto-teal-on); }
+    .sto-c-pink   { --c: var(--sto-pink);   --on: var(--sto-pink-on); }
+    .sto-c-grey   { --c: var(--sto-grey);   --on: var(--sto-grey-on); }
+    .sto-hue-0 { --art: var(--sto-art-0); --h: var(--sto-h0); } .sto-hue-1 { --art: var(--sto-art-1); --h: var(--sto-h1); }
+    .sto-hue-2 { --art: var(--sto-art-2); --h: var(--sto-h2); } .sto-hue-3 { --art: var(--sto-art-3); --h: var(--sto-h3); }
+    .sto-hue-4 { --art: var(--sto-art-4); --h: var(--sto-h4); } .sto-hue-5 { --art: var(--sto-art-5); --h: var(--sto-h5); }
+    .sto-hue-6 { --art: var(--sto-art-6); --h: var(--sto-h6); }
+
+    /* the icon itself carries the colour: a glyph (--g) drawn through a mask
+       and painted with --art, on a neutral ground, never on a filled square */
+    .sto-art {
+      display: block; flex: none; width: 46px; height: 46px; background: var(--art, var(--gold-text));
+      -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat;
+    }
+
+    /* featured banner */
+    .sto-hero { position: relative; }
+    .sto-slides { display: grid; }
+    .sto-slide {
+      grid-area: 1 / 1; position: relative; overflow: hidden;
+      display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: center; gap: 24px;
+      min-height: 250px; padding: 30px 44px; border-radius: 20px; border: 1px solid var(--sto-banner-line);
+      background: radial-gradient(70% 130% at 82% 50%, color-mix(in srgb, var(--h, #eab308) var(--sto-glow-hue), var(--sto-glow)), transparent 70%), var(--sto-banner);
+      opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
+    }
+    .sto-slide.on { opacity: 1; visibility: visible; }
+    .sto-kicker {
+      display: inline-block; padding: 4px 8px; border-radius: 4px;
+      font-family: var(--sans); font-size: var(--fs-label); font-weight: 700; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--sto-badge-fg); background: var(--sto-badge-bg); border: 1px solid var(--sto-badge-line);
+    }
+    .sto-title {
+      margin: 12px 0 8px; font-family: var(--display); font-size: clamp(var(--fs-h2), 1rem + 1.6vw, var(--fs-display));
+      font-weight: 800; line-height: 1.08; color: var(--text);
+    }
+    .sto-lede { margin: 0 0 20px; max-width: 46ch; font-size: var(--fs-body); line-height: 1.5; color: var(--text-sec); }
+    .sto-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+    .sto-actions .sto-row { margin: 0; padding: 0; }
+    .sto-cta {
+      display: inline-flex; align-items: center; gap: 9px; height: 42px; padding: 0 20px; border-radius: 999px;
+      background: var(--sto-cta); color: var(--sto-on-cta); text-decoration: none;
+      font-family: var(--sans); font-size: var(--fs-sec); font-weight: 600; transition: box-shadow 0.2s;
+    }
+    .sto-cta svg { width: 12px; height: 12px; }
+    .sto-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sto-hero-art { justify-self: center; }
+    .sto-hero-art .sto-art { width: 144px; height: 144px; transform: rotate(-8deg); }
+    .sto-nav {
+      width: 40px; height: 40px; border-radius: 50%; padding: 0; cursor: pointer; flex: none;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--sto-nav-line); background: var(--sto-nav-bg); color: var(--text-sec);
+    }
+    .sto-nav svg { width: 14px; height: 14px; }
+    .sto-nav:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sto-hero > .sto-nav { position: absolute; top: 125px; transform: translateY(-50%); box-shadow: var(--sto-shadow); }
+    .sto-hero > .sto-nav.prev { left: -16px; }
+    .sto-hero > .sto-nav.next { right: -16px; }
+    .sto-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+    /* a 4px bar on a 16px target */
+    .sto-dot {
+      width: 24px; height: 16px; padding: 0; border: 0; cursor: pointer;
+      background: linear-gradient(var(--sto-line-2), var(--sto-line-2)) center / 100% 4px no-repeat;
+      transition: width 0.25s;
+    }
+    .sto-dot.on { width: 36px; background-image: linear-gradient(var(--accent), var(--accent)); }
+    .sto-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+    /* shelf: a heading row, then a track that scrolls sideways */
+    .sto-shelf-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .sto-h {
+      flex: 1; min-width: 0; margin: 0; display: flex; align-items: center; gap: 10px;
+      font-family: var(--display); font-size: var(--fs-h3); font-weight: var(--sto-h-weight); line-height: 1.2; color: var(--text);
+    }
+    .sto-count {
+      font-family: var(--sto-count-font); font-size: var(--fs-btn); font-weight: 700; padding: 2px 9px; border-radius: 999px;
+      background: var(--sto-count-bg); color: var(--sto-count-fg); box-shadow: inset 0 0 0 1px var(--sto-count-ring);
+    }
+    .sto-all {
+      height: 34px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
+      color: var(--accent); font-family: var(--sans); font-size: var(--fs-sec); font-weight: 600;
+    }
+    .sto-all:focus-visible { outline: 2px solid var(--accent); }
+    .sto-nav.sm { width: 34px; height: 34px; }
+    /* paint containment makes the track hold everything inside it: without
+       it, something positioned in the cards escaped the scroller and widened
+       the page to the shelf's full length (8,000px on a phone) */
+    .sto-track {
+      display: grid; grid-auto-flow: column; grid-auto-columns: max(min(200px, 100%), calc((100% - 36px) / 4)); gap: 12px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 4px; scrollbar-width: none;
+      padding: 4px 4px 12px; margin: -4px -4px 0; contain: paint;
+    }
+    .sto-track::-webkit-scrollbar { display: none; }
+    .sto-track > .sto-card { scroll-snap-align: start; }
+    /* a shelf clips at its edges, so its command tips open upward, over the cover */
+    .sto-track .sto-row [data-tip]::before { top: auto; bottom: calc(100% + 8px); }
+    .sto-shelf.open .sto-track { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: repeat(auto-fill, minmax(min(236px, 100%), 1fr)); }
+    .sto-shelf.open .sto-nav { display: none; }
+
+    /* store card: a neutral cover with the icon in its colour, then the text */
+    .sto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 12px; }
+    .sto-card {
+      position: relative; min-width: 0; display: flex; flex-direction: column;
+      background: var(--sto-card); border: 1px solid var(--sto-line); border-radius: 16px;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .sto-card:focus-within { z-index: 2; }
+    .sto-cover {
+      position: relative; height: 108px; flex: none; display: flex; align-items: center; justify-content: center;
+      border-radius: 15px 15px 0 0; background: var(--sto-cover); border-bottom: 1px solid var(--sto-line);
+    }
+    .sto-cover .sto-art { transition: transform 0.25s; }
+    .sto-badge {
+      position: absolute; top: 10px; left: 10px; padding: 4px 7px; border-radius: 4px;
+      font-family: var(--sans); font-size: var(--fs-micro); font-weight: 700; line-height: 1; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--sto-badge-fg); background: var(--sto-badge-bg); border: 1px solid var(--sto-badge-line);
+    }
+    /* the bookmark is its own button, so a keyboard reaches it */
+    .sto-save {
+      position: absolute; top: 4px; right: 4px; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; background: transparent; cursor: pointer;
+      color: var(--text-muted); transition: color 0.2s, background 0.2s;
+    }
+    .sto-save svg { width: 15px; height: 15px; }
+    .sto-save[aria-pressed="true"] { color: var(--accent); }
+    .sto-save[aria-pressed="true"] svg { fill: currentColor; }
+    .sto-save:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sto-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 12px 14px 13px; }
+    .sto-name {
+      color: var(--text); text-decoration: none; font-family: var(--sans); font-size: var(--fs-body); font-weight: 600; line-height: 1.3;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .sto-name:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .sto-src { margin-top: -4px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--sans); font-size: var(--fs-btn); }
+    .sto-src a { color: var(--sto-domain); text-decoration: none; }
+    .sto-desc {
+      margin: 0; min-height: 2.9em; font-size: var(--fs-sm); line-height: 1.45; color: var(--text-sec);
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    /* install row: "Install", then a chip per platform; the visitor's leads */
+    .sto-row { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: auto; padding-top: 2px; }
+    .sto-row:hover, .sto-row:focus-within { z-index: 3; }
+    .sto-row-lbl { display: inline-flex; align-items: center; gap: 5px; margin-right: 2px; color: var(--text-muted); font-size: var(--fs-btn); font-weight: 600; }
+    .sto-row-lbl svg { width: 12px; height: 12px; }
+    .sto-chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 9px 0 8px; border: 0; border-radius: 8px; cursor: pointer;
+      font-family: var(--mono); font-size: var(--fs-btn); font-weight: 600;
+      background: var(--sto-p-mac-bg); color: var(--sto-p-mac-fg); box-shadow: inset 0 0 0 1px var(--sto-chip-ring);
+      transition: box-shadow 0.15s;
+    }
+    .sto-chip.p-win { background: var(--sto-p-win-bg); color: var(--sto-p-win-fg); }
+    .sto-chip.p-lin { background: var(--sto-p-lin-bg); color: var(--sto-p-lin-fg); }
+    .sto-chip svg { width: 13px; height: 13px; color: var(--sto-chip-glyph); }
+    .sto-chip[hidden] { display: none; }
+    /* "+N": the other platforms, folded behind the visitor's own */
+    .sto-more {
+      height: 28px; min-width: 32px; padding: 0 8px; border-radius: 8px; cursor: pointer;
+      border: 1px dashed var(--sto-line-2); background: transparent; color: var(--text-muted);
+      font-family: var(--sans); font-size: var(--fs-btn); font-weight: 700;
+    }
+    .sto-chip:focus-visible, .sto-more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    /* the tip is the command itself, so you see what lands on the clipboard;
+       it hangs under the row, inside the card's width, and a long one wraps */
+    .sto-row [data-tip]::before, .sto-save[data-tip]::before {
+      content: attr(data-tip); position: absolute; top: calc(100% + 8px); z-index: 200;
+      padding: 6px 10px; border-radius: 6px; border: 1px solid var(--sto-tip-line);
+      background: var(--sto-tip-bg); color: var(--sto-tip-fg); box-shadow: var(--sto-tip-shadow);
+      font-family: var(--mono); font-size: var(--fs-btn); font-weight: 500; line-height: 1.4; text-transform: none; letter-spacing: 0;
+      opacity: 0; pointer-events: none; transform: translateY(-3px); transition: opacity 0.15s, transform 0.15s;
+    }
+    .sto-row [data-tip]::before { left: 0; width: max-content; max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere; text-align: left; }
+    .sto-row .sto-more[data-tip]::before, .sto-save[data-tip]::before { font-family: var(--sans); white-space: nowrap; }
+    .sto-save[data-tip]::before { right: 0; }
+    .sto-row [data-tip]:focus-visible::before, .sto-save[data-tip]:focus-visible::before { opacity: 1; transform: none; }
+
+    /* category tile: one rule draws both themes; --sto-cat-fill mixes the
+       category colour in at 100% (Colourful) or 0% (Gold & Black) */
+    .sto-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .sto-cat {
+      position: relative; overflow: hidden; height: 96px; padding: 14px 16px; border: 0; border-radius: 14px; cursor: pointer;
+      display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; text-align: left;
+      background:
+        radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--c) var(--sto-cat-tint), transparent), transparent 62%),
+        linear-gradient(135deg, color-mix(in srgb, var(--c) var(--sto-cat-fill), var(--sto-cat-ground)) 0%, color-mix(in srgb, var(--c) var(--sto-cat-end), var(--sto-cat-ground-2)) 100%);
+      color: color-mix(in srgb, var(--on) var(--sto-cat-fill), var(--text));
+      box-shadow: inset 0 0 0 1px var(--sto-cat-ring);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .sto-cat-name {
+      position: relative; width: calc(100% - 44px); overflow-wrap: break-word; hyphens: auto;
+      font-family: var(--display); font-size: var(--fs-body); font-weight: 800; line-height: 1.15; letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .sto-cat-n {
+      position: relative; font-family: var(--sans); font-size: var(--fs-btn); font-weight: 600;
+      color: color-mix(in srgb, var(--on) var(--sto-cat-fill), var(--text-muted)); opacity: var(--sto-cat-n);
+    }
+    .sto-cat-ic {
+      position: absolute; right: 12px; top: 14px; width: 38px; height: 38px;
+      background: color-mix(in srgb, var(--on) var(--sto-cat-fill), var(--c)); opacity: var(--sto-cat-icon);
+      -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat;
+      transform: rotate(-10deg); transition: transform 0.3s;
+    }
+    .sto-cat:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }
+
+    /* hover only where there is a real pointer: on touch it sticks after a tap */
+    @media (hover: hover) and (pointer: fine) {
+      .sto-cta:hover { color: var(--sto-on-cta); box-shadow: var(--sto-cta-hv); }
+      .sto-nav:hover { color: var(--sto-nav-fg-hv); border-color: var(--sto-nav-line-hv); }
+      .sto-all:hover { background: var(--sto-hover); }
+      .sto-card:hover { z-index: 2; background: var(--sto-card-hv); border-color: var(--sto-line-hv); box-shadow: var(--sto-lift); transform: translateY(-2px); }
+      .sto-card:hover .sto-cover .sto-art { transform: scale(1.07); }
+      .sto-save:hover { color: var(--accent); background: var(--sto-hover); }
+      .sto-name:hover { color: var(--accent); }
+      .sto-src a:hover { text-decoration: underline; }
+      .sto-chip:hover {
+        box-shadow: inset 0 0 0 1px var(--sto-chip-ring-hv), var(--sto-chip-lift);
+        background-image: linear-gradient(color-mix(in srgb, currentColor 9%, transparent), color-mix(in srgb, currentColor 9%, transparent));
+      }
+      .sto-more:hover { color: var(--text); border-style: solid; background: var(--sto-hover); }
+      .sto-row [data-tip]:hover::before, .sto-save[data-tip]:hover::before { opacity: 1; transform: none; }
+      .sto-cat:hover { transform: translateY(-2px); box-shadow: var(--sto-cat-hv); }
+      .sto-cat:hover .sto-cat-ic { transform: rotate(-2deg) scale(1.1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sto-slide, .sto-card, .sto-cat, .sto-cat-ic, .sto-cover .sto-art, .sto-dot { transition: none; }
+    }
+    /* phones: after the rules above so these win at equal specificity */
+    @media (max-width: 640px) {
+      .sto-slide { grid-template-columns: minmax(0, 1fr) auto; min-height: 0; padding: 18px 16px; gap: 12px; border-radius: 16px; }
+      .sto-title { margin: 10px 0 6px; }
+      .sto-lede { font-size: var(--fs-sec); margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .sto-actions .sto-row { display: none; }   /* the shelf card carries the install chips */
+      .sto-hero-art { align-self: start; }
+      .sto-hero-art .sto-art { width: 52px; height: 52px; }
+      .sto-hero > .sto-nav, .sto-shelf-head .sto-nav { display: none; }
+      .sto-track { grid-auto-columns: 78%; margin: -4px -14px 0; padding: 4px 14px 12px; scroll-padding: 0 14px; }
+      /* a 78% card holds one chip and +N on a line: the label keeps only its icon, and its name */
+      .sto-track .sto-row-lbl { margin-right: 0; }
+      .sto-track .sto-row-lbl span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      .sto-cat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .sto-cat { height: 84px; padding: 12px; }
+      .sto-cat-ic { width: 30px; height: 30px; right: 10px; top: 10px; }
+      .sto-cat-name { width: auto; max-width: 100%; font-size: var(--fs-sm); letter-spacing: 0; }   /* the icon sits above the name here */
+    }
+    /* this page only: each component in a gold frame above a Colourful one */
+    .sto-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .sto-label .demo-label { margin: 0; }
+    .sto-frames { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .sto-frames > .tf { padding: 18px 20px; }
+    @media (max-width: 640px) { .sto-frames > .tf { padding: 14px; } }
+
+    /* ============ 36. page types ============
        One card per type: its job, a sketch of the blocks it must have in
        order (the thin bar on top is the navbar every type shares), then the
        May and Never lines and the sites that are that type. */

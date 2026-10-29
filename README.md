@@ -36,18 +36,18 @@ imports `carino-ui.css`. The Colors section's Copy button yields the raw token
 CSS (`:root { … }`). When the style changes, edit `carino-ui.css` first.
 
 ## What's inside
-Color tokens · typography · buttons & toggles · tabs · form controls · alerts ·
+Color tokens · themes (Gold & Black, Colourful) · typography · buttons & toggles · tabs · form controls · alerts ·
 badges/chips/status · cards & panels · dropdown/diagnostics · tables · code
 blocks · loading (spinner / progress / EKG) · slice menu and router · toast ·
 navbar action portal · dropzone · modal · command block · workspace shell and
 drawer · key caps · map · data viz and freshness states · currency · animations ·
 landing hero · short hero · privacy line · filter chips · entry card and source
-line · lab and progress · footer · play controls · page types.
+line · store (featured banner, shelf, store card, category tile) · lab and progress · footer · play controls · page types.
 
 ## Page types
 Every site is one page of one of eight types — `hub`, `tool`, `suite`, `live`,
 `reference`, `learn`, `play`, `product` — and the type fixes its layout: the
-blocks it must have, may add and never has. Section 34 (`#pagetypes`) defines
+blocks it must have, may add and never has. Section 36 (`#pagetypes`) defines
 them. Each site declares its type in `Carino-Systems/baseline/sites.json` as
 `"type"`, with an optional `"also"` for a second type whose blocks it borrows.
 A new type is added in Branding first, then in `sites.json`. Each block in a

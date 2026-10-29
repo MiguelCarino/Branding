@@ -9,6 +9,9 @@ is drawn in two variants from ONE pictogram, so they cannot drift apart:
     <stem>.webp       the mark at 50x50, lossless -- the favicon size the fleet links.
     <stem>-glyph.svg  the pictogram alone on a 24 grid, stroke 2, currentColor,
                       for list rows, a navbar tag, anywhere text-sized.
+    <stem>-color.svg  the mark with a colourful pictogram: the ring stays gold,
+                      each part of the pictogram takes the next PALETTE colour.
+                      For the playful pages (Software first); never the favicon.
 
 Run it and it rewrites all three for every site, plus sheet.html (the review
 page) and dicom-options/:
@@ -47,6 +50,10 @@ CX, CY = 56.03, 50.0
 SCALE = 40.0 / 24
 MARK_STROKE = 3.0
 GLYPH_STROKE = 2.0
+
+# The colour variant's palette, in the order parts take it. Yellow is last
+# because it sits closest to the gold ring.
+PALETTE = ["#4285f4", "#ea4335", "#34a853", "#fbbc04"]
 
 BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
           f'stroke="{GOLD}" stroke-width="16.38" stroke-linecap="butt"/>')
@@ -102,6 +109,13 @@ P = {
  "topo":      '<path d="M12 5L5 18h14z"/><circle cx="12" cy="5" r="3" fill="{F}"/><circle cx="5" cy="18" r="3" fill="{F}"/><circle cx="19" cy="18" r="3" fill="{F}"/>',
  "tv":        '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 3v14M2 10h20M8 21h8"/>',
  "vitae":     '<rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="9" r="3" fill="{F}" stroke="none"/><path d="M7.5 17.5a4.5 4.5 0 0 1 9 0z" fill="{F}"/>',
+}
+
+# Colour-variant overrides, for a pictogram whose outlined parts read better
+# solid once each part has its own colour. {C0}..{C3} are PALETTE entries.
+PC = {
+ "software":  '<rect x="3" y="3" width="7" height="7" rx="1.5" fill="{C0}" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="{C1}" stroke="none"/>'
+              '<rect x="3" y="14" width="7" height="7" rx="1.5" fill="{C2}" stroke="none"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="{C3}" stroke="none"/>',
 }
 
 # ---- the fleet --------------------------------------------------------------
@@ -167,6 +181,49 @@ def mark_svg(label, body):
             f'width="512" height="512" role="img" aria-label="{esc(label)}">{BARE_C}{inner}</svg>')
 
 
+def top_level_parts(body):
+    """Split a pictogram into its top-level elements (a <g> counts as one)."""
+    import re
+    parts, depth, start = [], 0, 0
+    for m in re.finditer(r"<(/?)(\w+)[^>]*?(/?)>", body):
+        closing, selfclose = m.group(1), m.group(3)
+        if depth == 0:
+            start = m.start() if not closing else start
+        if closing:
+            depth -= 1
+        elif not selfclose:
+            depth += 1
+        if depth == 0:
+            parts.append(body[start:m.end()])
+    return parts
+
+
+def color_body(stem, body):
+    """Each top-level part stroked and filled in the next PALETTE colour."""
+    if stem in PC:
+        out = PC[stem]
+        for i, c in enumerate(PALETTE):
+            out = out.replace("{C%d}" % i, c)
+        return out
+    # Each mark starts its cycle on a different one of the first three
+    # colours, so the one-part pictograms are not all blue side by side.
+    first = sorted(P).index(stem) % 3 if stem in P else 0
+    out = []
+    for i, part in enumerate(top_level_parts(body)):
+        c = PALETTE[(first + i) % len(PALETTE)]
+        head_end = part.index(">") + (0 if part[part.index(">") - 1] != "/" else -1)
+        head = part[:head_end]
+        if 'stroke="' not in head:   # keep an explicit stroke="none"
+            part = part[:head_end] + f' stroke="{c}"' + part[head_end:]
+        out.append(part.replace("{F}", c))
+    return "".join(out)
+
+
+def color_svg(label, stem, body):
+    """The mark, with the pictogram in PALETTE colours instead of gold."""
+    return mark_svg(label, color_body(stem, body)) if body is not None else None
+
+
 def glyph_svg(label, body):
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" '
             f'role="img" aria-label="{esc(label)}" fill="none" stroke="currentColor" '
@@ -174,17 +231,19 @@ def glyph_svg(label, body):
             f'{body.replace("{F}", "currentColor")}</svg>')
 
 
-def sheet_row(name, src, glyph):
+def sheet_row(name, src, glyph, color_src=None):
     g = glyph or ""
     small = g.replace('width="24" height="24"', 'width="16" height="16"')
     return (f'<div class="row"><span class="name">{name}</span>'
             + "".join(f'<img src="{src}" width="{s}" height="{s}" alt="">' for s in (128, 64, 32, 16))
+            + (f'<span class="g light"><img src="{color_src}" width="64" height="64" alt="">'
+               f'<img src="{color_src}" width="32" height="32" alt=""></span>' if color_src else "")
             + (f'<span class="g dark">{g}{small}</span><span class="g light">{g}</span>' if g else "")
             + '</div>')
 
 
 SHEET_CSS = ("body{margin:0;background:#0c0a09;color:#e7e5e4;font:13px system-ui;padding:16px}"
-             ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(640px,1fr));gap:6px 24px}"
+             ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(760px,1fr));gap:6px 24px}"
              ".row{display:flex;align-items:center;gap:14px;border-bottom:1px solid #292524;padding:4px 0}"
              ".name{width:200px;flex:none}"
              ".g{display:inline-flex;gap:10px;align-items:center;padding:6px 8px;border-radius:6px}"
@@ -193,7 +252,7 @@ SHEET_CSS = ("body{margin:0;background:#0c0a09;color:#e7e5e4;font:13px system-ui
 
 def sheet(title, rows):
     return (f'<!doctype html><meta charset="utf-8"><title>{title}</title><style>{SHEET_CSS}</style>'
-            '<p>mark 128/64/32/16 &middot; glyph 24/16 on dark &middot; glyph on light</p>'
+            '<p>mark 128/64/32/16 &middot; colour mark 64/32 on light &middot; glyph 24/16 on dark &middot; glyph on light</p>'
             f'<div class="grid">{"".join(rows)}</div>')
 
 
@@ -256,11 +315,13 @@ if __name__ == "__main__":
         body = P.get(stem)
         path = os.path.join(OUT, f"{stem}.svg")
         write(path, mark_svg(label, body))
-        g = None
+        g = color = None
         if body is not None:
             g = glyph_svg(label, body)
             write(os.path.join(OUT, f"{stem}-glyph.svg"), g)
-        rows.append(sheet_row(stem, f"{stem}.svg", g))
+            color = f"{stem}-color.svg"
+            write(os.path.join(OUT, color), color_svg(label, stem, body))
+        rows.append(sheet_row(stem, f"{stem}.svg", g, color))
         if not raster:
             continue
         # 50x50 lossless webp: the size and format the fleet's favicons already use.

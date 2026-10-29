@@ -26,10 +26,30 @@
   <script type="application/json" id="carino-head-i18n">{"es": {"title": "Carino Branding — Referencia del sistema de diseño", "desc": "La referencia viva del sistema de diseño: tokens, componentes y fragmentos listos para copiar para cada proyecto Carino."}, "pt-BR": {"title": "Carino Branding — Referência do design system", "desc": "A referência viva do design system: tokens, componentes e trechos prontos para copiar para todos os projetos Carino."}, "ja": {"title": "Carino Branding — デザインシステム リファレンス", "desc": "常に最新のデザインシステム リファレンス。すべてのCarinoプロジェクト向けのトークン、コンポーネント、コピー用スニペット。"}, "ru": {"title": "Carino Branding — справочник дизайн-системы", "desc": "Живой справочник дизайн-системы: токены, компоненты и готовые к копированию фрагменты для всех проектов Carino."}}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Carino Branding", "url": "https://branding.carino.systems/", "description": "The living design-system reference — tokens, components and copy-ready snippets for every Carino project.", "operatingSystem": "Any (runs in a web browser)", "isAccessibleForFree": true, "author": {"@type": "Person", "name": "Miguel Cariño", "url": "https://carino.systems/"}}</script>
   <!-- /carino:head -->
+  <!-- Theme before first paint, so neither theme flashes the other:
+       ?theme=gold|color (review links; not stored) > carino-theme cookie
+       (shared across *.carino.systems) > localStorage > Gold & Black. -->
+  <meta name="theme-color" content="#050505" id="carinoThemeColor">
+  <script>
+  (function () {
+    var d = document.documentElement, t = null;
+    function pick(v) { return v === 'gold' ? 'gold' : (v === 'color' || v === 'colour') ? 'color' : null; }
+    try { t = pick(new URLSearchParams(location.search).get('theme')); } catch (e) {}
+    if (!t) { try { var m = document.cookie.match(/(?:^|;\s*)carino-theme=([^;]*)/); if (m) t = pick(decodeURIComponent(m[1])); } catch (e) {} }
+    if (!t) { try { t = pick(localStorage.getItem('carino-theme')); } catch (e) {} }
+    t = t || 'gold';
+    d.setAttribute('data-carino-theme', t);
+    var dark = d.getAttribute('data-theme') !== 'light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+    var meta = document.getElementById('carinoThemeColor');
+    if (meta) meta.content = t === 'gold' ? '#050505' : (dark ? '#0e1420' : '#eef3fc');
+  })();
+  </script>
   <link rel="icon" type="image/webp" href="logo.webp">
   <link rel="stylesheet" href="fonts/carino-fonts.css">
   <link rel="stylesheet" href="carino-branding.css">
   <link rel="stylesheet" href="carino-anim.css">
+  <!-- Colourful theme + the switch; nothing applies until data-carino-theme="color". -->
+  <link rel="stylesheet" href="carino-theme.css">
 </head>
 <body>
 
@@ -45,6 +65,7 @@
   <nav class="toc">
     <a href="#marks" data-i18n>Mark</a>
     <a href="#tokens" data-i18n>Color</a>
+    <a href="#themes" data-i18n>Themes</a>
     <a href="#type" data-i18n>Type</a>
     <a href="#buttons" data-i18n>Buttons</a>
     <a href="#tabs" data-i18n>Tabs</a>
@@ -73,6 +94,7 @@
     <a href="#privacy" data-i18n>Privacy Line</a>
     <a href="#fchips" data-i18n>Filter Chips</a>
     <a href="#entry" data-i18n>Entry Card</a>
+    <a href="#store" data-i18n>Store</a>
     <a href="#lab" data-i18n>Lab</a>
     <a href="#footer" data-i18n>Footer</a>
     <a href="#play" data-i18n>Play</a>
@@ -106,13 +128,15 @@
       </div>
 
       <div class="demo">
-        <div class="demo-label" data-i18n>Two variants</div>
+        <div class="demo-label" data-i18n>Three variants</div>
         <div class="mark-lockup">
           <img class="mark-big" src="marks/retina.svg" alt="" width="128" height="128">
+          <img class="mark-big" src="marks/retina-color.svg" alt="" width="128" height="128">
           <span class="mark-glyph" style="--g:url(marks/retina-glyph.svg);width:48px;height:48px"></span>
           <span class="mark-glyph" style="--g:url(marks/retina-glyph.svg);width:24px;height:24px"></span>
         </div>
         <div class="note" data-i18n-html>Every tool is drawn twice from one pictogram, so the two cannot drift apart. The <b>mark</b> &mdash; ring and pictogram, gold on transparency &mdash; identifies the app in a dock, a hero or a share card. The <b>glyph</b> &mdash; the pictogram alone, stroke 2 on a 24 grid, in <code>currentColor</code> &mdash; is for text-sized places: a list row, a navbar tag. It sits beside each mark as <code>marks/&lt;site&gt;-glyph.svg</code>.</div>
+        <div class="note" data-i18n-html>The <b>colour mark</b> keeps the gold ring and paints each part of the pictogram in the next palette colour. It is the Colourful theme&rsquo;s mark: the theme switch and a Colourful page&rsquo;s hero use it, never a favicon. It sits beside each mark as <code>marks/&lt;site&gt;-color.svg</code>.</div>
       </div>
 
       <div class="demo">
@@ -125,6 +149,12 @@
         <div class="demo-label" data-i18n>The fleet</div>
         <div class="mark-grid" id="markGrid"></div>
         <div class="note" data-i18n-html>One pictogram per job, drawn from primitives rather than taken from an icon set, with as few parts as the idea allows. <code>dcm</code> and <code>dicom</code> are a pair: the Editor is one chest film, Carino DICOM a stack of them &mdash; one film to edit, a stack of studies to keep moving. Every candidate tried for DICOM is kept in <code>marks/dicom-options/</code>.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>The fleet in colour</div>
+        <div class="mark-grid" id="markGridColor"></div>
+        <div class="note" data-i18n-html>The same pictograms, one palette colour per part. The hub has no pictogram, so it has no colour mark: the gold <code>C</code> stands for the fleet in both themes.</div>
       </div>
     </section>
 
@@ -142,10 +172,85 @@
       </div>
     </section>
 
-    <!-- 3. TYPE -->
-    <section class="spec" id="type">
+    <!-- 3. THEMES -->
+    <section class="spec" id="themes">
       <div class="spec-head">
         <div class="spec-num">03</div>
+        <h2 data-i18n>Themes</h2>
+        <p data-i18n-html>Two skins over one markup, picked by <code>&lt;html data-carino-theme&gt;</code>. <b>Gold &amp; Black</b> is the default and the identity: no attribute, no script and no stored choice all land on it. <b>Colourful</b> is a light skin with a dark variant that follows the system. It gives the same tokens new values, so every component that reads them follows on its own. The switch is the site&rsquo;s mark, left of the navbar&rsquo;s <b>Carino</b>.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>One interface, three renderings</div>
+        <div class="tf-trio" id="themeTrio"></div>
+        <div class="note" data-i18n-html>Each frame sets its own token values, so all three look the same whatever theme the page is in. The markup is identical: <code>--bg</code>, <code>--accent</code> and <code>--text</code> change and the components follow. Gold &amp; Black marks a choice with a solid gold fill and black text; Colourful with a tonal blue pill, and fills its primary button in the accent. The mark&rsquo;s ring stays gold in all three.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>Colourful tokens · light</div>
+        <div class="swatches" id="ctSwatchesLight"></div>
+        <div class="demo-label tf-sub" data-i18n>Colourful tokens · dark</div>
+        <div class="swatches" id="ctSwatchesDark"></div>
+        <div class="note" data-i18n-html>The names from <a href="#tokens">Color Tokens</a> with new values, in <code>carino-theme.css</code> under <code>:root[data-carino-theme="color"]</code>. Dark applies under <code>prefers-color-scheme: dark</code>, and <code>&lt;html data-theme="light"&gt;</code> keeps a site light. Still one accent: a single interactive blue, <code>#0b57d0</code> on light and <code>#a8c7fa</code> on dark. The <code>--ct-*</code> tokens exist only in Colourful: the text on a filled accent, the tonal pill and the neutral cover an icon sits on.</div>
+        <div class="note" data-i18n-html><strong>Contrast.</strong> All text meets WCAG AA in all three renderings. The lowest pair is muted text on a well: 5.6:1 on light, 5.5:1 on dark. On light, the navbar&rsquo;s <b>Carino</b> keeps its gold but deepens to <code>#c26a06 → #92400e</code> so it still reads on white.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>Category colours and icon hues</div>
+        <div class="tf-pair" id="themeCats"></div>
+        <div class="note" data-i18n-html>Colourful gives every category its own colour. <code>.ct-cat-*</code> sets four values: <code>--c</code> the fill, <code>--on</code> the text on it, <code>--t</code> a tonal fill and <code>--tt</code> the text on that. <code>.ct-hue-0</code>&hellip;<code>6</code> paint an icon from <code>--ta</code> to <code>--tb</code>; on dark the lighter one carries it. An icon sits on the neutral <code>--ct-cover</code>, never on a filled tile. The strokes <code>--ct-blue</code>&hellip;<code>--ct-indigo</code> draw this page&rsquo;s animations, slice numerals and page-type cards. Gold &amp; Black has no category colours: there, gold is the only colour.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>The switch</div>
+        <div class="tf-pair" id="themeSwitchDemo"></div>
+        <dl class="mark-spec tsw-spec">
+          <div><dt data-i18n>Shows</dt><dd data-i18n>The current theme’s mark, 28px</dd></div>
+          <div><dt data-i18n>Hover</dt><dd data-i18n>The other theme’s mark, fine pointers only</dd></div>
+          <div><dt data-i18n>Hit area</dt><dd>32 &times; 32px &middot; radius 8px</dd></div>
+          <div><dt data-i18n>Spacing</dt><dd>margin 0 8px 0 -4px</dd></div>
+          <div><dt data-i18n>Focus</dt><dd>2px solid --accent &middot; offset 1px</dd></div>
+          <div><dt data-i18n>Placement</dt><dd data-i18n>Immediately left of the navbar brand</dd></div>
+          <div><dt data-i18n>Name</dt><dd data-i18n-html>“Toggle theme” · <code>role="switch"</code></dd></div>
+          <div><dt data-i18n>Transition</dt><dd data-i18n>A circle grown from the switch, .62s</dd></div>
+        </dl>
+        <div class="demo-row tsw-try"><button type="button" class="btn" id="themeTryBtn" data-i18n>Switch this page</button></div>
+        <div class="note" data-i18n-html>The switch is the site&rsquo;s own mark, so every site already has one. <code>carino-theme.js</code> inserts it as a real <code>&lt;button&gt;</code> just before <code>#carinoNav .cn-brand .brand-name</code>, without editing <code>carino-navbar.js</code>. It shows the current theme and, under a mouse, the theme a click switches to; touch skips the hover, which would stick after a tap. The new theme grows as a circle out of the switch (View Transitions), and changes at once without the API, in a hidden tab or under <code>prefers-reduced-motion</code>. The two marks above switch their own frame; the button switches this page.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>Colour marks</div>
+        <div class="mark-grid mark-pairs" id="markColorGrid"></div>
+        <div class="note" data-i18n-html><code>marks/marks.py</code> writes <code>&lt;site&gt;-color.svg</code> beside every mark. The ring stays gold; each part of the pictogram takes the next palette colour, in the order <code>#4285f4</code> blue, <code>#ea4335</code> red, <code>#34a853</code> green, <code>#fbbc04</code> yellow. Yellow is last because it sits closest to the gold ring. The first colour rotates by stem through the first three, so one-part pictograms are not all blue side by side. A pictogram that reads better solid once each part has its own colour gets an override in <code>PC</code>, like Software&rsquo;s four tiles. The hub has no pictogram, so it has no colour mark.</div>
+        <div class="note" data-i18n-html><strong>Never a favicon.</strong> The tab icon <code>&lt;site&gt;.webp</code>, the share card and the app icon stay the gold mark in both themes: a favicon is cached and cannot know the theme. A colour mark appears only where the theme is known, on the switch and inside a Colourful page.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>Where the choice lives</div>
+        <div class="tf-table">
+          <table class="data">
+            <thead><tr><th>#</th><th data-i18n>Read from</th><th data-i18n>Kept</th><th data-i18n>Reach</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><code>?theme=gold|color</code></td><td data-i18n>Not stored; a click drops it from the URL</td><td data-i18n>This visit, for review links</td></tr>
+              <tr><td>2</td><td data-i18n-html><code>carino-theme</code> cookie</td><td data-i18n-html><code>Path=/</code>, a year, <code>SameSite=Lax</code>, <code>Secure</code> on https</td><td data-i18n-html>Every subdomain, through <code>Domain=.carino.systems</code></td></tr>
+              <tr><td>3</td><td><code>localStorage</code></td><td data-i18n>Written with the cookie</td><td data-i18n-html>This origin; the <code>storage</code> event moves other open tabs</td></tr>
+              <tr><td>4</td><td data-i18n>Default</td><td>&mdash;</td><td data-i18n>Gold &amp; Black</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" data-i18n-html>The first one found wins. <code>?theme=</code> also takes <code>colour</code>. The cookie outranks <code>localStorage</code> so a choice made on one subdomain carries to the others. Every switch fires <code>carino:themechange</code> with <code>detail.theme</code>, and the <code>theme-color</code> meta follows: <code>#050505</code>, <code>#eef3fc</code> on light, <code>#0e1420</code> on dark. Its id is <code>carinoThemeColor</code>, the fleet name; software.carino.systems still uses the older <code>scThemeColor</code>.</div>
+
+        <div class="demo-label tf-sub" data-i18n>The no-flash head snippet</div>
+        <div class="terminal-wrapper tf-snip"><pre class="code" id="themeHeadSnippet"></pre><button type="button" class="copy-btn term-copy" id="themeSnipCopy"><span data-i18n>Copy</span></button></div>
+        <div class="note" data-i18n-html>Verbatim from this page&rsquo;s head. It goes right after <code>&lt;!-- /carino:head --&gt;</code> and before any stylesheet, never inside the generated block, so the theme is set before first paint and neither theme flashes the other. Every read is in a <code>try</code>, so a sandboxed frame still gets a theme.</div>
+        <div class="note" data-i18n-html><strong>Accessibility.</strong> The switch is <code>role="switch"</code>, on for Colourful, with <code>aria-checked</code> kept in step. Its name and tooltip are &ldquo;Toggle theme&rdquo; in every language, redone on <code>carino:langchange</code>. Enter and Space toggle it, and focus draws a 2px ring in the theme&rsquo;s accent. Hover needs <code>(hover: hover) and (pointer: fine)</code>, and reduced motion swaps the circle for an instant change.</div>
+      </div>
+    </section>
+
+    <!-- 4. TYPE -->
+    <section class="spec" id="type">
+      <div class="spec-head">
+        <div class="spec-num">04</div>
         <h2 data-i18n>Typography</h2>
         <p data-i18n-html>Red Hat Display (900, uppercase) for headings, IBM Plex Sans for body, IBM Plex Mono for data, labels and chips. The brand wordmark is a gold gradient over Red Hat Display. Sizes come from the <b>type scale</b> — thirteen <code>--fs-*</code> tokens, nothing in between. Three rules: <code>--fs-micro</code> is the floor (no UI text below 0.6rem, ever); the body base is 15–16px; heroes are always fluid (<code>clamp()</code>). Decorative glyphs — watermark numerals, emoji, SVG-canvas labels — may size freely.</p>
       </div>
@@ -168,10 +273,10 @@
       </div>
     </section>
 
-    <!-- 4. BUTTONS -->
+    <!-- 5. BUTTONS -->
     <section class="spec" id="buttons">
       <div class="spec-head">
-        <div class="spec-num">04</div>
+        <div class="spec-num">05</div>
         <h2 data-i18n>Buttons</h2>
         <p data-i18n>Outline by default; hover reveals the accent. Primary is a solid gold fill. Toggle buttons fill gold when active (module / template pattern). Icon buttons invert on hover.</p>
       </div>
@@ -194,10 +299,10 @@
       </div>
     </section>
 
-    <!-- 5. TABS -->
+    <!-- 6. TABS -->
     <section class="spec" id="tabs">
       <div class="spec-head">
-        <div class="spec-num">05</div>
+        <div class="spec-num">06</div>
         <h2 data-i18n>Tabs</h2>
         <p data-i18n>Underline tabs for switching panels within a view. The active tab carries the accent underline.</p>
       </div>
@@ -211,10 +316,10 @@
       </div>
     </section>
 
-    <!-- 6. FORMS -->
+    <!-- 7. FORMS -->
     <section class="spec" id="forms">
       <div class="spec-head">
-        <div class="spec-num">06</div>
+        <div class="spec-num">07</div>
         <h2 data-i18n>Form Controls</h2>
         <p data-i18n>Dark elevated fields with a gold focus ring. Checkboxes and switches use the accent. All inputs are mono for alignment with the data they hold.</p>
       </div>
@@ -236,10 +341,10 @@
       </div>
     </section>
 
-    <!-- 7. ALERTS -->
+    <!-- 8. ALERTS -->
     <section class="spec" id="alerts">
       <div class="spec-head">
-        <div class="spec-num">07</div>
+        <div class="spec-num">08</div>
         <h2 data-i18n>Alerts &amp; Status Messages</h2>
         <p data-i18n-html>Translucent tinted boxes in the three semantic colors. Inline <code>code</code> and <b>bold</b> use a warm highlight.</p>
       </div>
@@ -251,10 +356,10 @@
       </div>
     </section>
 
-    <!-- 8. BADGES -->
+    <!-- 9. BADGES -->
     <section class="spec" id="badges">
       <div class="spec-head">
-        <div class="spec-num">08</div>
+        <div class="spec-num">09</div>
         <h2 data-i18n>Badges, Chips &amp; Status</h2>
         <p data-i18n-html>The app-tag chip (navbar — an <code>&lt;a href="./"&gt;</code> that reloads the app, while the gradient Carino wordmark beside it links to the hub at <code>carino.systems</code>), the clock timezone chip, semantic pills, and the live status dot with its pulse, and the <b>AI Bloat Certified</b> seal that heads a project page.</p>
       </div>
@@ -274,10 +379,10 @@
       </div>
     </section>
 
-    <!-- 9. CARDS -->
+    <!-- 10. CARDS -->
     <section class="spec" id="cards">
       <div class="spec-head">
-        <div class="spec-num">09</div>
+        <div class="spec-num">10</div>
         <h2 data-i18n>Cards &amp; Panels</h2>
         <p data-i18n>Cards lift and glow gold on hover. Panels use a large Red Hat Display title with a ghosted numeral.</p>
       </div>
@@ -309,10 +414,10 @@
       </div>
     </section>
 
-    <!-- 10. DROPDOWN -->
+    <!-- 11. DROPDOWN -->
     <section class="spec" id="dropdown">
       <div class="spec-head">
-        <div class="spec-num">10</div>
+        <div class="spec-num">11</div>
         <h2 data-i18n>Dropdown / Diagnostics</h2>
         <p data-i18n>The status toggle opens a diagnostics panel — label/value rows grouped under muted section headers. Used for the navbar status menu and app info panels.</p>
       </div>
@@ -326,17 +431,17 @@
             <div class="diag-section" data-i18n>Client</div>
             <div class="diag-pair">
               <div class="diag-row"><span class="diag-lbl" data-i18n>Renderer</span><span class="diag-val">networkd</span></div>
-              <div class="diag-row"><span class="diag-lbl" data-i18n>Theme</span><span class="diag-val">Dark</span></div>
+              <div class="diag-row"><span class="diag-lbl" data-i18n>Theme</span><span class="diag-val" id="diagTheme">Gold &amp; Black</span></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 11. TABLE -->
+    <!-- 12. TABLE -->
     <section class="spec" id="table">
       <div class="spec-head">
-        <div class="spec-num">11</div>
+        <div class="spec-num">12</div>
         <h2 data-i18n>Tables</h2>
         <p data-i18n>Mono, hairline-separated rows with an uppercase muted header. Rows tint gold on hover.</p>
       </div>
@@ -352,10 +457,10 @@
       </div>
     </section>
 
-    <!-- 12. CODE -->
+    <!-- 13. CODE -->
     <section class="spec" id="code">
       <div class="spec-head">
-        <div class="spec-num">12</div>
+        <div class="spec-num">13</div>
         <h2 data-i18n>Code</h2>
         <p data-i18n>Dark elevated block, mono, with a subtle accent for keys and muted comments.</p>
       </div>
@@ -371,10 +476,10 @@
       </div>
     </section>
 
-    <!-- 13. LOADING -->
+    <!-- 14. LOADING -->
     <section class="spec" id="loading">
       <div class="spec-head">
-        <div class="spec-num">13</div>
+        <div class="spec-num">14</div>
         <h2 data-i18n>Loading &amp; Progress</h2>
         <p data-i18n>A gold ring spinner, a determinate progress bar, and the EKG heartbeat used for long copy/transfer operations.</p>
       </div>
@@ -389,10 +494,10 @@
       </div>
     </section>
 
-    <!-- 14. SLICE MENU -->
+    <!-- 15. SLICE MENU -->
     <section class="spec" id="slice">
       <div class="spec-head">
-        <div class="spec-num">14</div>
+        <div class="spec-num">15</div>
         <h2 data-i18n>Slice Menu</h2>
         <p data-i18n>The module chooser of a Suite and the module grid of a Learning site. Slices widen with a gold glow on hover; once a module is open the menu becomes a 44px bar fixed at the top of the page. Shown here in a frame.</p>
       </div>
@@ -421,10 +526,10 @@
       </div>
     </section>
 
-    <!-- 15. TOAST -->
+    <!-- 16. TOAST -->
     <section class="spec" id="toast">
       <div class="spec-head">
-        <div class="spec-num">15</div>
+        <div class="spec-num">16</div>
         <h2 data-i18n>Toast Notifications</h2>
         <p data-i18n-html>Transient, top-right status messages in the four semantic tints. Fixed and hidden by default; add <code>.show</code> to reveal, then remove it after a timeout.</p>
       </div>
@@ -439,10 +544,10 @@
       </div>
     </section>
 
-    <!-- 16. NAVBAR ACTION PORTAL -->
+    <!-- 17. NAVBAR ACTION PORTAL -->
     <section class="spec" id="portal">
       <div class="spec-head">
-        <div class="spec-num">16</div>
+        <div class="spec-num">17</div>
         <h2 data-i18n>Navbar Action Portal</h2>
         <p data-i18n-html>Apps don't build their own top bar — they mark their controls with <code>data-carino-actions</code> and <code>carino-navbar.js</code> relocates the <b>real DOM node</b> into the navbar's right cluster. Ids and handlers survive the move; the emptied <code>data-carino-strip</code> wrapper is removed. Relocated controls use the compact 32px <code>.cs-btn</code> recipe.</p>
       </div>
@@ -483,10 +588,10 @@
       </div>
     </section>
 
-    <!-- 17. DROPZONE -->
+    <!-- 18. DROPZONE -->
     <section class="spec" id="dropzone">
       <div class="spec-head">
-        <div class="spec-num">17</div>
+        <div class="spec-num">18</div>
         <h2 data-i18n>Dropzone</h2>
         <p data-i18n>The drag-and-drop file input: dashed hairline at rest, gold glow while a file hovers, solid green once one lands. Drag anything over the first zone to see the live state.</p>
       </div>
@@ -505,10 +610,10 @@
       </div>
     </section>
 
-    <!-- 18. MODAL -->
+    <!-- 19. MODAL -->
     <section class="spec" id="modal">
       <div class="spec-head">
-        <div class="spec-num">18</div>
+        <div class="spec-num">19</div>
         <h2 data-i18n>Modal &amp; Scrim</h2>
         <p data-i18n-html>A centered card over a blurred dark scrim, or a native <code>&lt;dialog&gt;</code>. Open and close it with <code>CarinoUI.modal</code>: focus moves in and back out, Tab stays inside, and Esc, a click on the scrim or ✕ closes it.</p>
       </div>
@@ -533,10 +638,10 @@
       </div>
     </section>
 
-    <!-- 19. COMMAND BLOCK -->
+    <!-- 20. COMMAND BLOCK -->
     <section class="spec" id="terminal">
       <div class="spec-head">
-        <div class="spec-num">19</div>
+        <div class="spec-num">20</div>
         <h2 data-i18n>Command Block</h2>
         <p data-i18n>A pitch-black terminal card for copyable shell commands — green output, gold prompt, and a floating copy button that reuses the page-wide copy mechanics.</p>
       </div>
@@ -551,10 +656,10 @@
       </div>
     </section>
 
-    <!-- 20. WORKSPACE SHELL -->
+    <!-- 21. WORKSPACE SHELL -->
     <section class="spec" id="workspace">
       <div class="spec-head">
-        <div class="spec-num">20</div>
+        <div class="spec-num">21</div>
         <h2 data-i18n>Workspace Shell</h2>
         <p data-i18n-html>The chrome of every Tool and every Suite module: a 340px settings rail on the left that scrolls on its own, beside a fluid work pane. At 900px and below the rail becomes a drawer, opened by a <code>[data-ws-toggle]</code> button. Shown here in a frame.</p>
       </div>
@@ -598,10 +703,10 @@
       </div>
     </section>
 
-    <!-- 21. KEY CAPS -->
+    <!-- 22. KEY CAPS -->
     <section class="spec" id="kbd">
       <div class="spec-head">
-        <div class="spec-num">21</div>
+        <div class="spec-num">22</div>
         <h2 data-i18n>Key Caps &amp; Shortcut Legend</h2>
         <p data-i18n>Small mono key caps for keyboard hints, with an accent variant for the active or featured binding. Compose them into a legend strip near the canvas they act on.</p>
       </div>
@@ -617,10 +722,10 @@
       </div>
     </section>
 
-    <!-- 22. DAY/NIGHT WORLD MAP -->
+    <!-- 23. DAY/NIGHT WORLD MAP -->
     <section class="spec" id="map">
       <div class="spec-head">
-        <div class="spec-num">22</div>
+        <div class="spec-num">23</div>
         <h2 data-i18n>Day/Night World Map</h2>
         <p data-i18n>The fleet's world-map canvas: slate ocean, olive land, and a translucent night veil whose edge is the real solar terminator. Gold is reserved for interactive geography — a glowing dot with an outlined mono label for a pinned city, small pale dots for everything else — and a floating mono legend sits bottom-right. The base palette is deliberately muted so the gold reads on both the day and night halves.</p>
       </div>
@@ -648,10 +753,10 @@
       </div>
     </section>
 
-    <!-- 23. DATA VIZ -->
+    <!-- 24. DATA VIZ -->
     <section class="spec" id="dataviz">
       <div class="spec-head">
-        <div class="spec-num">23</div>
+        <div class="spec-num">24</div>
         <h2 data-i18n>Data Viz</h2>
         <p data-i18n-html>Primitives for dashboards and monitoring apps: gains use <code>--ok</code> green, losses <code>--err</code> red, and gold stays the interactive/brand accent. All numerics use <code>tabular-nums</code> via <code>.num</code>. First adopted by Stocks (stocks.carino.systems). Sparkline and detail charts are drawn dependency-free (inline SVG / <code>&lt;canvas&gt;</code> reading tokens via <code>getComputedStyle</code>) — no chart library.</p>
       </div>
@@ -676,7 +781,7 @@
             </svg>
           </div>
         </div>
-        <div class="demo-row" style="gap:10px;flex-wrap:wrap;">
+        <div class="demo-row" style="gap:10px;flex-wrap:wrap;margin-top:12px;">
           <span class="delta up">▲ 1.24 (0.94%)</span>
           <span class="delta down">▼ 2.10 (1.31%)</span>
           <span class="delta flat">—</span>
@@ -714,10 +819,10 @@
       </div>
     </section>
 
-    <!-- 24. FINANCE / CURRENCY -->
+    <!-- 25. FINANCE / CURRENCY -->
     <section class="spec" id="currency">
       <div class="spec-head">
-        <div class="spec-num">24</div>
+        <div class="spec-num">25</div>
         <h2 data-i18n>Finance / Currency</h2>
         <p data-i18n-html>Composite finance components introduced by Currency (currency.carino.systems). Each composes the Data-Viz primitives above — the <code>.spark</code> micro-chart and <code>.delta</code> chip — into two higher-level cards: the <strong>FX trend card</strong> (flag · pair · human rate · strength sparkline · window delta, where the series is the target's strength vs base so line colour and delta agree) and the <strong>news item</strong> (a headline link whose left border is tinted by article tone). A <strong>mover tile</strong> summarises the biggest gainer/loser over the window.</p>
       </div>
@@ -790,10 +895,10 @@
       </div>
     </section>
 
-    <!-- 25. SECTION ANIMATIONS -->
+    <!-- 26. SECTION ANIMATIONS -->
     <section class="spec" id="anim">
       <div class="spec-head">
-        <div class="spec-num">25</div>
+        <div class="spec-num">26</div>
         <h2 data-i18n>Section Animations</h2>
         <p data-i18n-html>One ambient loop per category in the fleet registry, used as a band under a section&rsquo;s cards on the hub. They are a mark, not a control: nothing here responds to the pointer, and none of them ever finish. The <strong>Medical</strong> EKG is the original — it is the Carino PACS splash — and the other seven were drawn to sit beside it.</p>
       </div>
@@ -804,10 +909,10 @@
       </div>
     </section>
 
-    <!-- 26. LANDING HERO -->
+    <!-- 27. LANDING HERO -->
     <section class="spec" id="landing">
       <div class="spec-head">
-        <div class="spec-num">26</div>
+        <div class="spec-num">27</div>
         <h2 data-i18n>Landing Hero</h2>
         <p data-i18n-html>The gold-C hero that opens a landing page: the hub, a Product, a Reference site, a Learning overview. Reference: <a href="https://dicom.carino.systems/">dicom.carino.systems</a>. It is anchored to the top, and every size grows with the height a screen has beyond 900px, so a laptop and a tall monitor both look composed.</p>
       </div>
@@ -824,7 +929,7 @@
                 <li data-i18n>Starting a site? Link carino-ui.css and the page already looks like the fleet.</li>
                 <li data-i18n>Not sure where a control goes? The page types say which blocks a page has.</li>
               </ul>
-              <p class="lh-stats" data-i18n>34 sections · 8 page types · reviewed 2026-10</p>
+              <p class="lh-stats" data-i18n>36 sections · 8 page types · reviewed 2026-10</p>
               <div class="lh-actions">
                 <a class="btn btn-primary" href="#pagetypes" data-i18n>See the page types</a>
                 <a class="btn" href="#tokens" data-i18n>Color tokens</a>
@@ -837,10 +942,10 @@
       </div>
     </section>
 
-    <!-- 27. SHORT HERO -->
+    <!-- 28. SHORT HERO -->
     <section class="spec" id="shorthero">
       <div class="spec-head">
-        <div class="spec-num">27</div>
+        <div class="spec-num">28</div>
         <h2 data-i18n>Short Hero</h2>
         <p data-i18n-html>A tool’s empty state. It sits inside the work pane, never as a band above it, and leaves as soon as there is work. It holds the one input target, example chips as a second way in, and the privacy line. Reference: Metadata and Topo.</p>
       </div>
@@ -869,10 +974,10 @@
       </div>
     </section>
 
-    <!-- 28. PRIVACY LINE -->
+    <!-- 29. PRIVACY LINE -->
     <section class="spec" id="privacy">
       <div class="spec-head">
-        <div class="spec-num">28</div>
+        <div class="spec-num">29</div>
         <h2 data-i18n>Privacy Line</h2>
         <p data-i18n-html>One sentence, the same on every site, saying where the visitor’s things go. It must be literally true, so a page that contacts anything names it in the same line.</p>
       </div>
@@ -889,10 +994,10 @@
       </div>
     </section>
 
-    <!-- 29. FILTER CHIPS -->
+    <!-- 30. FILTER CHIPS -->
     <section class="spec" id="fchips">
       <div class="spec-head">
-        <div class="spec-num">29</div>
+        <div class="spec-num">30</div>
         <h2 data-i18n>Filter Chips</h2>
         <p data-i18n-html>A Reference page’s first control: a sticky bar of facet chips with the number of entries shown. One choice per facet, and clicking a chosen chip clears it. Reference: Law.</p>
       </div>
@@ -915,10 +1020,10 @@
       </div>
     </section>
 
-    <!-- 30. ENTRY CARD -->
+    <!-- 31. ENTRY CARD -->
     <section class="spec" id="entry">
       <div class="spec-head">
-        <div class="spec-num">30</div>
+        <div class="spec-num">31</div>
         <h2 data-i18n>Entry Card &amp; Source Line</h2>
         <p data-i18n-html>The dense card of a Reference page. Every entry ends in a source line: the publisher’s domain, a link, and the month it was last checked.</p>
       </div>
@@ -951,10 +1056,52 @@
       </div>
     </section>
 
-    <!-- 31. LAB -->
+    <!-- 32. STORE -->
+    <section class="spec" id="store">
+      <div class="spec-head">
+        <div class="spec-num">32</div>
+        <h2 data-i18n>Store</h2>
+        <p data-i18n-html>Software’s storefront, made fleet components: a featured banner, shelves that scroll sideways, the store card and the category tile. Each is shown live in a Gold &amp; Black frame and a Colourful one. The markup is the same in both; only the <code>--sto-*</code> tokens change. The Colourful frame is light or dark as your system is, which is what <code>carino-theme.css</code> shows on a real page.</p>
+      </div>
+
+      <div class="demo">
+        <div class="sto-label"><div class="demo-label" data-i18n>Featured banner</div><button type="button" class="copy-btn" data-sto-copy="hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span data-i18n>Copy</span></button></div>
+        <div class="sto-frames" id="stoHero"></div>
+        <div class="note" data-i18n-html><code>.sto-hero</code> › <code>.sto-slide</code> (one is <code>.on</code>) › <code>.sto-kicker</code>, <code>.sto-title</code>, <code>.sto-lede</code>, <code>.sto-actions</code> (<code>.sto-cta</code> and the install row) and <code>.sto-hero-art</code>; then two <code>.sto-nav</code> and the <code>.sto-dots</code> progress bars. The kicker is the app’s badge, or “Featured” when it has none. The art is the app’s icon at 144px, tilted −8° and lit from its side: by its own hue in Colourful, by gold in Gold &amp; Black. On Software the banner turns every 7s, holds still under the pointer or keyboard focus, and never turns under <code>prefers-reduced-motion</code>. On a phone the arrows and the install row go and the lede keeps two lines.</div>
+      </div>
+
+      <div class="demo">
+        <div class="sto-label"><div class="demo-label" data-i18n>Shelf</div><button type="button" class="copy-btn" data-sto-copy="shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span data-i18n>Copy</span></button></div>
+        <div class="sto-frames" id="stoShelf"></div>
+        <div class="note" data-i18n-html><code>.sto-shelf</code> › <code>.sto-shelf-head</code> (<code>.sto-h</code> with its <code>.sto-count</code> pill, <code>.sto-all</code> and two <code>.sto-nav.sm</code>) and <code>.sto-track</code>, a grid that flows sideways: four cards across on a desktop, 78% of one on a phone so the next one shows at the edge. The arrows page by 90% of the track. <b>See all</b> lays the shelf out as a grid in place (<code>.open</code>) and becomes <b>Show less</b>.</div>
+      </div>
+
+      <div class="demo">
+        <div class="sto-label"><div class="demo-label" data-i18n>Store card</div><button type="button" class="copy-btn" data-sto-copy="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span data-i18n>Copy</span></button></div>
+        <div class="sto-frames" id="stoCards"></div>
+        <div class="note" data-i18n-html><code>.sto-card</code> › <code>.sto-cover</code> (a <code>.sto-hue-0</code>…<code>6</code> class, the <code>.sto-art</code> glyph, an optional <code>.sto-badge</code> and the <code>.sto-save</code> bookmark) and <code>.sto-body</code> (<code>.sto-name</code>, <code>.sto-src</code> with the source domain, <code>.sto-desc</code> clamped to two lines, then <code>.sto-row</code>). The bookmark is its own <code>&lt;button aria-pressed&gt;</code>, so a keyboard reaches it. Each install chip copies a command: the visitor’s own platform leads and the others fold behind <b>+N</b>. A card with nothing to install has no row.</div>
+      </div>
+
+      <div class="demo">
+        <div class="sto-label"><div class="demo-label" data-i18n>Category tile</div><button type="button" class="copy-btn" data-sto-copy="cat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span data-i18n>Copy</span></button></div>
+        <div class="sto-frames" id="stoCats"></div>
+        <div class="note" data-i18n-html><code>.sto-cat</code> with a category class, <code>.sto-c-blue</code>…<code>.sto-c-grey</code>, around <code>.sto-cat-name</code>, <code>.sto-cat-n</code> and the <code>.sto-cat-ic</code> glyph. Colourful fills the tile with its category colour. Gold &amp; Black keeps the tile black and tints only the icon, the category colour mixed 42% into gold, with a gold rim on hover. One rule draws both: <code>--sto-cat-fill</code> is 100% in Colourful and 0% in Gold &amp; Black.</div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label" data-i18n>Rules from Software</div>
+        <div class="note" style="margin-top:0;" data-i18n-html><strong>Icons in colour, never a colour square.</strong> The cover is neutral (<code>--sto-cover</code>) and the icon itself carries the colour: a glyph drawn through a mask and painted with <code>--art</code>, a flat hue in Colourful and a warm metal in Gold &amp; Black. A filled square behind every icon turns a shelf into a mosaic and competes with the category tiles.</div>
+        <div class="note" data-i18n-html><strong>Badges only when they mean something.</strong> There are two: <b>Carino</b> for the fleet’s own tools, and <b>Open source</b> for a plainly open licence, an SPDX id and never a caveat. Most cards have none. A badge on every card would tell the visitor nothing.</div>
+        <div class="note" data-i18n-html><strong>Shelves contain paint.</strong> <code>.sto-track</code> carries <code>contain: paint</code>. Without it, something positioned inside the cards escaped the scroller after the pop-in and widened the page to the shelf’s full length, 8,000px on a phone.</div>
+        <div class="note" data-i18n-html><strong>Tooltips open upward inside a shelf.</strong> The tip is the command itself, so you see what lands on the clipboard. A track clips at its own edges, so a tip under the install row would be cut off; inside <code>.sto-track</code> it opens above, over the cover. Elsewhere it hangs below, inside the card’s width, and a long command wraps.</div>
+        <div class="note" data-i18n-html><strong>Hover effects only on a fine pointer.</strong> The lift, the glow, the icon’s zoom and the tips on hover all sit in <code>@media (hover: hover) and (pointer: fine)</code>, because on touch a hover sticks after the tap. Keyboard focus opens the same tips through <code>:focus-visible</code>.</div>
+      </div>
+    </section>
+
+    <!-- 33. LAB -->
     <section class="spec" id="lab">
       <div class="spec-head">
-        <div class="spec-num">31</div>
+        <div class="spec-num">33</div>
         <h2 data-i18n>Lab &amp; Progress</h2>
         <p data-i18n-html>Learning pages end every topic in something to try. An inline lab sits at the stage it teaches; the step player walks an algorithm one step at a time. Reference: Learn (inline labs) and Hash (step player).</p>
       </div>
@@ -983,10 +1130,10 @@
       </div>
     </section>
 
-    <!-- 32. FOOTER -->
+    <!-- 34. FOOTER -->
     <section class="spec" id="footer">
       <div class="spec-head">
-        <div class="spec-num">32</div>
+        <div class="spec-num">34</div>
         <h2 data-i18n>Footer</h2>
         <p data-i18n-html>Hub, Reference, Learning and Product pages end in a footer. Live data ends in one source line. Tools, a Suite’s modules and a Play stage have none: legal is in the navbar’s shield.</p>
       </div>
@@ -1002,10 +1149,10 @@
       </div>
     </section>
 
-    <!-- 33. PLAY CONTROLS -->
+    <!-- 35. PLAY CONTROLS -->
     <section class="spec" id="play">
       <div class="spec-head">
-        <div class="spec-num">33</div>
+        <div class="spec-num">35</div>
         <h2 data-i18n>Play Controls</h2>
         <p data-i18n-html>Games and ambient pieces share one stage and one set of keys, so a visitor who knows one knows them all. The stage takes every pixel under the navbar; help and pause open in a <a href="#modal">Modal</a>.</p>
       </div>
@@ -1034,10 +1181,10 @@
       </div>
     </section>
 
-    <!-- 34. PAGE TYPES -->
+    <!-- 36. PAGE TYPES -->
     <section class="spec" id="pagetypes">
       <div class="spec-head">
-        <div class="spec-num">34</div>
+        <div class="spec-num">36</div>
         <h2 data-i18n>Page Types</h2>
         <p data-i18n-html>Every Carino site is one page, and every page is one of eight types. The type fixes the layout: the blocks it must have, in order, the ones it may add, and the ones it never has. A site declares its type in <code>Carino-Systems/baseline/sites.json</code> as <code>"type"</code>; <code>"also"</code> names a second type whose blocks it borrows.</p>
       </div>
@@ -1175,7 +1322,7 @@
     </footer>
   </div>
 
-  <!-- live modal demo (opened from section 17) -->
+  <!-- live modal demo (opened from section 19) -->
   <div class="modal-scrim" id="liveScrim" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="liveModalTitle">
       <div class="modal-head">
@@ -1198,6 +1345,8 @@
 
   <!-- The canonical self-injecting navbar + clock (local copies, no CDN). -->
   <script src="carino-navbar.js" data-app="Branding" data-repo="Branding" defer></script>
+  <!-- The theme switch: the Branding mark, left of the navbar's "Carino". -->
+  <script src="carino-theme.js" data-mark="marks/branding.svg" data-mark-color="marks/branding-color.svg" defer></script>
   <!-- Section-animation geometry; the motion lives in carino-anim.css. -->
   <script src="carino-anim.js" defer></script>
   <!-- The workspace drawer and the slice router (only the drawer runs here). -->
@@ -1228,6 +1377,10 @@
         '<div class="mark-tile' + (s === "carino" ? " is-hub" : "") + '">' +
         '<img src="marks/' + s + '.svg" alt="" width="52" height="52" loading="lazy">' +
         '<span>' + s + '</span></div>').join("");
+      document.getElementById("markGridColor").innerHTML = MARK_STEMS.filter(s => s !== "carino").map(s =>
+        '<div class="mark-tile">' +
+        '<img src="marks/' + s + '-color.svg" alt="" width="52" height="52" loading="lazy">' +
+        '<span>' + s + '</span></div>').join("");
       // Unscaled, at the sizes a browser actually asks for: the mark, and
       // under it the glyph a list row would use at the same size.
       document.getElementById("markSizes").innerHTML = [16, 24, 32, 48].map(n =>
@@ -1246,13 +1399,13 @@
       ["--accent-faint", "rgba(234,179,8,0.05)"], ["--accent-glow", "rgba(234,179,8,0.15)"],
       ["--accent-dim", "rgba(234,179,8,0.30)"], ["--ok", "#22c55e"], ["--warn", "#eab308"], ["--err", "#ef4444"], ["--info", "#38bdf8"],
     ];
-    const grid = document.getElementById("swatches");
-    TOKENS.forEach(([name, val]) => {
+    // One swatch: a chip, the token's name and value; a click copies the value.
+    function makeSwatch(name, val) {
       const el = document.createElement("div");
       el.className = "swatch";
       el.dataset.val = val;
       el.title = TT("Click to copy") + " " + val;
-      el.innerHTML = '<div class="chip" style="background:' + val + '"></div>' +
+      el.innerHTML = '<div class="chip" style="background-image:linear-gradient(' + val + ',' + val + ')"></div>' +
         '<div class="meta"><div class="name">' + name + '</div><div class="val">' + val + '</div></div>';
       el.onclick = () => {
         const flash = () => { el.querySelector(".val").textContent = TT("copied!"); setTimeout(() => el.querySelector(".val").textContent = val, 900); };
@@ -1261,8 +1414,449 @@
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(val).then(flash, () => fallbackCopy(val, flash));
         else fallbackCopy(val, flash);
       };
-      grid.appendChild(el);
+      return el;
+    }
+    const grid = document.getElementById("swatches");
+    TOKENS.forEach(([name, val]) => grid.appendChild(makeSwatch(name, val)));
+
+    // ---- section 3: themes ----------------------------------------------
+    // Colourful's values exactly as carino-theme.css declares them: [token,
+    // light, dark]. The swatches, the frames and the tiles below are all built
+    // from these tables, so change carino-theme.css and these together.
+    const CT_TOKENS = [
+      ["--accent", "#0b57d0", "#a8c7fa"], ["--bg", "#eef3fc", "#0e1420"],
+      ["--bg-elev", "#e3eaf6", "#222c3d"], ["--bg-card", "#ffffff", "#172031"],
+      ["--border", "#d2dcec", "#33415a"], ["--text", "#1f1f1f", "#e3e3e3"],
+      ["--text-sec", "#444746", "#c4c7c5"], ["--text-muted", "#5f6368", "#9aa0a6"],
+      ["--accent-faint", "rgba(11,87,208,0.06)", "rgba(168,199,250,0.08)"],
+      ["--accent-glow", "rgba(11,87,208,0.14)", "rgba(168,199,250,0.16)"],
+      ["--accent-dim", "rgba(11,87,208,0.32)", "rgba(168,199,250,0.36)"],
+      ["--ok", "#137333", "#81c995"], ["--warn", "#9a5b00", "#fdd663"],
+      ["--err", "#c5221f", "#f28b82"], ["--info", "#007b83", "#78d9ec"],
+      ["--ct-on-accent", "#ffffff", "#062e6f"], ["--ct-tonal", "#d3e3fd", "#004a77"],
+      ["--ct-on-tonal", "#041e49", "#c2e7ff"], ["--ct-cover", "#e8eef9", "#131b28"],
+    ];
+    // .ct-cat-*: [id, name, light [--c, --on, --t, --tt], dark [...]]
+    const CT_CATS = [
+      ["blue",   "Blue",   ["#1a73e8", "#fff", "#e3edfd", "#1958b7"], ["#8ab4f8", "#0b1f45", "rgba(138,180,248,.15)", "#a8c7fa"]],
+      ["red",    "Red",    ["#d93025", "#fff", "#fce8e6", "#a50e0e"], ["#f28b82", "#3b0907", "rgba(242,139,130,.15)", "#f6aea9"]],
+      ["amber",  "Amber",  ["#f9ab00", "#1f1f1f", "#fef3d0", "#8a4b00"], ["#fdd663", "#1f1f1f", "rgba(253,214,99,.14)", "#fdd663"]],
+      ["green",  "Green",  ["#188038", "#fff", "#e2f3e7", "#0d652d"], ["#81c995", "#072711", "rgba(129,201,149,.15)", "#a8dab5"]],
+      ["purple", "Purple", ["#8430ce", "#fff", "#f1e6fc", "#7024b5"], ["#c58af9", "#2a0a4a", "rgba(197,138,249,.15)", "#d7aefb"]],
+      ["teal",   "Teal",   ["#00838f", "#fff", "#ddf3f5", "#005f66"], ["#78d9ec", "#00363d", "rgba(120,217,236,.14)", "#a1e4f2"]],
+      ["pink",   "Pink",   ["#c2185b", "#fff", "#fce4ee", "#a3134b"], ["#ff8bcb", "#3e0021", "rgba(255,139,203,.14)", "#ffb0db"]],
+      ["grey",   "Grey",   ["#3c4043", "#fff", "#eef0f2", "#3c4043"], ["#e3e3e3", "#1f1f1f", "rgba(227,227,227,.09)", "#e3e3e3"]],
+    ];
+    // .ct-hue-0..6: [--ta light, --tb base]; on dark --tb takes --ta. Each is
+    // shown on a glyph from the fleet.
+    const CT_HUES = [["#5e97f6", "#1a73e8"], ["#f07368", "#d93025"], ["#fbc02d", "#ea8600"],
+      ["#4cc06b", "#1e8e3e"], ["#b373f0", "#8430ce"], ["#33c3d4", "#00838f"], ["#f06aa8", "#c2185b"]];
+    const HUE_GLYPHS = ["retina", "topo", "stocks", "password", "media", "learn", "time"];
+
+    // A frame forces one rendering on everything inside it by declaring the
+    // tokens itself; inline custom properties beat whatever the page inherits.
+    // --tf-* are the few values the mini interface needs beyond the tokens.
+    const GOLD_SWEEP = "linear-gradient(130deg,#fef08a 0%,#eab308 50%,#b45309 100%)";
+    const FRAMES = {
+      gold: Object.assign(Object.fromEntries(TOKENS), {
+        "--tf-on-accent": "#050505", "--tf-pick": "#eab308", "--tf-on-pick": "#050505",
+        "--tf-cover": "#0f0e0c", "--tf-shadow": "none", "--tf-radius": "6px", "--gold-text": GOLD_SWEEP,
+        "color-scheme": "dark" }),
+      light: Object.assign(Object.fromEntries(CT_TOKENS.map(r => [r[0], r[1]])), {
+        "--tf-on-accent": "#ffffff", "--tf-pick": "#d3e3fd", "--tf-on-pick": "#041e49",
+        "--tf-cover": "#e8eef9", "--tf-shadow": "0 1px 2px rgba(60,64,67,.16), 0 1px 3px 1px rgba(60,64,67,.08)",
+        "--tf-radius": "999px", "--gold-text": "linear-gradient(130deg,#c26a06 0%,#b45309 55%,#92400e 100%)",
+        "color-scheme": "light" }),
+      dark: Object.assign(Object.fromEntries(CT_TOKENS.map(r => [r[0], r[2]])), {
+        "--tf-on-accent": "#062e6f", "--tf-pick": "#004a77", "--tf-on-pick": "#c2e7ff",
+        "--tf-cover": "#131b28", "--tf-shadow": "0 1px 2px rgba(0,0,0,.5)",
+        "--tf-radius": "999px", "--gold-text": GOLD_SWEEP, "color-scheme": "dark" }),
+    };
+    const FRAME_NAME = { gold: "Gold & Black", light: "Colourful · light", dark: "Colourful · dark" };
+    function frameHTML(kind, inner) {
+      const vars = FRAMES[kind];
+      const style = Object.keys(vars).map(k => k + ":" + vars[k]).join(";");
+      return '<div class="tf" data-tf="' + kind + '" style="' + style + '">' +
+        '<div class="tf-cap"><i></i>' + TT(FRAME_NAME[kind]) + '</div>' + inner + '</div>';
+    }
+    const SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+    // The same mini interface in each frame: a search pill, a chip row, a card.
+    function miniUI(kind) {
+      const mark = kind === "gold" ? "marks/retina.svg" : "marks/retina-color.svg";
+      return '<div class="tm-search">' + SEARCH_ICON + '<span>' + TT("Search the fleet") + '</span></div>' +
+        '<div class="tm-chips"><span class="tm-chip on">' + TT("All") + '</span><span class="tm-chip">' +
+        TT("Medical") + '</span><span class="tm-chip">' + TT("Network") + '</span></div>' +
+        '<div class="tm-card"><span class="tm-cover"><img src="' + mark + '" alt="" width="34" height="34"></span>' +
+        '<div class="tm-body"><div class="tm-title">Retina</div><div class="tm-src">retina.carino.systems</div>' +
+        '<div class="tm-desc">' + TT("Mark the disc and cup; get the ratio.") + '</div></div>' +
+        '<div class="tm-actions"><span class="tm-btn">' + TT("Open") + '</span><span class="tm-btn ghost">' +
+        TT("Details") + '</span></div></div>';
+    }
+    function catsUI(kind) {
+      const dark = kind === "dark";
+      return '<div class="tc-grid">' + CT_CATS.map(([id, name, L, D]) => {
+        const v = dark ? D : L;
+        return '<div class="tc"><span class="tc-fill" style="background:' + v[0] + ';color:' + v[1] + '">' + TT(name) +
+          '</span><span class="tc-tonal" style="background:' + v[2] + ';color:' + v[3] + '">' + TT(name) +
+          '</span><code>.ct-cat-' + id + '</code></div>';
+      }).join("") + '</div><div class="th-row">' + CT_HUES.map(([a, b], i) =>
+        '<div class="th"><span class="th-cover"><span class="mark-glyph" style="--g:url(marks/' + HUE_GLYPHS[i] +
+        '-glyph.svg);width:26px;height:26px;background:linear-gradient(135deg,' + a + ',' + (dark ? a : b) +
+        ')"></span></span><code>.ct-hue-' + i + '</code></div>').join("") + '</div>';
+    }
+    // The switch, in a strip shaped like the navbar's left end. Each one flips
+    // only its own frame; the page's real switch is in the navbar.
+    const switchState = ["gold", "light"];
+    function switchUI(kind) {
+      const on = kind !== "gold";
+      return '<div class="tsw-bar"><button type="button" class="tsw" role="switch" aria-checked="' + on +
+        '" aria-label="' + TT("Toggle theme") + '" title="' + TT("Toggle theme") + '">' +
+        '<img class="tsw-g" src="marks/branding.svg" alt="" width="28" height="28">' +
+        '<img class="tsw-c" src="marks/branding-color.svg" alt="" width="28" height="28"></button>' +
+        '<span class="tsw-brand">Carino</span><span class="tsw-tag">Branding</span></div>';
+    }
+    function paintThemes() {
+      document.getElementById("themeTrio").innerHTML =
+        ["gold", "light", "dark"].map(k => frameHTML(k, miniUI(k))).join("");
+      document.getElementById("themeCats").innerHTML =
+        ["light", "dark"].map(k => frameHTML(k, catsUI(k))).join("");
+      const sw = document.getElementById("themeSwitchDemo");
+      const focused = sw.contains(document.activeElement) ? [...sw.querySelectorAll(".tsw")].indexOf(document.activeElement) : -1;
+      sw.innerHTML = switchState.map(k => frameHTML(k, switchUI(k))).join("");
+      if (focused >= 0) sw.querySelectorAll(".tsw")[focused].focus();
+      document.getElementById("themeSnipCopy").setAttribute("aria-label", TT("Copy the snippet"));
+    }
+    document.getElementById("themeSwitchDemo").addEventListener("click", (e) => {
+      const btn = e.target.closest(".tsw");
+      if (!btn) return;
+      const i = [...e.currentTarget.querySelectorAll(".tsw")].indexOf(btn);
+      switchState[i] = switchState[i] === "gold" ? "light" : "gold";
+      paintThemes();
     });
+    document.getElementById("themeTryBtn").addEventListener("click", () => {
+      const real = document.getElementById("ctSwitch");
+      if (real) real.click();
+    });
+    [["ctSwatchesLight", 1], ["ctSwatchesDark", 2]].forEach(([id, col]) => {
+      const host = document.getElementById(id);
+      CT_TOKENS.forEach(r => host.appendChild(makeSwatch(r[0], r[col])));
+    });
+    // Gold beside colour, at the same size, each on the ground it is drawn for.
+    const COLOR_STEMS = ["aldis", "asobi", "branding", "compass", "currency", "cve", "cybercity",
+      "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware", "hash", "images", "jellyfish",
+      "kanban", "law", "learn", "media", "metadata", "multiweb", "music", "netplan", "offline",
+      "password", "ping", "quote", "retina", "setup", "software", "stocks", "subs", "teleprompter",
+      "test", "time", "topo", "tv", "vitae"];
+    document.getElementById("markColorGrid").innerHTML = COLOR_STEMS.map(s =>
+      '<div class="mark-pair"><span class="mp mp-g"><img src="marks/' + s + '.svg" alt="" width="40" height="40" loading="lazy"></span>' +
+      '<span class="mp mp-c"><img src="marks/' + s + '-color.svg" alt="" width="40" height="40" loading="lazy"></span>' +
+      '<span class="mp-name">' + s + '</span></div>').join("");
+    // The head snippet, read from this page's own <head> so it is verbatim.
+    const THEME_META = '<meta name="theme-color" content="#050505" id="carinoThemeColor">';
+    const themeHeadScript = (() => {
+      const m = document.getElementById("carinoThemeColor");
+      const s = m && m.nextElementSibling;
+      return s && s.tagName === "SCRIPT" ? s.textContent : "";
+    })();
+    const THEME_HEAD = THEME_META + "\n\u003cscript>" + themeHeadScript + "\u003c/script>";
+    document.getElementById("themeHeadSnippet").textContent = THEME_HEAD;
+    document.getElementById("themeSnipCopy").addEventListener("click", function () { copyText(THEME_HEAD, this); });
+    paintThemes();
+
+    // ---- section 32: store ----------------------------------------------
+    // Software's storefront, each component in a Gold & Black frame and a
+    // Colourful one. The markup is identical; carino-branding.css gives each
+    // frame its --sto-* values. The Colourful frame is light or dark as the
+    // system is, the way carino-theme.css would show it on a real page.
+    const stoGlyph = d => "url('data:image/svg+xml," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>') + "')";
+    const stoMark = stem => "url(marks/" + stem + "-glyph.svg)";
+    const stoIcon = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
+    const STO_ICON = {
+      prev: stoIcon('<path d="M15 6l-6 6 6 6"/>'), next: stoIcon('<path d="M9 6l6 6-6 6"/>'),
+      out: stoIcon('<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'),
+      down: stoIcon('<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>'),
+      save: stoIcon('<path d="M6 3h12v18l-6-4-6 4z"/>'),
+      // generic platform glyphs, not the vendors' logos: a window, the
+      // command key, a terminal prompt
+      win: stoIcon('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>'),
+      mac: stoIcon('<path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3z"/>'),
+      lin: stoIcon('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10l3 2-3 2M12 15h5"/>'),
+    };
+    // Real entries from Software's catalogue (software.json): the fleet's own
+    // tools wear "Carino", a plainly open licence "Open source", the rest none.
+    const STO_APPS = {
+      media:    { name: "Media", link: "https://media.carino.systems/", domain: "media.carino.systems", badge: "Carino", hue: 0,
+                  g: stoMark("media"), desc: "PDF to image, OCR, signatures and converters, all in the browser." },
+      jellyfin: { name: "Jellyfin", link: "https://jellyfin.org/", domain: "jellyfin.org", badge: "Open source", hue: 4,
+                  g: stoGlyph('<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M10 7.5v5l4-2.5z" fill="#000"/><path d="M8 20h8M12 16v4"/>'),
+                  desc: "Video library server with hardware transcoding, clients for TV boxes, phones and browsers, and no account of any kind.",
+                  win: "Jellyfin.Server", mac: "--cask jellyfin", lin: "org.jellyfin.JellyfinServer" },
+      blender:  { name: "Blender", link: "https://www.blender.org/", domain: "blender.org", hue: 2,
+                  g: stoGlyph('<path d="M12 2.5l8.5 4.75v9.5L12 21.5l-8.5-4.75v-9.5z"/><path d="M3.5 7.25L12 12l8.5-4.75M12 12v9.5"/>'),
+                  desc: "Model, sculpt, animate and render in 3D.",
+                  win: "BlenderFoundation.Blender", mac: "--cask blender", lin: "org.blender.Blender" },
+      inkscape: { name: "Inkscape", link: "https://inkscape.org/", domain: "inkscape.org", hue: 1,
+                  g: stoGlyph('<path d="M5 18C8 5 16 19 19 6"/><rect x="2.5" y="16.5" width="5" height="5" rx="1"/><rect x="16.5" y="2.5" width="5" height="5" rx="1"/>'),
+                  desc: "Vector graphics editor.", win: "Inkscape.Inkscape", mac: "--cask inkscape", lin: "org.inkscape.Inkscape" },
+      krita:    { name: "Krita", link: "https://krita.org/", domain: "krita.org", hue: 6,
+                  g: stoGlyph('<path d="M20 3l1 1-9.5 9.5-2-2z"/><path d="M9 12.5c-2.5 0-4.5 1.8-4.5 4.3 0 1.6-.8 2.9-2 3.7 4.6.6 8.5-1 8.5-6z"/>'),
+                  desc: "Painting and graphics editor.", win: "KDE.Krita", mac: "--cask krita", lin: "org.kde.krita" },
+      audacity: { name: "Audacity", link: "https://www.audacityteam.org/", domain: "audacityteam.org", hue: 5,
+                  g: stoGlyph('<path d="M3 12h1M7 8v8M11 4v16M15 7v10M19 10v4M21 12h0"/>'),
+                  desc: "Audio editor.", win: "Audacity.Audacity", mac: "--cask audacity", lin: "org.audacityteam.Audacity" },
+      kdenlive: { name: "Kdenlive", link: "https://kdenlive.org/", domain: "kdenlive.org", hue: 3,
+                  g: stoGlyph('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7.5 4v16M16.5 4v16M3 9h4.5M3 15h4.5M16.5 9H21M16.5 15H21"/>'),
+                  desc: "Video editor.", win: "KDE.Kdenlive", mac: "--cask kdenlive", lin: "org.kde.kdenlive" },
+      obs:      { name: "OBS Studio", link: "https://obsproject.com/", domain: "obsproject.com", hue: 0,
+                  g: stoGlyph('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5" fill="#000"/>'),
+                  desc: "Screen recording and livestreaming.", win: "OBSProject.OBSStudio", mac: "--cask obs", lin: "com.obsproject.Studio" },
+    };
+    const STO_HERO = ["blender", "media", "jellyfin"];
+    const STO_SHELF = ["media", "jellyfin", "blender", "inkscape", "krita", "audacity", "kdenlive", "obs"];
+    // [slice, label, colour, fleet glyph, entries]; counts from software.json
+    const STO_CATS = [
+      ["basic", "Basic Software", "blue", "software", 38], ["general", "General Software", "red", "media", 96],
+      ["professional", "Professional", "green", "kanban", 115], ["it-systems", "IT & Systems", "purple", "hardware", 114],
+      ["security", "Security", "teal", "password", 20], ["reviewing", "Reviewing", "pink", "test", 949],
+    ];
+    const STO_PLATFORMS = [["win", "win", "winget", "winget install -e --id ", "Copy Windows install command"],
+      ["mac", "mac", "brew", "brew install ", "Copy macOS install command"],
+      ["lin", "lin", "flatpak", "flatpak install flathub ", "Copy Flatpak command"]];
+    const STO_OS = (() => {
+      const p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || navigator.userAgent || "";
+      return /win/i.test(p) ? "win" : /mac|iphone|ipad/i.test(p) ? "mac" : "lin";
+    })();
+    const stoEsc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    // Every builder takes the translator, so a copied snippet is the English
+    // markup whatever language the page is showing.
+    function stoRow(a, T) {
+      const defs = STO_PLATFORMS.filter(d => a[d[1]]);
+      if (!defs.length) return "";
+      const lead = defs.some(d => d[0] === STO_OS) ? [STO_OS] : defs.map(d => d[0]);
+      const rest = defs.length - lead.length;
+      return '<div class="sto-row"><span class="sto-row-lbl">' + STO_ICON.down + '<span>' + T("Install") + '</span></span>' +
+        defs.map(d => {
+          const cmd = d[3] + a[d[1]];
+          return '<button type="button" class="sto-chip p-' + d[0] + '" data-tip="' + stoEsc(cmd) + '" aria-label="' +
+            stoEsc(T(d[4]) + " — " + a.name) + '"' + (lead.includes(d[0]) ? "" : " hidden") + '>' + STO_ICON[d[0]] +
+            '<span>' + d[2] + '</span></button>';
+        }).join("") +
+        (rest ? '<button type="button" class="sto-more" data-tip="' + stoEsc(T("Show other platforms")) + '" aria-label="' +
+          stoEsc(T("Show other platforms") + " — " + a.name) + '">+' + rest + '</button>' : "") + '</div>';
+    }
+    function stoCard(id, T, saved) {
+      const a = STO_APPS[id];
+      return '<article class="sto-card"><div class="sto-cover sto-hue-' + a.hue + '">' +
+        (a.badge ? '<span class="sto-badge">' + stoEsc(T(a.badge)) + '</span>' : "") +
+        '<span class="sto-art" style="--g:' + a.g + '" aria-hidden="true"></span>' +
+        '<button type="button" class="sto-save" aria-pressed="' + !!saved + '" aria-label="' + stoEsc(T("Save to My List") + " — " + a.name) +
+        '" data-tip="' + stoEsc(T(saved ? "Remove from My List" : "Save to My List")) + '">' + STO_ICON.save + '</button></div>' +
+        '<div class="sto-body"><a class="sto-name" href="' + a.link + '" target="_blank" rel="noopener">' + a.name + '</a>' +
+        '<div class="sto-src"><a href="' + a.link + '" target="_blank" rel="noopener">' + a.domain + '</a></div>' +
+        '<p class="sto-desc">' + stoEsc(T(a.desc)) + '</p>' + stoRow(a, T) + '</div></article>';
+    }
+    function stoNavs(T, sm) {
+      const c = "sto-nav" + (sm ? " sm" : "");
+      return '<button type="button" class="' + c + ' prev" aria-label="' + stoEsc(T("Previous")) + '">' + STO_ICON.prev + '</button>' +
+        '<button type="button" class="' + c + ' next" aria-label="' + stoEsc(T("Next")) + '">' + STO_ICON.next + '</button>';
+    }
+    const STO_BUILD = {
+      hero: T => '<section class="sto-hero" aria-roledescription="' + stoEsc(T("carousel")) + '" aria-label="' + stoEsc(T("Featured")) + '">' +
+        '<div class="sto-slides">' + STO_HERO.map((id, i) => {
+          const a = STO_APPS[id];
+          return '<article class="sto-slide sto-hue-' + a.hue + (i === 0 ? " on" : "") + '" role="group" aria-roledescription="' +
+            stoEsc(T("slide")) + '" aria-label="' + a.name + '" aria-hidden="' + (i !== 0) + '">' +
+            '<div class="sto-copy"><span class="sto-kicker">' + stoEsc(T(a.badge || "Featured")) + '</span>' +
+            '<h3 class="sto-title">' + a.name + '</h3><p class="sto-lede">' + stoEsc(T(a.desc)) + '</p>' +
+            '<div class="sto-actions"><a class="sto-cta" href="' + a.link + '" target="_blank" rel="noopener">' + stoEsc(T("Visit site")) +
+            STO_ICON.out + '</a>' + stoRow(a, T) + '</div></div>' +
+            '<div class="sto-hero-art" aria-hidden="true"><span class="sto-art" style="--g:' + a.g + '"></span></div></article>';
+        }).join("") + '</div>' + stoNavs(T) +
+        '<div class="sto-dots">' + STO_HERO.map((id, i) => '<button type="button" class="sto-dot' + (i === 0 ? " on" : "") +
+          '" aria-label="' + STO_APPS[id].name + '" aria-current="' + (i === 0) + '"></button>').join("") + '</div></section>',
+      shelf: T => '<section class="sto-shelf"><div class="sto-shelf-head"><h3 class="sto-h">' + stoEsc(T("Multimedia and Design")) +
+        ' <span class="sto-count">' + STO_SHELF.length + '</span></h3>' +
+        '<button type="button" class="sto-all" aria-expanded="false">' + stoEsc(T("See all")) + '</button>' + stoNavs(T, true) + '</div>' +
+        '<div class="sto-track">' + STO_SHELF.map(id => stoCard(id, T)).join("") + '</div></section>',
+      card: T => '<div class="sto-grid">' + stoCard("jellyfin", T) + stoCard("media", T, true) + stoCard("krita", T) + '</div>',
+      cat: T => '<div class="sto-cat-grid">' + STO_CATS.map(([id, label, c, glyph, n]) =>
+        '<button type="button" class="sto-cat sto-c-' + c + '" data-slice="' + id + '"><span class="sto-cat-name">' + stoEsc(T(label)) +
+        '</span><span class="sto-cat-n">' + n.toLocaleString("en-US") + '</span><span class="sto-cat-ic" style="--g:' + stoMark(glyph) +
+        '" aria-hidden="true"></span></button>').join("") + '</div>',
+    };
+    const STO_HOST = { hero: "stoHero", shelf: "stoShelf", card: "stoCards", cat: "stoCats" };
+    const STO_NAME = { hero: "Featured banner", shelf: "Shelf", card: "Store card", cat: "Category tile" };
+    const stoScheme = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
+    const stoKind = () => stoScheme && stoScheme.matches &&
+      document.documentElement.getAttribute("data-theme") !== "light" ? "dark" : "light";
+    function paintStore() {
+      const kind = stoKind();
+      Object.keys(STO_BUILD).forEach(k => {
+        const inner = STO_BUILD[k](TT);
+        document.getElementById(STO_HOST[k]).innerHTML = frameHTML("gold", inner) + frameHTML(kind, inner);
+      });
+      document.querySelectorAll("[data-sto-copy]").forEach(b =>
+        b.setAttribute("aria-label", TT("Copy the {name} snippet").replace("{name}", TT(STO_NAME[b.dataset.stoCopy]))));
+    }
+    if (stoScheme && stoScheme.addEventListener) stoScheme.addEventListener("change", paintStore);
+
+    // The snippet: this sheet's --sto-* blocks and the rules a component uses,
+    // read back from carino-branding.css (this page's .tf selectors dropped),
+    // then the English markup.
+    const STO_PARTS = {
+      hero: ["sto-hero", "sto-slides", "sto-slide", "sto-copy", "sto-kicker", "sto-title", "sto-lede", "sto-actions", "sto-cta", "sto-hero-art", "sto-nav", "sto-dots", "sto-dot"],
+      shelf: ["sto-shelf", "sto-shelf-head", "sto-h", "sto-count", "sto-all", "sto-nav", "sto-track"],
+      card: ["sto-grid", "sto-card", "sto-cover", "sto-badge", "sto-save", "sto-body", "sto-name", "sto-src", "sto-desc"],
+      cat: ["sto-cat-grid", "sto-cat", "sto-cat-name", "sto-cat-n", "sto-cat-ic", "sto-c-"],
+    };
+    const STO_ROW = ["sto-art", "sto-hue-", "sto-row", "sto-row-lbl", "sto-chip", "sto-more"];
+    const STO_USES = { hero: ["hero"], shelf: ["shelf", "card"], card: ["card"], cat: ["cat"] };
+    function stoSplitSel(sel) {   // a selector list, split on top-level commas
+      const out = []; let depth = 0, cur = "";
+      for (const ch of sel) {
+        if (ch === "(") depth++;
+        if (ch === ")") depth--;
+        if (ch === "," && !depth) { out.push(cur.trim()); cur = ""; } else cur += ch;
+      }
+      return out.concat(cur.trim()).filter(Boolean);
+    }
+    function stoCSS(names) {
+      // a selector is kept when every .sto-* class in it belongs to the component
+      const re = new RegExp("^(?:" + names.map(n => n.endsWith("-") ? n + "[\\w-]+" : n).join("|") + ")$");
+      const mine = sel => { const cls = sel.match(/\.sto-[\w-]+/g); return !!cls && cls.every(c => re.test(c.slice(1))); };
+      const sheet = [...document.styleSheets].find(s => /carino-branding\.css(\?|$)/.test(s.href || ""));
+      if (!sheet) return "";
+      const fmt = (r, pad) => {
+        if (r.type === CSSRule.MEDIA_RULE) {
+          const inner = [...r.cssRules].map(x => fmt(x, pad + "  ")).filter(Boolean);
+          return inner.length ? pad + "@media " + r.conditionText + " {\n" + inner.join("\n") + "\n" + pad + "}" : "";
+        }
+        if (r.type !== CSSRule.STYLE_RULE) return "";
+        const tokens = [...r.style].some(p => p.startsWith("--sto-"));
+        const sels = stoSplitSel(r.selectorText).filter(x => !x.includes(".tf[") && (tokens || mine(x)));
+        if (!sels.length) return "";
+        const decls = r.style.cssText.split(/;\s*(?=[-\w]+\s*:)/).map(d => d.replace(/;\s*$/, "").trim()).filter(Boolean);
+        return pad + sels.join(",\n" + pad) + " {\n" + decls.map(d => pad + "  " + d + ";").join("\n") + "\n" + pad + "}";
+      };
+      return [...sheet.cssRules].map(r => fmt(r, "")).filter(Boolean).join("\n");
+    }
+    function stoSnippet(part) {
+      const parts = part === "all" ? Object.keys(STO_BUILD) : [part];
+      const uses = [...new Set(parts.flatMap(p => STO_USES[p]))];
+      const names = uses.flatMap(u => STO_PARTS[u]).concat(uses.includes("cat") && uses.length === 1 ? [] : STO_ROW);
+      const title = parts.length > 1 ? "Store" : "Store · " + STO_NAME[part];
+      // one element per line, and the fleet glyphs at their hosted address
+      const nl = s => s.replace(/(<(?:section|article|div|h3|p|button)\b)/g, "\n$1").replace(/url\(marks\//g, "url(" + SITE + "/marks/").trim();
+      // every chip unfolded: the visitor's platform is picked by the script, not by the copier's
+      const open = s => s.replace(/(<button type="button" class="sto-chip[^>]*?) hidden>/g, "$1>").replace(/<button type="button" class="sto-more"[^>]*>\+\d+<\/button>/g, "");
+      const live = !(parts.length === 1 && part === "cat");
+      return "<!-- Carino Branding · " + title + " · " + SITE + "/#store\n" +
+        "     Needs carino-ui.css; Colourful also needs carino-theme.css. Gold & Black\n" +
+        "     is the default, and the two themes differ only in the --sto-* tokens." +
+        (live ? "\n     The script at the end wires the controls; drop it if the site has its own. -->\n" : " -->\n") +
+        "<style>\n" + stoCSS(names) + "\n</style>\n\n" + parts.map(p => nl(open(STO_BUILD[p](s => s)))).join("\n\n") +
+        (live ? "\n\n" + STO_SCRIPT : "");
+    }
+    // The page's #store behaviour, self-contained for a pasted snippet: the
+    // visitor's platform leads (others fold behind +N), slides, shelf scroll
+    // and See all, the bookmark, and a chip copies its command.
+    const STO_SCRIPT = [
+      "<script>",
+      "(function () {",
+      "  var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || navigator.userAgent || '';",
+      "  var os = /win/i.test(p) ? 'win' : /mac|iphone|ipad/i.test(p) ? 'mac' : 'lin';",
+      "  document.querySelectorAll('.sto-row').forEach(function (row) {",
+      "    var chips = [].slice.call(row.querySelectorAll('.sto-chip'));",
+      "    var rest = chips.filter(function (c) { return !c.classList.contains('p-' + os); });",
+      "    if (rest.length === chips.length || !rest.length) return;",
+      "    rest.forEach(function (c) { c.hidden = true; });",
+      "    var more = document.createElement('button'), name = (chips[0].getAttribute('aria-label') || '').split(' — ')[1];",
+      "    more.type = 'button'; more.className = 'sto-more'; more.textContent = '+' + rest.length;",
+      "    more.dataset.tip = 'Show other platforms';",
+      "    more.setAttribute('aria-label', 'Show other platforms' + (name ? ' — ' + name : ''));",
+      "    row.appendChild(more);",
+      "  });",
+      "  document.addEventListener('click', function (e) {",
+      "    var b = e.target.closest('.sto-hero button, .sto-shelf button, .sto-card button');",
+      "    if (!b) return;",
+      "    var has = function (c) { return b.classList.contains(c); };",
+      "    var hero = b.closest('.sto-hero'), shelf = b.closest('.sto-shelf');",
+      "    if (hero && (has('sto-dot') || has('sto-nav'))) {",
+      "      var slides = [].slice.call(hero.querySelectorAll('.sto-slide')), dots = [].slice.call(hero.querySelectorAll('.sto-dot'));",
+      "      var at = slides.findIndex(function (s) { return s.classList.contains('on'); });",
+      "      var to = has('sto-dot') ? dots.indexOf(b) : (at + (has('next') ? 1 : -1) + slides.length) % slides.length;",
+      "      slides.forEach(function (s, i) { s.classList.toggle('on', i === to); s.setAttribute('aria-hidden', String(i !== to)); });",
+      "      dots.forEach(function (d, i) { d.classList.toggle('on', i === to); d.setAttribute('aria-current', String(i === to)); });",
+      "    } else if (shelf && has('sto-nav')) {",
+      "      var track = shelf.querySelector('.sto-track');",
+      "      track.scrollBy({ left: (has('next') ? 1 : -1) * track.clientWidth * 0.9, behavior: 'smooth' });",
+      "    } else if (shelf && has('sto-all')) {",
+      "      var open = shelf.classList.toggle('open');",
+      "      b.textContent = open ? 'Show less' : 'See all';",
+      "      b.setAttribute('aria-expanded', String(open));",
+      "    } else if (has('sto-save')) {",
+      "      var on = b.getAttribute('aria-pressed') !== 'true';",
+      "      b.setAttribute('aria-pressed', String(on));",
+      "      b.dataset.tip = on ? 'Remove from My List' : 'Save to My List';",
+      "    } else if (has('sto-more')) {",
+      "      var row = b.parentNode;",
+      "      row.querySelectorAll('.sto-chip[hidden]').forEach(function (c) { c.hidden = false; });",
+      "      b.remove();",
+      "    } else if (has('sto-chip')) {",
+      "      var cmd = b.dataset.cmd || b.dataset.tip;",
+      "      b.dataset.cmd = cmd;",
+      "      if (navigator.clipboard) navigator.clipboard.writeText(cmd).then(function () {",
+      "        b.dataset.tip = 'Copied'; setTimeout(function () { b.dataset.tip = cmd; }, 1200);",
+      "      });",
+      "    }",
+      "  });",
+      "})();",
+      "<\/script>",
+    ].join("\n");
+
+    document.getElementById("store").addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      if (b.dataset.stoCopy) { copyText(stoSnippet(b.dataset.stoCopy), b); return; }
+      const hero = b.closest(".sto-hero");
+      if (hero && (b.classList.contains("sto-dot") || b.classList.contains("sto-nav"))) {
+        const slides = [...hero.querySelectorAll(".sto-slide")], dots = [...hero.querySelectorAll(".sto-dot")];
+        const at = slides.findIndex(s => s.classList.contains("on"));
+        const to = b.classList.contains("sto-dot") ? dots.indexOf(b)
+          : (at + (b.classList.contains("next") ? 1 : -1) + slides.length) % slides.length;
+        slides.forEach((s, i) => { s.classList.toggle("on", i === to); s.setAttribute("aria-hidden", String(i !== to)); });
+        dots.forEach((d, i) => { d.classList.toggle("on", i === to); d.setAttribute("aria-current", String(i === to)); });
+        return;
+      }
+      const shelf = b.closest(".sto-shelf");
+      if (shelf && b.classList.contains("sto-nav")) {
+        const track = shelf.querySelector(".sto-track");
+        track.scrollBy({ left: (b.classList.contains("next") ? 1 : -1) * track.clientWidth * 0.9, behavior: "smooth" });
+      } else if (shelf && b.classList.contains("sto-all")) {
+        const open = shelf.classList.toggle("open");
+        b.textContent = TT(open ? "Show less" : "See all");
+        b.setAttribute("aria-expanded", String(open));
+      } else if (b.classList.contains("sto-save")) {
+        const on = b.getAttribute("aria-pressed") !== "true";
+        b.setAttribute("aria-pressed", String(on));
+        b.dataset.tip = TT(on ? "Remove from My List" : "Save to My List");
+      } else if (b.classList.contains("sto-more")) {
+        const row = b.parentNode;
+        row.querySelectorAll(".sto-chip[hidden]").forEach(c => { c.hidden = false; });
+        b.remove();
+        const last = row.querySelector(".sto-chip:last-of-type");
+        if (last) last.focus();
+      } else if (b.classList.contains("sto-chip")) {
+        const cmd = b.dataset.tip === TT("Copied") ? b.dataset.cmd : b.dataset.tip;
+        b.dataset.cmd = cmd;
+        const flash = () => { b.dataset.tip = TT("Copied"); setTimeout(() => { b.dataset.tip = cmd; }, 1200); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cmd).then(flash, () => fallbackCopy(cmd, flash));
+        else fallbackCopy(cmd, flash);
+      }
+    });
+    paintStore();
 
     // ---- toggle group (single-select demo) ----
     document.getElementById("toggleRow").addEventListener("click", (e) => {
@@ -1294,6 +1888,14 @@
       document.getElementById("diagUptime").textContent = Math.floor((Date.now() - started) / 1000) + "s";
       document.getElementById("diagVp").textContent = window.innerWidth + "×" + window.innerHeight;
     }, 1000);
+    // the Theme row names the page's own rendering
+    function diagTheme() {
+      document.getElementById("diagTheme").textContent = TT(document.documentElement.getAttribute("data-carino-theme") !== "color"
+        ? "Gold & Black" : "Colourful · " + stoKind());
+    }
+    window.addEventListener("carino:themechange", diagTheme);
+    if (stoScheme && stoScheme.addEventListener) stoScheme.addEventListener("change", diagTheme);
+    diagTheme();
 
     // ---- slice collapsed tab-bar (active follows the click) ----
     document.getElementById("sliceCollapsed").addEventListener("click", (e) => {
@@ -1448,6 +2050,21 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
   "also": "suite",
   "desc": "…"
 }`;
+    // Themes: the three pieces a site adds, in the order they go in.
+    const themesSnippet = () =>
+`<!-- Carino Branding \u00b7 Themes \u00b7 ${SITE}/#themes
+     Gold & Black is the default; Colourful applies only under
+     <html data-carino-theme="color">. Ship the files locally (no CDN). -->
+
+<!-- 1. In <head>: after the generated carino:head block, before any stylesheet -->
+${THEME_HEAD}
+
+<!-- 2. After carino-ui.css and the site's own stylesheet -->
+<link rel="stylesheet" href="${SITE}/carino-theme.css">
+
+<!-- 3. After carino-navbar.js: the site's own mark, gold and colour -->
+<script src="${SITE}/carino-theme.js" data-mark="marks/<site>.svg"
+        data-mark-color="marks/<site>-color.svg" defer><\/script>`;
     const COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 
     function fallbackCopy(text, cb) {
@@ -1492,7 +2109,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       else fallbackCopy(text, done);
     }
 
-    // ---- day/night map (section 21): real solar terminator over stylised land ----
+    // ---- day/night map (section 23): real solar terminator over stylised land ----
     (function () {
       const proj = (lat, lon) => [(lon + 180) / 360 * 1000, (90 - lat) / 180 * 500];
       function subsolar(d) {
@@ -1550,6 +2167,10 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
           snippet = MARK_SNIPPET;
         } else if (sec.id === "pagetypes") {
           snippet = PAGETYPES_SNIPPET;
+        } else if (sec.id === "themes") {
+          snippet = themesSnippet();
+        } else if (sec.id === "store") {
+          snippet = stoSnippet("all");
         } else if (sec.id === "anim") {
           // Two files rather than one, and the shapes come from the module —
           // so copy the drop-in, not eight <svg>s someone would have to
@@ -1620,6 +2241,29 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
     (() => {
       const btn = document.getElementById("pdfBtn");
       let busy = false;
+      // html2canvas 1.4 cannot parse CSS Color 4: color-mix() computes to
+      // color(srgb …) or oklab(…), so the clone gets each such value back as
+      // rgba(), read off a 1px canvas.
+      const px = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+      const C4 = /\b(?:color|oklab|oklch|lab|lch)\([^()]*\)/g;
+      const toRGB = (c) => {
+        px.clearRect(0, 0, 1, 1); px.fillStyle = "#000"; px.fillStyle = c; px.fillRect(0, 0, 1, 1);
+        const d = px.getImageData(0, 0, 1, 1).data;
+        return "rgba(" + d[0] + "," + d[1] + "," + d[2] + "," + +(d[3] / 255).toFixed(3) + ")";
+      };
+      const C4_PROPS = ["color", "background-color", "background-image", "border-top-color", "border-right-color",
+        "border-bottom-color", "border-left-color", "outline-color", "box-shadow", "text-shadow",
+        "text-decoration-color", "fill", "stroke", "-webkit-text-fill-color", "-webkit-text-stroke-color"];
+      function pdfColors(doc, root) {
+        const view = doc.defaultView;
+        [root, ...root.querySelectorAll("*")].forEach(n => {
+          const cs = view.getComputedStyle(n);
+          C4_PROPS.forEach(p => {
+            const v = cs.getPropertyValue(p);
+            if (v.search(C4) >= 0) n.style.setProperty(p, v.replace(C4, toRGB), "important");
+          });
+        });
+      }
       btn.addEventListener("click", async () => {
         if (busy) return;
         const label = btn.innerHTML;   // read live: the label is localized
@@ -1658,7 +2302,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
             // capture every section off-screen at the 1032px content width
             // (main is 1080px max minus 24px side padding) for uniform pages
             if (isSpec) el.style.cssText = "display:block;position:absolute;left:-12000px;top:0;width:1032px;";
-            const canvas = await html2canvas(el, { backgroundColor: "#ffffff", scale: 2, logging: false });
+            const canvas = await html2canvas(el, { backgroundColor: "#ffffff", scale: 2, logging: false, onclone: pdfColors });
             if (isSpec) el.style.cssText = "";
             // each part starts a fresh page; tall captures flow onto more pages
             const sliceH = Math.floor(canvas.width * (contentH / imgW));
@@ -1682,7 +2326,7 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       });
     })();
 
-    /* ---- Animations (24): built from the module so this page can never
+    /* ---- Animations (26): built from the module so this page can never
        drift from what the module actually ships. ---- */
     const ANIM_WHAT = {
       medical:  "The Carino PACS heartbeat — a pulse travelling an EKG trace.",
@@ -1724,6 +2368,9 @@ body { font-size: 15px; }  /* body base: 15-16px */`;
       if (active) document.getElementById("tabpane").textContent = TT(PANES[+active.dataset.tab]);
       buildAnimGrid();
       fchipsUpdate();
+      paintThemes();
+      paintStore();
+      diagTheme();
     };
   </script>
 </body>

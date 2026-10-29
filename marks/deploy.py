@@ -85,6 +85,10 @@ for stem, (svgs, _) in T.items():
 # apple-touch-icon.png, which verify.py checks the same way.
 PNG = {"fiscal": ["Fiscal/apple-touch-icon.png"]}
 
+# The colour marks (<stem>-color.svg), only where a page has asked for one.
+# Never a favicon: verify.py holds every favicon to the gold mark.
+COLOR = {"software": ["SoftwareCatalog/assets/images/logo-color.svg"]}
+
 
 def main():
     import subprocess, struct
@@ -108,6 +112,8 @@ def main():
             shutil.copyfile(s, p)
             made += 1; new += fresh
             print(f"  {'+' if fresh else ' '} {dst}")
+    for stem, dests in sorted(COLOR.items()):
+        GLYPHS.extend((f"{stem}-color.svg", d) for d in dests)
     for src, dst in GLYPHS:
         p = os.path.join(GH, dst)
         fresh = not os.path.exists(p)
