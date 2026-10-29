@@ -810,5 +810,3 @@
       linear-gradient(180deg, #07090d 0%, #050505 100%); }
 
     /* the reference page's own footer: Branding is a Reference page */
-    .page-foot { max-width: 1080px; margin: -80px auto 0; padding: 0 24px; }
-    @media print { .page-foot { display: none; } }
