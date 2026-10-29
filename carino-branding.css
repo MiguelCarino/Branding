@@ -35,7 +35,7 @@
 
     /* ---- section table of contents ---- */
     .toc {
-      position: sticky; top: 0; z-index: 50;
+      position: sticky; top: var(--nav-h); z-index: 50;
       display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
       /* Full-bleed already: <body> carries no horizontal padding, so the
          -24px side margins this used to have bled out of a container that was

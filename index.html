@@ -47,6 +47,12 @@
   <link rel="icon" type="image/webp" href="logo.webp">
   <link rel="stylesheet" href="fonts/carino-fonts.css">
   <link rel="stylesheet" href="carino-branding.css">
+  <style>
+    /* The navbar stays on screen at every width; anything else that sticks
+       sits under it (--nav-h is its height, from carino-ui.css). */
+    html body #carinoNav { position: sticky; top: 0; }
+    .fchips, .slice-menu.collapsed, body.state-module .slice-menu { top: var(--nav-h); }
+  </style>
   <link rel="stylesheet" href="carino-anim.css">
   <!-- Colourful theme + the switch; nothing applies until data-carino-theme="color". -->
   <link rel="stylesheet" href="carino-theme.css">
