@@ -634,7 +634,7 @@
           </div>
         </div>
         <div class="note" data-i18n-html><strong>Behaviour.</strong> <code>CarinoUI.modal.open(el, { returnFocus, onDismiss, onClose })</code> in <code>carino-ui.js</code> takes a <code>.modal-scrim</code> (or the <code>.modal</code> inside it) or a <code>&lt;dialog class="modal"&gt;</code>. It moves focus to the first control and keeps Tab inside; Esc, a click on the scrim or backdrop, and any <code>[data-close]</code> button dismiss the top modal. Without <code>onDismiss</code> that closes it; with it the page decides (confirm unsaved changes, then call <code>CarinoUI.modal.close(el)</code>). Closing returns focus to the opener and fires <code>carino:modalclose</code> on the scrim or dialog. Never toggle <code>hidden</code> by hand. Give the card <code>role="dialog"</code>, <code>aria-modal="true"</code> and <code>aria-labelledby</code> pointing at its title.</div>
-        <div class="note" data-i18n>Reference: MultiWeb (folder picker), Hash (algorithm info), Learn, Compass, Carino Retina (chart picker), Desk (nine dialogs).</div>
+        <div class="note" data-i18n>Reference: Hash (algorithm info), Learn, Compass, Carino Retina (chart picker), Desk (nine dialogs).</div>
       </div>
     </section>
 
@@ -1368,7 +1368,7 @@
     // translated: they are subdomains, which are proper nouns.
     const MARK_STEMS = ["carino", "aldis", "asobi", "branding", "compass", "currency",
       "cve", "cybercity", "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware",
-      "hash", "images", "jellyfish", "kanban", "law", "learn", "media", "metadata", "multiweb",
+      "hash", "images", "jellyfish", "kanban", "law", "learn", "media", "metadata",
       "music", "netplan", "offline", "password", "quote", "retina", "setup", "software",
       "stocks", "subs", "teleprompter", "time", "topo", "tv", "vitae"];
     (() => {
@@ -1544,7 +1544,7 @@
     // Gold beside colour, at the same size, each on the ground it is drawn for.
     const COLOR_STEMS = ["aldis", "asobi", "branding", "compass", "currency", "cve", "cybercity",
       "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware", "hash", "images", "jellyfish",
-      "kanban", "law", "learn", "media", "metadata", "multiweb", "music", "netplan", "offline",
+      "kanban", "law", "learn", "media", "metadata", "music", "netplan", "offline",
       "password", "ping", "quote", "retina", "setup", "software", "stocks", "subs", "teleprompter",
       "test", "time", "topo", "tv", "vitae"];
     document.getElementById("markColorGrid").innerHTML = COLOR_STEMS.map(s =>

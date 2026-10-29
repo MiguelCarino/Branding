@@ -54,6 +54,9 @@ GLYPH_STROKE = 2.0
 # The colour variant's palette, in the order parts take it. Yellow is last
 # because it sits closest to the gold ring.
 PALETTE = ["#4285f4", "#ea4335", "#34a853", "#fbbc04"]
+# Stems of deleted sites. They still hold their place in the colour order, so
+# removing one does not shift the colours of every mark after it.
+RETIRED = {"multiweb"}   # MultiWeb, deleted 2026-10-29
 
 BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
           f'stroke="{GOLD}" stroke-width="16.38" stroke-linecap="butt"/>')
@@ -90,7 +93,6 @@ P = {
  "learn":     '<path d="M2 9.5l10-5.5 10 5.5-10 5.5z" fill="{F}"/><path d="M6 12.5v4.5c3 2.5 9 2.5 12 0v-4.5"/>',
  "media":     '<path d="M14 3H5v18h14V8z"/><path d="M7.5 18l3.5-5 2.5 3 1-1.2 2 3.2z" fill="{F}"/>',
  "metadata":  '<path d="M15 7.5V3H4v18h5"/><circle cx="15" cy="15" r="4.5" fill="{F}"/><path d="M18.5 18.5L22 22"/>',
- "multiweb":  '<path d="M8 9V3h13v11h-5"/><rect x="3" y="9" width="13" height="12" rx="1" fill="{F}"/>',
  "music":     '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="{F}"/><circle cx="17" cy="16" r="3" fill="{F}"/>',
  "netplan":   '<path d="M4 5h16v11h-3.5v3.5h-9V16H4z"/><path d="M8.5 8.5v3.5M12 8.5v3.5M15.5 8.5v3.5"/>',
  "offline":   '<path d="M8 19h9.5a3.5 3.5 0 0 0 1.4-6.7M15.6 7.6A6 6 0 0 0 6.2 10.2 4.5 4.5 0 0 0 5 19"/><path d="M3 3l18 18"/>',
@@ -144,7 +146,6 @@ MARKS = [
  ("learn",        "Carino Learn"),
  ("media",        "Carino Media"),
  ("metadata",     "Carino Metadata"),
- ("multiweb",     "Carino MultiWeb"),
  ("music",        "Carino Music"),
  ("netplan",      "Carino Netplan"),
  ("offline",      "Carino Offline"),
@@ -207,7 +208,7 @@ def color_body(stem, body):
         return out
     # Each mark starts its cycle on a different one of the first three
     # colours, so the one-part pictograms are not all blue side by side.
-    first = sorted(P).index(stem) % 3 if stem in P else 0
+    first = sorted(set(P) | RETIRED).index(stem) % 3 if stem in P else 0
     out = []
     for i, part in enumerate(top_level_parts(body)):
         c = PALETTE[(first + i) % len(PALETTE)]

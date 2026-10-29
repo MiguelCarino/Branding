@@ -21,7 +21,7 @@ SITES = {
  "Kanban/index.html": "kanban",
  "Law/index.html": "law",                 "Learn/index.html": "learn",
  "Media/index.html": "media",             "Metadata/index.html": "metadata",
- "MultiWeb/index.html": "multiweb",       "MusicGrid/index.html": "music",
+ "MusicGrid/index.html": "music",
  "NetplanConfig/index.html": "netplan",   "Offline/index.html": "offline",
  "Password/index.html": "password",       "Quote/index.html": "quote",
  "Ping/index.html": "ping",               "Stocks/index.html": "stocks",

@@ -41,7 +41,6 @@ T = {
  "learn":    (["Learn/logo.svg"], ["Learn/logo.webp"]),
  "media":    (["Media/logo.svg"], ["Media/logo.webp"]),
  "metadata": (["Metadata/logo.svg"], ["Metadata/logo.webp"]),
- "multiweb": (["MultiWeb/logo.svg"], ["MultiWeb/logo.webp"]),
  "music":    (["MusicGrid/assets/images/logo.svg"], ["MusicGrid/assets/images/logo.webp"]),
  "netplan":  (["NetplanConfig/logo.svg"], ["NetplanConfig/logo.webp"]),
  "offline":  (["Offline/logo.svg"], ["Offline/logo.webp"]),
@@ -90,7 +89,9 @@ PNG = {"fiscal": ["Fiscal/apple-touch-icon.png"]}
 # The colour marks (<stem>-color.svg), only where a page has asked for one.
 # Never a favicon: verify.py holds every favicon to the gold mark.
 COLOR = {"software": ["SoftwareCatalog/assets/images/logo-color.svg"],
-         "media": ["Media/logo-color.svg"]}
+         "media": ["Media/logo-color.svg"],
+         "font": ["Fonts/logo-color.svg"],
+         "metadata": ["Metadata/logo-color.svg"]}
 
 
 def main():
