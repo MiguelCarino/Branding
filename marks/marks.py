@@ -56,7 +56,9 @@ GLYPH_STROKE = 2.0
 PALETTE = ["#4285f4", "#ea4335", "#34a853", "#fbbc04"]
 # Stems of deleted sites. They still hold their place in the colour order, so
 # removing one does not shift the colours of every mark after it.
-RETIRED = {"multiweb"}   # MultiWeb, deleted 2026-10-29
+RETIRED = {"multiweb", "media", "metadata"}   # MultiWeb, deleted 2026-10-29; Media+Metadata merged into Files 2026-10-31
+# Stems added after the colour order was fixed: a set start instead of a sorted slot, so adding one recolours nothing else.
+LATE = {"files": 0}
 
 BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
           f'stroke="{GOLD}" stroke-width="16.38" stroke-linecap="butt"/>')
@@ -81,6 +83,7 @@ P = {
  "dicom":     '<path d="M8 6.5V3h13v13h-3.5"/><rect x="3" y="7.5" width="14" height="14" rx="1.5"/><path d="M10 10v3.5"/>'
               '<path d="M9 11.2c-2.2 0-3.4 3-3.4 6.3 0 .9.7 1.3 1.6.9L9 17.6zM11 11.2c2.2 0 3.4 3 3.4 6.3 0 .9-.7 1.3-1.6.9L11 17.6z" fill="{F}" stroke-width=".8"/>',
  "distro":    '<path d="M12 3v18M8.5 21h7"/><path d="M12 5h6.5l2.5 2.5-2.5 2.5H12zM12 12.5H5.5L3 15l2.5 2.5H12z" fill="{F}"/>',
+ "files":     '<path d="M2.5 19.5V4.5h6.5l2 2.5h8.5v3"/><path d="M2.5 19.5l3-9h16l-3 9z" fill="{F}"/>',
  "fiscal":    '<circle cx="12" cy="5.5" r="2.5"/><path d="M12 8v3.5M5 20.5h14"/><rect x="4.5" y="11.5" width="15" height="5" rx="1" fill="{F}"/>',
  "font":      '<path d="M12 22L5.5 12.5 8 4h8l2.5 8.5z"/><path d="M12 22v-8"/><circle cx="12" cy="12" r="1.8" fill="{F}" stroke="none"/>',
  "hardware":  '<rect x="6" y="6" width="12" height="12" rx="1.5" fill="{F}"/><path d="M9.5 2v4M14.5 2v4M9.5 18v4M14.5 18v4M2 9.5h4M2 14.5h4M18 9.5h4M18 14.5h4"/>',
@@ -91,8 +94,6 @@ P = {
               '<rect x="16.7" y="3" width="4.8" height="8" rx="1" fill="{F}" stroke="none"/>',
  "law":       '<path d="M3 8.5L12 3l9 5.5z" fill="{F}"/><path d="M6 11.5V18M12 11.5V18M18 11.5V18M3 21h18"/>',
  "learn":     '<path d="M2 9.5l10-5.5 10 5.5-10 5.5z" fill="{F}"/><path d="M6 12.5v4.5c3 2.5 9 2.5 12 0v-4.5"/>',
- "media":     '<path d="M14 3H5v18h14V8z"/><path d="M7.5 18l3.5-5 2.5 3 1-1.2 2 3.2z" fill="{F}"/>',
- "metadata":  '<path d="M15 7.5V3H4v18h5"/><circle cx="15" cy="15" r="4.5" fill="{F}"/><path d="M18.5 18.5L22 22"/>',
  "music":     '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="{F}"/><circle cx="17" cy="16" r="3" fill="{F}"/>',
  "netplan":   '<path d="M4 5h16v11h-3.5v3.5h-9V16H4z"/><path d="M8.5 8.5v3.5M12 8.5v3.5M15.5 8.5v3.5"/>',
  "offline":   '<path d="M8 19h9.5a3.5 3.5 0 0 0 1.4-6.7M15.6 7.6A6 6 0 0 0 6.2 10.2 4.5 4.5 0 0 0 5 19"/><path d="M3 3l18 18"/>',
@@ -135,6 +136,7 @@ MARKS = [
  ("desk",         "Carino Desk"),
  ("dicom",        "Carino DICOM"),
  ("distro",       "Carino Distro"),
+ ("files",        "Carino Files"),
  ("fiscal",       "Carino Fiscal"),
  ("font",         "Carino Fonts"),
  ("hardware",     "Carino Hardware"),
@@ -144,8 +146,6 @@ MARKS = [
  ("kanban",       "Carino Kanban"),
  ("law",          "Carino Law"),
  ("learn",        "Carino Learn"),
- ("media",        "Carino Media"),
- ("metadata",     "Carino Metadata"),
  ("music",        "Carino Music"),
  ("netplan",      "Carino Netplan"),
  ("offline",      "Carino Offline"),
@@ -208,7 +208,8 @@ def color_body(stem, body):
         return out
     # Each mark starts its cycle on a different one of the first three
     # colours, so the one-part pictograms are not all blue side by side.
-    first = sorted(set(P) | RETIRED).index(stem) % 3 if stem in P else 0
+    order = sorted((set(P) | RETIRED) - set(LATE))
+    first = LATE[stem] if stem in LATE else (order.index(stem) % 3 if stem in P else 0)
     out = []
     for i, part in enumerate(top_level_parts(body)):
         c = PALETTE[(first + i) % len(PALETTE)]

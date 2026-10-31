@@ -109,7 +109,7 @@
       <div class="spec-head">
         <div class="spec-num">01</div>
         <h2 data-i18n>The Mark</h2>
-        <p data-i18n-html>Every site in the fleet wears the hub&rsquo;s gold <code>C</code>. The hub&rsquo;s bowl stays empty &mdash; that is what makes it the parent rather than one more tool &mdash; and every tool&rsquo;s holds one pictogram of the job it does: a key for Password, an eye for Retina, a clock for Time. All 41 are generated and never hand-drawn: <code>marks/marks.py</code> in this repo draws them, <code>deploy.py</code> copies each to the paths its site actually looks for one at, and <code>verify.py</code> follows every site&rsquo;s own <code>&lt;link rel=icon&gt;</code> and asserts the bytes at the end of it are that site&rsquo;s own mark.</p>
+        <p data-i18n-html>Every site in the fleet wears the hub&rsquo;s gold <code>C</code>. The hub&rsquo;s bowl stays empty &mdash; that is what makes it the parent rather than one more tool &mdash; and every tool&rsquo;s holds one pictogram of the job it does: a key for Password, an eye for Retina, a clock for Time. All 39 are generated and never hand-drawn: <code>marks/marks.py</code> in this repo draws them, <code>deploy.py</code> copies each to the paths its site actually looks for one at, and <code>verify.py</code> follows every site&rsquo;s own <code>&lt;link rel=icon&gt;</code> and asserts the bytes at the end of it are that site&rsquo;s own mark.</p>
       </div>
 
       <div class="demo">
@@ -521,7 +521,7 @@
             <button type="button" class="slice"><span class="s-num">04</span><span class="s-text" data-i18n>Contact</span></button>
           </nav>
         </div>
-        <div class="note" data-i18n-html><strong>Routing.</strong> Every module is <code>#module</code>, with extra parameters after <code>&amp;</code> (<code>#edit&amp;sample=ct</code>). <code>CarinoUI.slices({ menu, onRoute })</code> in <code>carino-ui.js</code> follows <code>hashchange</code>, marks the active slice and keeps <code>body.state-overview</code> and <code>body.state-module</code> in step, so Back, bookmarks and shared links open the right module. When every module works on the same file (dcm, Media), pass <code>collapsed: true</code> so the bar sits above the drop area from the start.</div>
+        <div class="note" data-i18n-html><strong>Routing.</strong> Every module is <code>#module</code>, with extra parameters after <code>&amp;</code> (<code>#edit&amp;sample=ct</code>). <code>CarinoUI.slices({ menu, onRoute })</code> in <code>carino-ui.js</code> follows <code>hashchange</code>, marks the active slice and keeps <code>body.state-overview</code> and <code>body.state-module</code> in step, so Back, bookmarks and shared links open the right module. When every module works on the same file (dcm, Files), pass <code>collapsed: true</code> so the bar sits above the drop area from the start.</div>
         <div class="note" data-i18n-html>A place inside a module rides after a slash: <code>#sha2/stage-3</code>, <code>#learn/lab</code>. <code>onRoute</code> receives it as <code>params.path</code>, and the module id is what comes before the first slash.</div>
         <div class="note" data-i18n-html>On phones the overview stacks, and the bar shows labels only, never icons alone, at equal widths that scroll sideways past four. Modules never go in the navbar, and <a href="#tabs">Tabs</a> are for views inside a module, never for choosing one. Classes: <code>.slice-menu</code> › <code>.slice[data-id]</code> (<code>.s-num</code>, <code>.s-text</code>, <code>.s-blurb</code>), <code>.collapsed</code>. Reference: Asobi, Learn.</div>
       </div>
@@ -541,7 +541,7 @@
           <div class="toast warn" data-i18n>⚠ You have unsaved changes</div>
           <div class="toast err" data-i18n>✖ Could not reach the server</div>
         </div>
-        <div class="note" data-i18n-html>Shown static here via the <code>.toast-rack</code> preview wrapper; in use, a single <code>.toast</code> is fixed to the top-right and toggled with <code>.show</code>. Reference: Desk, Metadata.</div>
+        <div class="note" data-i18n-html>Shown static here via the <code>.toast-rack</code> preview wrapper; in use, a single <code>.toast</code> is fixed to the top-right and toggled with <code>.show</code>. Reference: Desk, Files.</div>
       </div>
     </section>
 
@@ -607,7 +607,7 @@
           <div class="dropzone dragover" style="flex:1; min-width:180px;">.dragover</div>
           <div class="dropzone success" style="flex:1; min-width:180px;">.success</div>
         </div>
-        <div class="note" data-i18n>Reference: Metadata, Quote, Media, DICOM-editor.</div>
+        <div class="note" data-i18n>Reference: Files, Quote, DICOM-editor.</div>
       </div>
     </section>
 
@@ -700,7 +700,7 @@
             <p class="privacy-line" data-i18n>Runs in your browser. Nothing you add here is uploaded.</p>
           </div>
         </div>
-        <div class="note" data-i18n-html>Inputs go at the top of the rail or in the pane’s empty state (a <a href="#shorthero">Short Hero</a>), settings below them, and the privacy line in <code>.ws-rail-foot</code>. Every output goes in one Export menu in the navbar through <code>data-carino-actions</code>, never in the rail. Classes: <code>.ws</code> › <code>.ws-rail</code> (+ <code>.ws-rail-foot</code>) and <code>.ws-pane</code>; <code>.ws-toggle</code>; <code>.col</code>. Load <code>carino-ui.js</code> for the drawer. Reference: Metadata, Topo, Netplan.</div>
+        <div class="note" data-i18n-html>Inputs go at the top of the rail or in the pane’s empty state (a <a href="#shorthero">Short Hero</a>), settings below them, and the privacy line in <code>.ws-rail-foot</code>. Every output goes in one Export menu in the navbar through <code>data-carino-actions</code>, never in the rail. Classes: <code>.ws</code> › <code>.ws-rail</code> (+ <code>.ws-rail-foot</code>) and <code>.ws-pane</code>; <code>.ws-toggle</code>; <code>.col</code>. Load <code>carino-ui.js</code> for the drawer. Reference: Files, Topo, Netplan.</div>
       </div>
     </section>
 
@@ -948,12 +948,12 @@
       <div class="spec-head">
         <div class="spec-num">28</div>
         <h2 data-i18n>Short Hero</h2>
-        <p data-i18n-html>A tool’s empty state. It sits inside the work pane, never as a band above it, and leaves as soon as there is work. It holds the one input target, example chips as a second way in, and the privacy line. Reference: Metadata and Topo.</p>
+        <p data-i18n-html>A tool’s empty state. It sits inside the work pane, never as a band above it, and leaves as soon as there is work. It holds the one input target, example chips as a second way in, and the privacy line. Reference: Files and Topo.</p>
       </div>
       <div class="demo">
         <div class="pane-frame">
           <div class="short-hero">
-            <img class="mark" src="marks/metadata.svg" alt="" width="48" height="48">
+            <img class="mark" src="marks/files.svg" alt="" width="48" height="48">
             <h1><span data-i18n>See what a file says</span><br><span class="gold" data-i18n>about itself.</span></h1>
             <p class="sh-lede" data-i18n>Drop a photo, a PDF or a song to read and edit its hidden details.</p>
             <div class="sh-input">
@@ -1217,7 +1217,7 @@
             </div>
             <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>Keyboard keys, a help modal, a Bridge hand-off, one column for three settings or fewer, a light page when it is the exported document.</span></div>
             <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>An account, a second top bar, or anything sent to a server without saying so.</span></div>
-            <div class="pt-refs"><a class="chip-tag" href="https://metadata.carino.systems/">metadata</a><a class="chip-tag" href="https://topo.carino.systems/">topo</a><a class="chip-tag" href="https://quote.carino.systems/">quote</a><a class="chip-tag" href="https://vitae.carino.systems/">vitae</a><a class="chip-tag" href="https://font.carino.systems/">font</a><a class="chip-tag" href="https://kanban.carino.systems/">kanban</a><a class="chip-tag" href="https://fiscal.carino.systems/">fiscal</a><a class="chip-tag" href="https://password.carino.systems/">password</a><a class="chip-tag" href="https://netplan.carino.systems/">netplan</a><a class="chip-tag" href="https://desk.carino.systems/">desk</a><a class="chip-tag" href="https://subs.carino.systems/">subs</a><a class="chip-tag" href="https://teleprompter.carino.systems/">teleprompter</a><a class="chip-tag" href="https://aldis.carino.systems/">aldis</a></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://hash.carino.systems/">hash</a><a class="chip-tag" href="https://topo.carino.systems/">topo</a><a class="chip-tag" href="https://quote.carino.systems/">quote</a><a class="chip-tag" href="https://vitae.carino.systems/">vitae</a><a class="chip-tag" href="https://font.carino.systems/">font</a><a class="chip-tag" href="https://kanban.carino.systems/">kanban</a><a class="chip-tag" href="https://fiscal.carino.systems/">fiscal</a><a class="chip-tag" href="https://password.carino.systems/">password</a><a class="chip-tag" href="https://netplan.carino.systems/">netplan</a><a class="chip-tag" href="https://desk.carino.systems/">desk</a><a class="chip-tag" href="https://subs.carino.systems/">subs</a><a class="chip-tag" href="https://teleprompter.carino.systems/">teleprompter</a><a class="chip-tag" href="https://aldis.carino.systems/">aldis</a></div>
           </div>
 
           <div class="pt-card">
@@ -1230,7 +1230,7 @@
             </div>
             <div class="pt-rule"><span class="pt-k" data-i18n>May</span> <span data-i18n>A Live data or Learning module, which names its outside sources instead of the privacy line.</span></div>
             <div class="pt-rule never"><span class="pt-k" data-i18n>Never</span> <span data-i18n>Modules in the navbar, tabs as the module chooser, or a module you cannot link to by #hash.</span></div>
-            <div class="pt-refs"><a class="chip-tag" href="https://dcm.carino.systems/">dcm</a><a class="chip-tag" href="https://media.carino.systems/">media</a><a class="chip-tag" href="https://retina.carino.systems/">retina</a></div>
+            <div class="pt-refs"><a class="chip-tag" href="https://dcm.carino.systems/">dcm</a><a class="chip-tag" href="https://files.carino.systems/">files</a><a class="chip-tag" href="https://retina.carino.systems/">retina</a></div>
           </div>
 
           <div class="pt-card">
@@ -1357,10 +1357,10 @@
     // Stems in the generator's own order, the hub first. Nothing here is
     // translated: they are subdomains, which are proper nouns.
     const MARK_STEMS = ["carino", "aldis", "asobi", "branding", "compass", "currency",
-      "cve", "cybercity", "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware",
-      "hash", "images", "jellyfish", "kanban", "law", "learn", "media", "metadata",
-      "music", "netplan", "offline", "password", "quote", "retina", "setup", "software",
-      "stocks", "subs", "teleprompter", "time", "topo", "tv", "vitae"];
+      "cve", "cybercity", "dcm", "desk", "dicom", "distro", "files", "fiscal", "font",
+      "hardware", "hash", "images", "jellyfish", "kanban", "law", "learn", "music",
+      "netplan", "offline", "password", "ping", "quote", "retina", "setup", "software",
+      "stocks", "subs", "teleprompter", "test", "time", "topo", "tv", "vitae"];
     (() => {
       const grid = document.getElementById("markGrid");
       grid.innerHTML = MARK_STEMS.map(s =>
@@ -1441,7 +1441,7 @@
     // shown on a glyph from the fleet.
     const CT_HUES = [["#5e97f6", "#1a73e8"], ["#f07368", "#d93025"], ["#fbc02d", "#ea8600"],
       ["#4cc06b", "#1e8e3e"], ["#b373f0", "#8430ce"], ["#33c3d4", "#00838f"], ["#f06aa8", "#c2185b"]];
-    const HUE_GLYPHS = ["retina", "topo", "stocks", "password", "media", "learn", "time"];
+    const HUE_GLYPHS = ["retina", "topo", "stocks", "password", "files", "learn", "time"];
 
     // A frame forces one rendering on everything inside it by declaring the
     // tokens itself; inline custom properties beat whatever the page inherits.
@@ -1533,8 +1533,8 @@
     });
     // Gold beside colour, at the same size, each on the ground it is drawn for.
     const COLOR_STEMS = ["aldis", "asobi", "branding", "compass", "currency", "cve", "cybercity",
-      "dcm", "desk", "dicom", "distro", "fiscal", "font", "hardware", "hash", "images", "jellyfish",
-      "kanban", "law", "learn", "media", "metadata", "music", "netplan", "offline",
+      "dcm", "desk", "dicom", "distro", "files", "fiscal", "font", "hardware", "hash", "images",
+      "jellyfish", "kanban", "law", "learn", "music", "netplan", "offline",
       "password", "ping", "quote", "retina", "setup", "software", "stocks", "subs", "teleprompter",
       "test", "time", "topo", "tv", "vitae"];
     document.getElementById("markColorGrid").innerHTML = COLOR_STEMS.map(s =>
@@ -1576,8 +1576,8 @@
     // Real entries from Software's catalogue (software.json): the fleet's own
     // tools wear "Carino", a plainly open licence "Open source", the rest none.
     const STO_APPS = {
-      media:    { name: "Media", link: "https://media.carino.systems/", domain: "media.carino.systems", badge: "Carino", hue: 0,
-                  g: stoMark("media"), desc: "PDF to image, OCR, signatures and converters, all in the browser." },
+      files:    { name: "Files", link: "https://files.carino.systems/", domain: "files.carino.systems", badge: "Carino", hue: 0,
+                  g: stoMark("files"), desc: "See what a file carries, then convert, read or clean it up — all in the browser." },
       jellyfin: { name: "Jellyfin", link: "https://jellyfin.org/", domain: "jellyfin.org", badge: "Open source", hue: 4,
                   g: stoGlyph('<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M10 7.5v5l4-2.5z" fill="#000"/><path d="M8 20h8M12 16v4"/>'),
                   desc: "Video library server with hardware transcoding, clients for TV boxes, phones and browsers, and no account of any kind.",
@@ -1602,11 +1602,11 @@
                   g: stoGlyph('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5" fill="#000"/>'),
                   desc: "Screen recording and livestreaming.", win: "OBSProject.OBSStudio", mac: "--cask obs", lin: "com.obsproject.Studio" },
     };
-    const STO_HERO = ["blender", "media", "jellyfin"];
-    const STO_SHELF = ["media", "jellyfin", "blender", "inkscape", "krita", "audacity", "kdenlive", "obs"];
+    const STO_HERO = ["blender", "files", "jellyfin"];
+    const STO_SHELF = ["files", "jellyfin", "blender", "inkscape", "krita", "audacity", "kdenlive", "obs"];
     // [slice, label, colour, fleet glyph, entries]; counts from software.json
     const STO_CATS = [
-      ["basic", "Basic Software", "blue", "software", 38], ["general", "General Software", "red", "media", 96],
+      ["basic", "Basic Software", "blue", "software", 38], ["general", "General Software", "red", "files", 96],
       ["professional", "Professional", "green", "kanban", 115], ["it-systems", "IT & Systems", "purple", "hardware", 114],
       ["security", "Security", "teal", "password", 20], ["reviewing", "Reviewing", "pink", "test", 949],
     ];
@@ -1670,7 +1670,7 @@
         ' <span class="sto-count">' + STO_SHELF.length + '</span></h3>' +
         '<button type="button" class="sto-all" aria-expanded="false">' + stoEsc(T("See all")) + '</button>' + stoNavs(T, true) + '</div>' +
         '<div class="sto-track">' + STO_SHELF.map(id => stoCard(id, T)).join("") + '</div></section>',
-      card: T => '<div class="sto-grid">' + stoCard("jellyfin", T) + stoCard("media", T, true) + stoCard("krita", T) + '</div>',
+      card: T => '<div class="sto-grid">' + stoCard("jellyfin", T) + stoCard("files", T, true) + stoCard("krita", T) + '</div>',
       cat: T => '<div class="sto-cat-grid">' + STO_CATS.map(([id, label, c, glyph, n]) =>
         '<button type="button" class="sto-cat sto-c-' + c + '" data-slice="' + id + '"><span class="sto-cat-name">' + stoEsc(T(label)) +
         '</span><span class="sto-cat-n">' + n.toLocaleString("en-US") + '</span><span class="sto-cat-ic" style="--g:' + stoMark(glyph) +

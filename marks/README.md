@@ -2,8 +2,8 @@
 
 Every site in the fleet wears the hub's gold `C`. The hub keeps its bowl empty —
 that is what makes it the parent — and every tool's bowl holds one pictogram of
-the job it does: a key for Password, an eye for Retina, a clock for Time. 41 in
-all: 40 tools plus the hub.
+the job it does: a key for Password, an eye for Retina, a clock for Time. 39 in
+all: 38 tools plus the hub.
 
 `marks.py` draws all of them. Run it and it rewrites, for every site:
 

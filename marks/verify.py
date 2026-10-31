@@ -20,7 +20,7 @@ SITES = {
  "Hash/index.html": "hash",               "Jellyfish/index.html": "jellyfish",
  "Kanban/index.html": "kanban",
  "Law/index.html": "law",                 "Learn/index.html": "learn",
- "Media/index.html": "media",             "Metadata/index.html": "metadata",
+ "Files/index.html": "files",
  "MusicGrid/index.html": "music",
  "NetplanConfig/index.html": "netplan",   "Offline/index.html": "offline",
  "Password/index.html": "password",       "Quote/index.html": "quote",
