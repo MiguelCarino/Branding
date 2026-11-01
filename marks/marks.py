@@ -58,7 +58,7 @@ PALETTE = ["#4285f4", "#ea4335", "#34a853", "#fbbc04"]
 # removing one does not shift the colours of every mark after it.
 RETIRED = {"multiweb", "media", "metadata"}   # MultiWeb, deleted 2026-10-29; Media+Metadata merged into Files 2026-10-31
 # Stems added after the colour order was fixed: a set start instead of a sorted slot, so adding one recolours nothing else.
-LATE = {"files": 0}
+LATE = {"files": 0, "atrium": 1, "cerberus": 2}
 
 BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
           f'stroke="{GOLD}" stroke-width="16.38" stroke-linecap="butt"/>')
@@ -68,9 +68,11 @@ BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
 # Everything else is stroked by the enclosing group.
 P = {
  "aldis":     '<circle cx="8.5" cy="12" r="5.5" fill="{F}" stroke="none"/><path d="M17 6.5l4-2M17.5 12h4.5M17 17.5l4 2"/>',
+ "atrium":    '<rect x="2.5" y="3.5" width="19" height="14" rx="2"/><path d="M2.5 7.5h19" /><rect x="5.5" y="10.5" width="6" height="4" rx=".8" fill="{F}" stroke="none"/><path d="M8 21h8M12 17.5V21"/>',
  "asobi":     '<path d="M12 2.5l6.5 3.5 2 15.5h-17L5.5 6z" fill="{F}"/>',
  "branding":  '<path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.8 2-1.8 0-1.2-1-1.6-1-2.7 0-1 .9-1.5 2-1.5h2a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/>'
               '<circle cx="8" cy="11" r="1.7" fill="{F}" stroke="none"/><circle cx="12.5" cy="7.5" r="1.7" fill="{F}" stroke="none"/>',
+ "cerberus":  '<circle cx="5" cy="6" r="2.6" fill="{F}"/><circle cx="12" cy="4.5" r="2.6" fill="{F}"/><circle cx="19" cy="6" r="2.6" fill="{F}"/><path d="M6.6 8.2L12 15M12 7.1V15M17.4 8.2L12 15"/><circle cx="12" cy="18" r="3"/>',
  "compass":   '<circle cx="12" cy="12" r="9"/><path d="M16 8l-2.2 5.8L8 16l2.2-5.8z" fill="{F}"/>',
  "currency":  '<path d="M12 2.5v19M17 6.8C16 5 14.2 4.5 12 4.5c-2.8 0-5 1.3-5 3.7 0 2.6 2.5 3.2 5 3.8s5 1.3 5 3.9c0 2.4-2.2 3.6-5 3.6-2.3 0-4.2-.7-5.2-2.6" stroke-width="2.8"/>',
  "cve":       '<path d="M12 7a4.5 4.5 0 0 1 4.5 4.5v3a4.5 4.5 0 0 1-9 0v-3A4.5 4.5 0 0 1 12 7z" fill="{F}"/>'
@@ -127,7 +129,9 @@ MARKS = [
  ("carino",       "Carino"),
  ("aldis",        "Carino Aldis Lamp"),
  ("asobi",        "Carino Asobi"),
+ ("atrium",       "Carino Atrium"),
  ("branding",     "Carino Branding"),
+ ("cerberus",     "Carino Cerberus"),
  ("compass",      "Carino Compass"),
  ("currency",     "Carino Currency"),
  ("cve",          "Carino CVE"),
