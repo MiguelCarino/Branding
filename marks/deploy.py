@@ -26,7 +26,8 @@ T = {
  "desk":     (["Desk/logo.svg"], ["Desk/logo.webp"]),
  # dicom: the public site is docs/, the PACS server ships its own web UI, and
  # docs/favicon.webp + pacs/web/{logo,favicon}.webp are all one file today.
- "dicom":    (["Carino-DICOM/docs/logo.svg", "Carino-DICOM/desktop/assets/logo.svg"],
+ "dicom":    (["Carino-DICOM/docs/logo.svg", "Carino-DICOM/desktop/assets/logo.svg",
+               "Carino-DICOM/pacs/web/logo.svg"],
               ["Carino-DICOM/docs/favicon.webp", "Carino-DICOM/docs/logo.webp",
                "Carino-DICOM/pacs/web/logo.webp", "Carino-DICOM/pacs/web/favicon.webp"]),
  "distro":   (["findmeadistro/logo.svg"], ["findmeadistro/logo.webp"]),
