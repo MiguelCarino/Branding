@@ -58,7 +58,7 @@ PALETTE = ["#4285f4", "#ea4335", "#34a853", "#fbbc04"]
 # removing one does not shift the colours of every mark after it.
 RETIRED = {"multiweb", "media", "metadata"}   # MultiWeb, deleted 2026-10-29; Media+Metadata merged into Files 2026-10-31
 # Stems added after the colour order was fixed: a set start instead of a sorted slot, so adding one recolours nothing else.
-LATE = {"files": 0, "atrium": 1, "cerberus": 2}
+LATE = {"files": 0, "atrium": 1, "cerberus": 2, "tm": 0}
 
 BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
           f'stroke="{GOLD}" stroke-width="16.38" stroke-linecap="butt"/>')
@@ -72,7 +72,7 @@ P = {
  "asobi":     '<path d="M12 2.5l6.5 3.5 2 15.5h-17L5.5 6z" fill="{F}"/>',
  "branding":  '<path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.8 2-1.8 0-1.2-1-1.6-1-2.7 0-1 .9-1.5 2-1.5h2a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/>'
               '<circle cx="8" cy="11" r="1.7" fill="{F}" stroke="none"/><circle cx="12.5" cy="7.5" r="1.7" fill="{F}" stroke="none"/>',
- "cerberus":  '<circle cx="5" cy="6" r="2.6" fill="{F}"/><circle cx="12" cy="4.5" r="2.6" fill="{F}"/><circle cx="19" cy="6" r="2.6" fill="{F}"/><path d="M6.6 8.2L12 15M12 7.1V15M17.4 8.2L12 15"/><circle cx="12" cy="18" r="3"/>',
+ "cerberus":  '<path d="M6.6 6.2C7.8 4.2 9.8 3 12.2 3c3 0 5 1.8 5 4.4 0 2.6-2.1 4.4-5.1 4.4H10.2M12.1 11.8c3.3 0 5.4 1.9 5.4 4.6 0 2.8-2.3 4.6-5.5 4.6-2.4 0-4.4-1-5.5-2.9" stroke-width="2.8"/>',
  "compass":   '<circle cx="12" cy="12" r="9"/><path d="M16 8l-2.2 5.8L8 16l2.2-5.8z" fill="{F}"/>',
  "currency":  '<path d="M12 2.5v19M17 6.8C16 5 14.2 4.5 12 4.5c-2.8 0-5 1.3-5 3.7 0 2.6 2.5 3.2 5 3.8s5 1.3 5 3.9c0 2.4-2.2 3.6-5 3.6-2.3 0-4.2-.7-5.2-2.6" stroke-width="2.8"/>',
  "cve":       '<path d="M12 7a4.5 4.5 0 0 1 4.5 4.5v3a4.5 4.5 0 0 1-9 0v-3A4.5 4.5 0 0 1 12 7z" fill="{F}"/>'
@@ -110,6 +110,7 @@ P = {
  "subs":      '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 12.5h12M8 16h8"/>',
  "teleprompter": '<path d="M2.5 6h8M2.5 12h8M2.5 18h5"/><path d="M12.5 20.5L17 3.5h1.2l4.6 17M14.2 14.5h7.1" stroke-width="2.6"/>',
  "test":      '<path d="M3 18a9 9 0 1 1 18 0"/><path d="M12 17l4.5-6.5"/><circle cx="12" cy="17" r="2.2" fill="{F}" stroke="none"/>',
+ "tm":        '<path d="M2 4.5h9v3H8V19H5V7.5H2z" fill="{F}" stroke="none"/><path d="M13.5 18.5V6l4 6.5 4-6.5v12.5"/>',
  "time":      '<circle cx="12" cy="12" r="9"/><path d="M12 6.5V12l4 2.5"/>',
  "topo":      '<path d="M12 5L5 18h14z"/><circle cx="12" cy="5" r="3" fill="{F}"/><circle cx="5" cy="18" r="3" fill="{F}"/><circle cx="19" cy="18" r="3" fill="{F}"/>',
  "tv":        '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 3v14M2 10h20M8 21h8"/>',
@@ -164,6 +165,7 @@ MARKS = [
  ("teleprompter", "Carino Teleprompter"),
  ("test",         "Carino Test"),
  ("time",         "Carino Time"),
+ ("tm",           "Carino TM"),
  ("topo",         "Carino Topo"),
  ("tv",           "Carino TV"),
  ("vitae",        "Carino Vitae"),
