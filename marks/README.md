@@ -45,7 +45,7 @@ reads as a hairline.
 
 * **As few parts as the idea allows** — most are two or three.
 * **At least one solid shape in each.** Lines alone dissolve at 16px; a solid
-  shape keeps a silhouette. Hash, Ping and Offline are the line-only exceptions,
+  shape keeps a silhouette. Hash, DICOM and Offline are the line-only exceptions,
   because a fingerprint, a pulse and a crossed-out cloud have no solid form.
 * **Drawn here from primitives**, not copied from an icon set.
 * **The mark is for a dock, a hero or a share card; the glyph for anything
@@ -61,8 +61,11 @@ about what the tool does. Those letters are in this folder's git history.
 
 ## Pictograms worth not re-deriving
 
-* **dicom / dcm are a pair.** The Editor is one chest film (two solid lungs);
-  Carino DICOM is a stack of the same film. Every candidate tried for DICOM —
+* **dicom is a pulse; ping is a beacon.** On 2026-11-06 the pulse moved from
+  Ping to DICOM — a PACS's heartbeat, and the motif under its hero already —
+  and Ping became a solid dot with signal arcs going out both ways, `((•))`.
+  Before that DICOM was the Editor's chest film with a second behind it
+  (`stacked-films`). Every candidate tried for DICOM —
   stack with a cross, CT scanner, bone, head slices, workstation, slice series,
   skull — is in `dicom-options/` with its own sheet. The CT scanner read as a
   goblet face-on and a `£` from the side; head slices read as a `0`; a skull
