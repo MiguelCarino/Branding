@@ -88,6 +88,29 @@
     body.pdf-mode .spec-head p code { color: #b45309; }
     body.pdf-mode .demo { box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
 
+    /* ---- #rpOverlay (Export PDF) is the fleet report preview, laid out by
+       .rpv in carino-ui.css 18b; nothing local but the inline anatomy demo in
+       section 19: a fixed-height rack and a fake sheet standing in for the
+       document frame. ---- */
+    .rpv-rack { height: 420px; display: flex; }
+    .rpv-rack .rpv { height: 100%; }
+    .rpv-rack .rpv-stage { display: flex; justify-content: center; align-items: flex-start; padding: 16px; }
+    .rpv-demo-sheet {
+      flex: none; width: 210px; aspect-ratio: 210 / 297; padding: 18px 16px; box-sizing: border-box;
+      display: flex; flex-direction: column; gap: 7px;
+      background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.28);
+    }
+    .rpv-demo-sheet i { display: block; height: 6px; border-radius: 2px; background: #d6d8dc; }
+    .rpv-demo-sheet i.h { height: 10px; width: 60%; background: #eab308; margin-bottom: 4px; }
+    .rpv-demo-sheet i.s { width: 70%; }
+    @media (max-width: 700px) {
+      .rpv-rack { height: 520px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+      .rpv-demo-sheet { width: 160px; }
+      /* the rack sits inside a demo card, narrower than a phone screen:
+         tighter padding and content-sized widths keep "Download PDF" on one line */
+      .rpv-rack .rpv-actions > .btn { flex: 1 1 auto; padding-left: 8px; padding-right: 8px; }
+    }
+
     /* ---- print / PDF export: the whole reference, one section per page ---- */
     @media print {
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
