@@ -75,7 +75,7 @@
     <h1>Carino Branding</h1>
     <p data-i18n-html>The source of truth for the Carino visual language — tokens, type and every component, each with a <b>Copy</b> button that pastes ready-styled into any project.</p>
     <div class="hero-actions">
-      <button type="button" class="btn" id="pdfBtn" data-i18n data-i18n-title title="Preview the full reference as a PDF, then download it" aria-haspopup="dialog">⤓ Export PDF</button>
+      <button type="button" class="btn" id="pdfBtn" data-i18n data-i18n-title title="Preview the full reference, then download it as PDF or HTML" aria-haspopup="dialog">⤓ Export</button>
     </div>
   </div>
 
@@ -651,7 +651,7 @@
           </div>
         </div>
         <div class="demo-label" style="margin-top:18px;" data-i18n>Report preview (inline anatomy via .rpv-rack)</div>
-        <div class="demo-row" style="margin-bottom:12px;"><button type="button" class="btn btn-ghost" id="rpvDemoOpen" data-i18n>Open the Export PDF preview</button></div>
+        <div class="demo-row" style="margin-bottom:12px;"><button type="button" class="btn btn-ghost" id="rpvDemoOpen" data-i18n>Open the Export preview</button></div>
         <div class="rpv-rack">
           <div class="rpv">
             <aside class="rpv-side">
@@ -664,16 +664,20 @@
                 </fieldset>
                 <label><input type="checkbox" checked> <span data-i18n data-i18n-wrap>Include notes</span></label>
               </div>
-              <p class="rpv-name">report.pdf</p>
-              <div class="rpv-actions"><button type="button" class="btn" data-i18n>🖨 Print</button><button type="button" class="btn btn-primary" data-i18n>⤓ Download PDF</button></div>
+              <div class="rpv-format" id="rpvDemoFormat" role="radiogroup" aria-labelledby="rpvDemoFormatLabel"><span class="rpv-format-label" id="rpvDemoFormatLabel" data-i18n>File</span><span class="rpv-format-seg"><button type="button" class="toggle-btn active" role="radio" aria-checked="true" data-format="pdf">PDF</button><button type="button" class="toggle-btn" role="radio" aria-checked="false" tabindex="-1" data-format="html">HTML</button></span></div>
+              <p class="rpv-name" id="rpvDemoName">report.pdf</p>
+              <div class="rpv-actions"><button type="button" class="btn" data-i18n>🖨 Print</button><button type="button" class="btn btn-primary" id="rpvDemoDownload">⤓ Download PDF</button></div>
             </aside>
             <div class="rpv-stage"><div class="rpv-demo-sheet" aria-hidden="true"><i class="h"></i><i></i><i></i><i class="s"></i><i></i><i></i><i></i><i class="s"></i></div></div>
           </div>
         </div>
         <div class="note" data-i18n-html><strong>Report preview.</strong> Every PDF or printed report opens in <code>.rpv</code> before anything is saved or printed. Everything the user reads or sets lives in the left column, <code>.rpv-side</code>: the title and ✕, the status, every option and the file name. Print and Download sit at its foot in <code>.rpv-actions</code>, the primary last. The document stays on the right in <code>.rpv-stage</code> at paper width, scaled down on a narrow screen, never reflowed; nothing goes above, below or beside it. On a phone the column folds above the document and the buttons line the bottom edge. Put it in a <code>.modal-scrim.rpv-scrim</code> and open it with <code>CarinoUI.modal</code>, like any modal.</div>
+        <div class="note" data-i18n-html><strong>PDF or HTML.</strong> Every report offers its file in two formats. The switch, <code>.rpv-format</code> (File · PDF | HTML), sits in the column right above <code>.rpv-name</code>, outside the scrolling <code>.rpv-opts</code>. The one Download button at the foot and the file name follow it, and the choice is remembered for the site. <code>carino-pdf.js</code> (canonical here; <code>propagate.sh</code> copies it with <code>carino-html2canvas.js</code> beside it) draws the switch with <code>CarinoPdf.formatSwitch({ onChange })</code> and makes either file from the exact document the preview shows with <code>CarinoPdf.download({ html, name, format })</code>. The PDF is laid out as the browser prints the document: its <code>@media print</code> rules, its <code>@page</code> size and margins (A4 and 15 mm when it has none) and its page breaks, each page a picture. The HTML is one standalone file with no script. While a PDF is made, Download is disabled and the status says “Creating the PDF…”. A report that already writes a PDF with real text keeps it and adds an HTML version that matches it, as Export on this page does.</div>
+        <div class="demo-label tf-sub" data-i18n>Wiring the PDF | HTML switch</div>
+        <div class="terminal-wrapper tf-snip"><pre class="code" id="rpvPdfSnippet"></pre><button type="button" class="copy-btn term-copy" id="rpvPdfCopy"><span data-i18n>Copy</span></button></div>
         <div class="note" data-i18n-html><strong>Behaviour.</strong> <code>CarinoUI.modal.open(el, { returnFocus, onDismiss, onClose })</code> in <code>carino-ui.js</code> takes a <code>.modal-scrim</code> (or the <code>.modal</code> inside it) or a <code>&lt;dialog class="modal"&gt;</code>. It moves focus to the first control and keeps Tab inside; Esc, a click on the scrim or backdrop, and any <code>[data-close]</code> button dismiss the top modal. Without <code>onDismiss</code> that closes it; with it the page decides (confirm unsaved changes, then call <code>CarinoUI.modal.close(el)</code>). Closing returns focus to the opener and fires <code>carino:modalclose</code> on the scrim or dialog. Never toggle <code>hidden</code> by hand. Give the card <code>role="dialog"</code>, <code>aria-modal="true"</code> and <code>aria-labelledby</code> pointing at its title.</div>
         <div class="note" data-i18n>Reference: Hash (algorithm info), Learn, Compass, Carino Retina (chart picker), Desk (nine dialogs).</div>
-        <div class="note" data-i18n>Report preview reference: Branding (Export PDF), DICOM Editor (report).</div>
+        <div class="note" data-i18n>Report preview reference: Branding (Export), DICOM Editor (report).</div>
       </div>
     </section>
 
@@ -1370,25 +1374,27 @@
     <div class="modal-foot"><button class="btn btn-primary" data-close data-i18n>Done</button></div>
   </dialog>
 
-  <!-- Export PDF opens this first: the very pages the PDF is built from, on A4
-       sheets, in the fleet report preview (carino-ui.css 18b). Everything the
-       user reads or presses sits in the left column; Print and Download PDF at
-       its foot. ✕ (Esc, the backdrop) drops the build and saves nothing. -->
+  <!-- Export opens this first, in the fleet report preview (carino-ui.css 18b):
+       for PDF the very pages the PDF is built from, on A4 sheets; for HTML the
+       very file Download saves. Everything the user reads or presses sits in
+       the left column: the PDF | HTML switch (carino-pdf.js) goes in above the
+       file name, Print and Download at its foot. ✕ (Esc, the backdrop) drops
+       the build and saves nothing. -->
   <div class="modal-scrim rpv-scrim" id="rpOverlay" hidden>
     <div class="rpv" role="dialog" aria-modal="true" aria-labelledby="rpTitle">
       <aside class="rpv-side">
         <div class="rpv-head">
-          <h2 class="rpv-title" id="rpTitle" data-i18n>PDF preview</h2>
+          <h2 class="rpv-title" id="rpTitle" data-i18n>Report preview</h2>
           <button type="button" class="modal-x rpv-x" id="rpClose" data-close title="Close" data-i18n-title aria-label="Close">✕</button>
         </div>
         <p class="rpv-status" id="rpStatus" role="status" aria-live="polite"></p>
         <p class="rpv-name" id="rpName">carino-branding.pdf</p>
         <div class="rpv-actions">
           <button type="button" class="btn" id="rpPrint" disabled data-i18n>🖨 Print</button>
-          <button type="button" class="btn btn-primary" id="rpDownload" disabled data-i18n>⤓ Download PDF</button>
+          <button type="button" class="btn btn-primary" id="rpDownload" disabled>⤓ Download PDF</button>
         </div>
       </aside>
-      <div class="rpv-stage" id="rpStage"><iframe id="rpFrame" class="rpv-frame" title="PDF preview" data-i18n-title></iframe></div>
+      <div class="rpv-stage" id="rpStage"><iframe id="rpFrame" class="rpv-frame" title="Report preview" data-i18n-title></iframe></div>
     </div>
   </div>
 
@@ -1407,6 +1413,9 @@
   <!-- Vendored (no CDN): render the page into a downloadable PDF. -->
   <script src="vendor/html2canvas.min.js" defer></script>
   <script src="vendor/jspdf.umd.min.js" defer></script>
+  <!-- The fleet PDF | HTML switch and file saver, and Export's HTML version. -->
+  <script src="carino-pdf.js" defer></script>
+  <script src="branding-export.js" defer></script>
 
   <script>
     // i18n bridge — i18n.js is deferred, so window.t only exists once this
@@ -1990,6 +1999,62 @@
     // [data-close]; the page only says which dialog to open.
     document.getElementById("modalOpenBtn").addEventListener("click", () => CarinoUI.modal.open("liveScrim"));
     document.getElementById("rpvDemoOpen").addEventListener("click", () => window.brandingPdfPreview && window.brandingPdfPreview.open());
+
+    // ---- report preview anatomy: the PDF | HTML switch moves the file name
+    // and the Download label, as CarinoPdf.formatSwitch() does in a report ----
+    let rpvDemoFormat = "pdf";
+    function paintRpvDemo() {
+      const f = rpvDemoFormat;
+      document.querySelectorAll("#rpvDemoFormat .toggle-btn").forEach(b => {
+        const on = b.dataset.format === f;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-checked", on ? "true" : "false");
+        b.tabIndex = on ? 0 : -1;
+      });
+      document.getElementById("rpvDemoName").textContent = "report." + f;
+      document.getElementById("rpvDemoDownload").textContent = "⤓ " + TT(f === "html" ? "Download HTML" : "Download PDF");
+    }
+    document.querySelectorAll("#rpvDemoFormat .toggle-btn").forEach(b => {
+      b.addEventListener("click", () => { rpvDemoFormat = b.dataset.format; paintRpvDemo(); });
+      b.addEventListener("keydown", (e) => {
+        if (!/^Arrow(Left|Right|Up|Down)$/.test(e.key)) return;
+        e.preventDefault();
+        rpvDemoFormat = rpvDemoFormat === "pdf" ? "html" : "pdf";
+        paintRpvDemo();
+        document.querySelector('#rpvDemoFormat .toggle-btn[data-format="' + rpvDemoFormat + '"]').focus();
+      });
+    });
+    paintRpvDemo();
+
+    // The wiring a report needs for the switch (section 19's snippet).
+    const RPV_PDF_SNIPPET = [
+      '<!-- carino-pdf.js and carino-html2canvas.js come from propagate.sh; never edit a copy -->',
+      '<script src="carino-pdf.js" defer><\/script>',
+      '',
+      '<script>',
+      '  // once: the switch goes in the column, just above .rpv-name',
+      '  const fmt = CarinoPdf.formatSwitch({ onChange: paintFormat });',
+      '  nameEl.parentNode.insertBefore(fmt.el, nameEl);',
+      '  function paintFormat() {',
+      '    nameEl.textContent = CarinoPdf.fileName("report", fmt.get());   // report.pdf / report.html',
+      '    dlBtn.textContent = CarinoPdf.label(fmt.get());                 // Download PDF / Download HTML',
+      '  }',
+      '  paintFormat();',
+      '',
+      '  // Download: the exact document the preview shows, in the chosen format',
+      '  dlBtn.addEventListener("click", async () => {',
+      '    const pdf = fmt.get() === "pdf";',
+      '    dlBtn.disabled = true;',
+      '    if (pdf) statusEl.textContent = t("Creating the PDF…");',
+      '    const r = await CarinoPdf.download({ html: reportHtml, name: "report", format: fmt.get(), title: "Report" });',
+      '    dlBtn.disabled = false;',
+      '    statusEl.textContent = r.ok ? "" : t(pdf ? "Could not create the PDF." : "Could not create the HTML.");',
+      '  });',
+      '<\/script>',
+    ].join("\n");
+    document.getElementById("rpvPdfSnippet").textContent = RPV_PDF_SNIPPET;
+    document.getElementById("rpvPdfCopy").addEventListener("click", function () { copyText(RPV_PDF_SNIPPET, this); });
+    document.getElementById("rpvPdfCopy").setAttribute("aria-label", TT("Copy the snippet"));
     document.getElementById("dialogOpenBtn").addEventListener("click", () => CarinoUI.modal.open("liveDialog"));
     document.getElementById("liveModalNested").addEventListener("click", () => CarinoUI.modal.open("liveDialog"));
 
@@ -2286,10 +2351,13 @@ ${THEME_HEAD}
       }, { passive: true });
     })();
 
-    /* ---- Export PDF: render the hero + every section into a PDF, show it in
-       the preview dialog, and download it only from there (vendored html2canvas
-       + jsPDF; sections are captured off-screen at the reference content width,
-       tall ones sliced across as many pages as needed) ---- */
+    /* ---- Export: the whole reference as PDF or HTML, picked with the fleet
+       PDF | HTML switch (carino-pdf.js), shown in the preview dialog and
+       downloaded only from there. PDF: the hero + every section rendered with
+       the vendored html2canvas + jsPDF (sections captured off-screen at the
+       reference content width, tall ones sliced across as many pages as
+       needed). HTML: the same hero and sections as one standalone file
+       (branding-export.js), same paper, same theme, live text. ---- */
     (() => {
       const btn = document.getElementById("pdfBtn");
       // html2canvas 1.4 cannot parse CSS Color 4: color-mix() computes to
@@ -2315,11 +2383,12 @@ ${THEME_HEAD}
           });
         });
       }
-      // The preview (#rpOverlay) shows the pages this very build wrote into the
-      // PDF: the same JPEG slices at the same place on A4 sheets, with the footer
-      // jsPDF draws as text redrawn over them. Download PDF saves that PDF object
-      // (same bytes, same name as before); Print prints those same sheets from
-      // the frame, one A4 sheet per printed page; ✕ drops it and saves nothing.
+      // The preview (#rpOverlay) shows what Download saves. PDF: the pages this
+      // very build wrote into the PDF, the same JPEG slices at the same place
+      // on A4 sheets, with the footer jsPDF draws as text redrawn over them;
+      // Download saves that PDF object, Print prints those same sheets from the
+      // frame, one A4 sheet per printed page. HTML: the very file, in the
+      // frame; Print prints it on the PDF's A4 pages. ✕ drops it, saves nothing.
       const ov = document.getElementById("rpOverlay");
       const frame = document.getElementById("rpFrame");
       const stage = document.getElementById("rpStage");
@@ -2327,7 +2396,9 @@ ${THEME_HEAD}
       const printBtn = document.getElementById("rpPrint");
       const closeBtn = document.getElementById("rpClose");
       const statusEl = document.getElementById("rpStatus");
-      const NAME = "carino-branding.pdf";
+      const nameEl = document.getElementById("rpName");
+      const NAME = "carino-branding";     // + .pdf or .html
+      const HTML_W = 1032;                // the HTML file's paper width (the PDF's capture width)
       const FOOT = "Carino Branding · branding.carino.systems";
       const FOOT_PT = 8;                  // jsPDF font size, in points
       // The status is kept as its English key plus numbers, so a language
@@ -2340,6 +2411,25 @@ ${THEME_HEAD}
       };
       const status = (key, i, n) => { lastStatus = key ? { key, i, n } : null; paintStatus(); };
       let seq = 0, built = null, running = Promise.resolve();
+
+      // The PDF | HTML switch goes in above the file name once carino-pdf.js
+      // (deferred) has run; the file name and the Download label follow it.
+      let fmt = null;
+      const format = () => (fmt ? fmt.get() : "pdf");
+      const fileName = (f) => (window.CarinoPdf ? CarinoPdf.fileName(NAME, f) : NAME + "." + f);
+      function paintFormat() {
+        const f = format();
+        nameEl.textContent = fileName(f);
+        dlBtn.textContent = "⤓ " + (window.CarinoPdf ? CarinoPdf.label(f) : TT(f === "html" ? "Download HTML" : "Download PDF"));
+      }
+      function initSwitch() {
+        if (fmt || !window.CarinoPdf) return;
+        fmt = CarinoPdf.formatSwitch({ onChange: () => { paintFormat(); if (!ov.hidden) refresh(); } });
+        nameEl.parentNode.insertBefore(fmt.el, nameEl);
+        paintFormat();
+      }
+      paintFormat();
+      if (window.CarinoPdf) initSwitch(); else document.addEventListener("DOMContentLoaded", initSwitch);
 
       // Build the PDF as Download writes it and keep each page's image. A newer
       // request (Close, or opening again) stops it between sections.
@@ -2426,12 +2516,36 @@ ${THEME_HEAD}
       // print, rather than reflowed. Only the frame element is scaled.
       function fit() {
         Object.assign(frame.style, { width: "", height: "", transform: "", transformOrigin: "" });
-        const full = Math.ceil(built ? built.pw : 794) + 48;   // sheet + grey + a scrollbar
+        const paper = built ? (built.format === "html" ? HTML_W : built.pw) : 794;
+        const full = Math.ceil(paper) + 48;   // sheet + grey (or margin) + a scrollbar
         const w = stage.clientWidth;
         if (!w || w >= full) return;
         const k = w / full;
         Object.assign(frame.style, { width: full + "px", height: Math.round(stage.clientHeight / k) + "px",
                                      transform: "scale(" + k + ")", transformOrigin: "0 0" });
+      }
+
+      // Fill the frame only once it holds the given page itself, never the
+      // about:blank placeholder that the srcdoc load would then replace.
+      // Each wait has its own handler, so a stale one cannot clear a newer.
+      function showDoc(html, marker) {
+        return new Promise((done) => {
+          let timer = 0;
+          const shown = () => {
+            if (frame.onload === shown) frame.onload = null;
+            clearTimeout(timer);
+            const d = frame.contentDocument;
+            done(!!(d && d.getElementById(marker) && d.body));
+          };
+          frame.onload = shown;
+          timer = setTimeout(shown, 5000);  // a frame that never says it loaded
+          frame.srcdoc = html;
+        });
+      }
+      // Keys pressed while the user reads inside the frame stay in its own
+      // document: Esc there closes the dialog too.
+      function frameEsc(d) {
+        d.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); closePreview(); } });
       }
 
       async function refresh() {
@@ -2441,39 +2555,25 @@ ${THEME_HEAD}
         printBtn.disabled = true;
         frame.onload = null;
         frame.removeAttribute("srcdoc");
+        Object.assign(frame.style, { width: "", height: "", transform: "", transformOrigin: "" });
+        if (format() === "html") return refreshHtml(mySeq);
         if (!window.html2canvas || !window.jspdf) { status("PDF engine still loading…"); return; }
-        status("Preparing the PDF…");
+        status("Creating the PDF…");
         let b = null;
         const prev = running;               // one capture at a time (pdf-mode, moved sections)
         running = (async () => {
           await prev;
           if (mySeq !== seq) return;
           try { b = await buildPdf(mySeq); }
-          catch (e) { console.error(e); if (mySeq === seq) status("Could not build the PDF."); }
+          catch (e) { console.error(e); if (mySeq === seq) status("Could not create the PDF."); }
         })();
         await running;
         if (!b || mySeq !== seq) return;
-        // Fill the frame only once it holds the sheets page itself, never the
-        // about:blank placeholder that the srcdoc load would then replace.
-        // Each wait has its own handler, so a stale one cannot clear a newer.
-        const loaded = await new Promise((done) => {
-          let timer = 0;
-          const shown = () => {
-            if (frame.onload === shown) frame.onload = null;
-            clearTimeout(timer);
-            const d = frame.contentDocument;
-            done(!!(d && d.getElementById("rpSheets") && d.body));
-          };
-          frame.onload = shown;
-          timer = setTimeout(shown, 5000);  // a frame that never says it loaded
-          frame.srcdoc = sheetsHtml(b);
-        });
+        const loaded = await showDoc(sheetsHtml(b), "rpSheets");
         if (mySeq !== seq) return;
-        if (!loaded) { status("Could not build the PDF."); return; }
+        if (!loaded) { status("Could not create the PDF."); return; }
         const d = frame.contentDocument;
-        // Keys pressed while the user reads inside the frame stay in its own
-        // document: Esc there closes the dialog too.
-        d.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); closePreview(); } });
+        frameEsc(d);
         b.pages.forEach((p, i) => {
           const sheet = d.createElement("div"); sheet.className = "sheet";
           const img = d.createElement("img"); img.alt = ""; img.src = p.src; img.style.height = p.h + "px";
@@ -2483,10 +2583,30 @@ ${THEME_HEAD}
           sheet.append(img, rule, l, r);
           d.body.append(sheet);
         });
+        b.format = "pdf";
         built = b;
         fit();
         const n = b.pages.length;
         if (n === 1) status("1 page"); else status("{n} pages", null, n);
+        dlBtn.disabled = false;
+        printBtn.disabled = false;
+      }
+
+      // HTML: the file Download saves, shown as it is in the frame.
+      async function refreshHtml(mySeq) {
+        if (!window.BrandingExport) { status("Could not create the HTML."); return; }
+        status("Creating the HTML…");
+        let b = null;
+        try { b = await BrandingExport.build({ title: "Carino Branding" }); }
+        catch (e) { console.error(e); if (mySeq === seq) status("Could not create the HTML."); }
+        if (!b || mySeq !== seq) return;
+        const loaded = await showDoc(b.html, "bxPaper");
+        if (mySeq !== seq) return;
+        if (!loaded) { status("Could not create the HTML."); return; }
+        frameEsc(frame.contentDocument);
+        built = { format: "html", html: b.html };
+        fit();
+        status("{n} sections", null, b.sections);
         dlBtn.disabled = false;
         printBtn.disabled = false;
       }
@@ -2516,7 +2636,14 @@ ${THEME_HEAD}
       ov.addEventListener("wheel", (e) => e.preventDefault(), { passive: false });
       dlBtn.addEventListener("click", () => {
         if (!built) return;
-        built.pdf.save(NAME);
+        const name = fileName(built.format);
+        if (built.format === "html") {
+          const blob = new Blob([built.html], { type: "text/html;charset=utf-8" });
+          if (window.CarinoPdf) CarinoPdf.save(blob, name);
+          else return;
+        } else {
+          built.pdf.save(name);
+        }
         closePreview();
       });
       // Print the sheets in the frame; the dialog stays open.
@@ -2527,7 +2654,12 @@ ${THEME_HEAD}
         w.print();
       });
       window.addEventListener("resize", () => { if (!ov.hidden) fit(); });
-      const relocalize = () => { closeBtn.setAttribute("aria-label", TT("Close")); paintStatus(); };
+      const relocalize = () => {
+        closeBtn.setAttribute("aria-label", TT("Close"));
+        if (fmt) fmt.relabel();
+        paintFormat();
+        paintStatus();
+      };
       relocalize();
       window.brandingPdfPreview = { open: openPreview, close: closePreview, relocalize };
     })();
@@ -2576,6 +2708,8 @@ ${THEME_HEAD}
       fchipsUpdate();
       paintThemes();
       paintStore();
+      paintRpvDemo();
+      document.getElementById("rpvPdfCopy").setAttribute("aria-label", TT("Copy the snippet"));
       diagTheme();
       if (window.brandingPdfPreview) window.brandingPdfPreview.relocalize();
     };
