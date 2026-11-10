@@ -117,6 +117,10 @@ relicense. Each keeps its own terms, and each carries its own notice.
 Those files travel with any fork, mirror or repackaging of this repository, and
 their notices must travel with them.
 
+**The name and marks.** The MIT licence covers these files as copyright. It grants no
+right to use the Carino name, the gold C or any product mark (`marks/`, `logo.*`, `og.jpg`)
+to identify another product or service. The fleet-wide rules are in [TRADEMARK.md](TRADEMARK.md).
+
 **Why MIT and not AGPL.** This repository is the fleet design system, meant to be
 copied from freely — snippets and components carry no copyleft obligation. That
 is a deliberate exception to the fleet default, not an oversight. Note the
