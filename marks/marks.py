@@ -58,7 +58,7 @@ PALETTE = ["#4285f4", "#ea4335", "#34a853", "#fbbc04"]
 # removing one does not shift the colours of every mark after it.
 RETIRED = {"multiweb", "media", "metadata"}   # MultiWeb, deleted 2026-10-29; Media+Metadata merged into Files 2026-10-31
 # Stems added after the colour order was fixed: a set start instead of a sorted slot, so adding one recolours nothing else.
-LATE = {"files": 0, "atrium": 1, "cerberus": 2, "tm": 0}
+LATE = {"files": 0, "atrium": 1, "cerberus": 2, "tm": 0, "donate": 1}
 
 BARE_C = ('<path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" '
           f'stroke="{GOLD}" stroke-width="16.38" stroke-linecap="butt"/>')
@@ -84,6 +84,7 @@ P = {
  "desk":      '<path d="M4 4h16v13H9l-5 4z"/><path d="M13.5 6.5l-4.5 5h3.2l-1.2 4 4.5-5.2h-3.2z" fill="{F}" stroke-width="1"/>',
  "dicom":     '<path d="M2 12h4.5l2.5-6.5 4.5 13 2.5-6.5H22"/>',   # the pulse, Ping's until 2026-11-06
  "distro":    '<path d="M12 3v18M8.5 21h7"/><path d="M12 5h6.5l2.5 2.5-2.5 2.5H12zM12 12.5H5.5L3 15l2.5 2.5H12z" fill="{F}"/>',
+ "donate":    '<path d="M12 19.25C6.5 15.65 3.5 12.65 3.5 9.25 3.5 6.75 5.4 4.75 7.9 4.75c1.7 0 3.2.9 4.1 2.4.9-1.5 2.4-2.4 4.1-2.4 2.5 0 4.4 2 4.4 4.5 0 3.4-3 6.4-8.5 10z" fill="{F}"/>',   # a heart: give
  "files":     '<path d="M2.5 19.5V4.5h6.5l2 2.5h8.5v3"/><path d="M2.5 19.5l3-9h16l-3 9z" fill="{F}"/>',
  "fiscal":    '<circle cx="12" cy="5.5" r="2.5"/><path d="M12 8v3.5M5 20.5h14"/><rect x="4.5" y="11.5" width="15" height="5" rx="1" fill="{F}"/>',
  "font":      '<path d="M12 22L5.5 12.5 8 4h8l2.5 8.5z"/><path d="M12 22v-8"/><circle cx="12" cy="12" r="1.8" fill="{F}" stroke="none"/>',
@@ -142,6 +143,7 @@ MARKS = [
  ("desk",         "Carino Desk"),
  ("dicom",        "Carino DICOM"),
  ("distro",       "Carino Distro"),
+ ("donate",       "Carino Donate"),
  ("files",        "Carino Files"),
  ("fiscal",       "Carino Fiscal"),
  ("font",         "Carino Fonts"),
