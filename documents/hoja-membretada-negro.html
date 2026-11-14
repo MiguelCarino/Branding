@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es" data-theme="black">
+<!--
+  Carino Systems · hoja membretada en blanco
+  Tema arriba: data-theme="black" | "white" | "blue". Escribe el contenido dentro de <main>.
+  PDF en Chrome: Imprimir > Guardar como PDF > Márgenes: ninguno > Gráficos de fondo: sí.
+  Fuentes (carpeta fonts/): IBM Plex Sans, IBM Plex Mono y Red Hat Display, SIL Open Font License 1.1.
+-->
+<head>
+<meta charset="utf-8">
+<title>Carino Systems</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  @page { size: 8.5in 11in; margin: 0; }
+
+  /* ---------- themes ---------- */
+  :root, [data-theme="black"] {
+    --page: radial-gradient(9in 4in at 50% -10%, rgba(234,179,8,0.10) 0%, transparent 62%), linear-gradient(180deg, #0b0b0b 0%, #050505 100%);
+    --paper: #050505;
+    --card: #0b0b0b; --card-hi: linear-gradient(180deg, rgba(234,179,8,0.07), rgba(234,179,8,0.02));
+    --border: #262626; --row: #1a1a1a; --stripe: rgba(255,255,255,0.018); --rule: #525252;
+    --text: #ffffff; --body: #e5e5e5; --sec: #a3a3a3; --muted: #8a8a8a;
+    --accent: #eab308; --accent-line: rgba(234,179,8,0.30);
+    --neg: #fca5a5; --pos: #86efac;
+    --wm: #eab308; --wm-o: 0.095;
+  }
+  [data-theme="white"] {
+    --page: radial-gradient(9in 4in at 50% -10%, rgba(234,179,8,0.13) 0%, transparent 62%), #ffffff;
+    --paper: #ffffff;
+    --card: #fafafa; --card-hi: linear-gradient(180deg, rgba(234,179,8,0.16), rgba(234,179,8,0.05));
+    --border: #e2e2e2; --row: #ececec; --stripe: rgba(0,0,0,0.022); --rule: #8a8a8a;
+    --text: #0a0a0a; --body: #262626; --sec: #525252; --muted: #6b6b6b;
+    --accent: #a15c07; --accent-line: rgba(202,138,4,0.55);
+    --neg: #b91c1c; --pos: #15803d;
+    --wm: #eab308; --wm-o: 0.125;
+  }
+  [data-theme="blue"] {
+    --page: radial-gradient(8in 3.6in at 18% -14%, rgba(66,133,244,0.20) 0%, transparent 70%), #eef3fc;
+    --paper: #eef3fc;
+    --card: #ffffff; --card-hi: linear-gradient(180deg, #ffffff, #e8f0fe);
+    --border: #d2dcec; --row: #dbe4f3; --stripe: rgba(11,87,208,0.035); --rule: #7b8aa3;
+    --text: #1f1f1f; --body: #2b2f33; --sec: #444746; --muted: #5f6368;
+    --accent: #0b57d0; --accent-line: rgba(11,87,208,0.40);
+    --neg: #c5221f; --pos: #137333;
+    --wm: #0b57d0; --wm-o: 0.05;
+  }
+  :root {
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --display: 'Red Hat Display', 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: var(--paper); }
+  body { font-family: var(--sans); color: var(--text); font-size: 10.2pt; line-height: 1.45; }
+  .page {
+    position: relative; width: 8.5in; height: 11in; overflow: hidden;
+    padding: 0.62in 0.7in 0.75in; background: var(--page);
+    page-break-after: always; break-after: page;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .watermark { position: absolute; right: -1.5in; bottom: -1.6in; width: 6.4in; height: 6.4in; opacity: var(--wm-o); }
+  .watermark svg { width: 100%; height: 100%; }
+  .watermark path { stroke: var(--wm); }
+
+  header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand svg { width: 40px; height: 40px; }
+  .wordmark { font-family: var(--display); font-weight: 900; font-size: 19pt; letter-spacing: -0.01em; color: var(--accent); line-height: 1; }
+  .wordmark span { color: var(--text); font-weight: 700; }
+  .meta { text-align: right; font-family: var(--mono); font-size: 7.6pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.6; }
+  .meta b { color: var(--sec); font-weight: 500; }
+
+  .kicker { font-family: var(--mono); font-size: 7.6pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 22px 0 6px; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: 23pt; line-height: 1.12; margin: 0 0 6px; letter-spacing: -0.015em; }
+  .lede { color: var(--sec); font-size: 10.4pt; margin: 0; max-width: 6.2in; }
+
+  .cards { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 10px; margin: 18px 0 6px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; }
+  .card .l { font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .card .v { font-family: var(--display); font-weight: 800; font-size: 14.5pt; margin-top: 3px; line-height: 1.15; }
+  .card .v small { font-family: var(--mono); font-weight: 400; font-size: 7.4pt; color: var(--muted); margin-left: 3px; }
+  .card.hi { border-color: var(--accent-line); background: var(--card-hi); }
+  .card.hi .v { color: var(--accent); }
+  .card .s { font-size: 8pt; color: var(--sec); margin-top: 3px; line-height: 1.3; }
+  .nw { white-space: nowrap; }
+
+  h2 { font-family: var(--display); font-weight: 800; font-size: 12.5pt; margin: 20px 0 8px; display: flex; align-items: baseline; gap: 9px; }
+  h2 i { font-family: var(--mono); font-style: normal; font-weight: 500; font-size: 8pt; color: var(--accent); letter-spacing: 0.08em; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th { font-family: var(--mono); font-weight: 500; font-size: 6.9pt; letter-spacing: 0.11em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--accent-line); }
+  td { padding: 3.4px 10px; border-bottom: 1px solid var(--row); }
+  td.n, th.n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  td.c { font-family: var(--mono); color: var(--muted); width: 46px; }
+  tbody tr:nth-child(even) td { background: var(--stripe); }
+  tr.last td { color: var(--accent); font-weight: 500; border-bottom: 1px solid var(--accent-line); }
+  tfoot td { font-weight: 600; border-bottom: none; padding-top: 8px; }
+  .neg { color: var(--neg); } .pos { color: var(--pos); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .split td { padding: 5.4px 8px; } .split th { padding: 6px 8px; } .split td.c { width: 34px; }
+  .total { display: flex; justify-content: flex-end; align-items: baseline; gap: 18px; margin-top: 10px; font-size: 9pt; color: var(--sec); }
+  .total b { font-family: var(--mono); font-weight: 600; font-size: 10.5pt; color: var(--text); }
+
+  ul { margin: 0; padding: 0; list-style: none; }
+  li { position: relative; padding: 3px 0 3px 16px; color: var(--body); }
+  li::before { content: ''; position: absolute; left: 2px; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  li b { color: var(--text); font-weight: 600; }
+  .acc { color: var(--accent); font-weight: 600; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .note { font-size: 8pt; color: var(--muted); margin-top: 8px; }
+
+  .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 46px; }
+  .sign div { border-top: 1px solid var(--rule); padding-top: 7px; font-size: 8.6pt; color: var(--sec); }
+  .sign b { display: block; color: var(--text); font-family: var(--display); font-weight: 700; font-size: 10.5pt; }
+
+  footer { position: absolute; left: 0.7in; right: 0.7in; bottom: 0.36in; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 7pt; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; border-top: 1px solid var(--border); padding-top: 8px; }
+</style>
+</head>
+<body>
+<section class="page">
+  <div class="watermark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" stroke="#eab308" stroke-width="16.38" stroke-linecap="butt"/></svg></div>
+  <header>
+    <div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Carino Systems"><path d="M 81.07 25.82 A 34.81 34.81 0 1 0 81.07 74.18" fill="none" stroke="#eab308" stroke-width="16.38" stroke-linecap="butt"/></svg><div class="wordmark">Carino <span>Systems</span></div></div>
+    <div class="meta"><b>carino.systems</b><br>Ciudad de México</div>
+  </header>
+  <main>
+  </main>
+  <footer><span>carino.systems</span><span></span></footer>
+</section>
+</body>
+</html>

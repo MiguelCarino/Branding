@@ -1,0 +1,11 @@
+/* Carino Systems proposal fonts: fixed-weight instances for PDF output.
+   IBM Plex Sans, IBM Plex Mono (IBM Corp.) and Red Hat Display (Red Hat, Inc.), SIL OFL 1.1; see OFL.txt. */
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 400; src: url(./IBMPlexSans-400.woff2) format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 500; src: url(./IBMPlexSans-500.woff2) format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 600; src: url(./IBMPlexSans-600.woff2) format('woff2'); }
+@font-face { font-family: 'Red Hat Display'; font-style: normal; font-weight: 700; src: url(./RedHatDisplay-700.woff2) format('woff2'); }
+@font-face { font-family: 'Red Hat Display'; font-style: normal; font-weight: 800; src: url(./RedHatDisplay-800.woff2) format('woff2'); }
+@font-face { font-family: 'Red Hat Display'; font-style: normal; font-weight: 900; src: url(./RedHatDisplay-900.woff2) format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; src: url(./IBMPlexMono-400.woff2) format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; src: url(./IBMPlexMono-500.woff2) format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; src: url(./IBMPlexMono-600.woff2) format('woff2'); }

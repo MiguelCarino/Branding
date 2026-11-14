@@ -53,6 +53,20 @@ them. Each site declares its type in `Carino-Systems/baseline/sites.json` as
 A new type is added in Branding first, then in `sites.json`. Each block in a
 type's sketch links to the component it is built from.
 
+## Documents
+`documents/` holds the printable Carino Systems paper: letter-size HTML pages
+with example text only. Each comes in three themes (`negro`, `blanco`, `azul`),
+set by `data-theme` on `<html>`.
+
+| File | What it is |
+|------|------------|
+| `hoja-membretada-*.html` | Blank letterhead |
+| `plantilla-documento-*.html` | Two-page document: header, title, cards, tables, lists, note, signatures |
+
+To make a PDF, print from Chrome with no margins and background graphics on.
+`documents/fonts/` carries fixed-weight copies of the brand fonts so the folder
+works on its own.
+
 ## Breakpoints
 Two, and nothing else: at 900px and below a workspace rail becomes a drawer; at
 640px and below is the phone layout.
